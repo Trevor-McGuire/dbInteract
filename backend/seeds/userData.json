@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "5f44cc239b14d48f371a4135",
+    "username": "user1",
+    "email": "user1@example.com",
+    "password": "password1",
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "123 Main St, City",
+    "cart": [],
+    "orders": [],
+    "reviews": [
+      "5f5d2c5b7f3e4b0017b0d3b0",
+      "5f5d2c5b7f3e4b0017b0d3b3",
+      "5f5d2c5b7f3e4b0017b0d3b6"
+    ]
+  },
+  {
+    "_id": "5f44cc239b14d48f371a4136",
+    "username": "user2",
+    "email": "user2@example.com",
+    "password": "password2",
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "address": "456 Elm St, Town",
+    "cart": [],
+    "orders": [],
+    "reviews": [
+      "5f5d2c5b7f3e4b0017b0d3b1",
+      "5f5d2c5b7f3e4b0017b0d3b4",
+      "5f5d2c5b7f3e4b0017b0d3b7"
+    ]
+  },
+  {
+    "_id": "5f44cc239b14d48f371a4137",
+    "username": "user3",
+    "email": "user3@example.com",
+    "password": "password3",
+    "firstName": "Bob",
+    "lastName": "Johnson",
+    "address": "789 Oak St, Village",
+    "cart": [],
+    "orders": [],
+    "reviews": [
+      "5f5d2c5b7f3e4b0017b0d3b2",
+      "5f5d2c5b7f3e4b0017b0d3b5",
+      "5f5d2c5b7f3e4b0017b0d3b8"
+    ]
+  }
+]

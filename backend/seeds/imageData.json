@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a1",
+    "url": "https://example.com/product1_image1.jpg",
+    "altText": "Image 1 for Product 1"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a2",
+    "url": "https://example.com/product1_image2.jpg",
+    "altText": "Image 2 for Product 1"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a3",
+    "url": "https://example.com/product1_image3.jpg",
+    "altText": "Image 3 for Product 1"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a4",
+    "url": "https://example.com/product2_image1.jpg",
+    "altText": "Image 1 for Product 2"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a5",
+    "url": "https://example.com/product2_image2.jpg",
+    "altText": "Image 2 for Product 2"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a6",
+    "url": "https://example.com/product2_image3.jpg",
+    "altText": "Image 3 for Product 2"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a7",
+    "url": "https://example.com/product3_image1.jpg",
+    "altText": "Image 1 for Product 3"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a8",
+    "url": "https://example.com/product3_image2.jpg",
+    "altText": "Image 2 for Product 3"
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a9",
+    "url": "https://example.com/product3_image3.jpg",
+    "altText": "Image 3 for Product 3"
+  }
+]

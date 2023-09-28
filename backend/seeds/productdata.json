@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a0",
+    "title": "Product 1",
+    "description": "Description for Product 1",
+    "price": 19.99,
+    "category": "5f5d2c5b7f3e4b0017b0d3a1",
+    "quantity": "50",
+    "images": [
+      "5f5d2c5b7f3e4b0017b0d3a1",
+      "5f5d2c5b7f3e4b0017b0d3a2",
+      "5f5d2c5b7f3e4b0017b0d3a3"
+    ],
+    "ratings": [
+      "5f5d2c5b7f3e4b0017b0d3b0",
+      "5f5d2c5b7f3e4b0017b0d3b1",
+      "5f5d2c5b7f3e4b0017b0d3b2"
+    ]
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a4",
+    "title": "Product 2",
+    "description": "Description for Product 2",
+    "price": 29.99,
+    "category": "5f5d2c5b7f3e4b0017b0d3a2",
+    "quantity": "30",
+    "images": [
+      "5f5d2c5b7f3e4b0017b0d3a4",
+      "5f5d2c5b7f3e4b0017b0d3a5",
+      "5f5d2c5b7f3e4b0017b0d3a6"
+    ],
+    "ratings": [
+      "5f5d2c5b7f3e4b0017b0d3b3",
+      "5f5d2c5b7f3e4b0017b0d3b4",
+      "5f5d2c5b7f3e4b0017b0d3b5"
+    ]
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a8",
+    "title": "Product 3",
+    "description": "Description for Product 3",
+    "price": 9.99,
+    "category": "5f5d2c5b7f3e4b0017b0d3a3",
+    "quantity": "100",
+    "images": [
+      "5f5d2c5b7f3e4b0017b0d3a7",
+      "5f5d2c5b7f3e4b0017b0d3a8",
+      "5f5d2c5b7f3e4b0017b0d3a9"
+    ],
+    "ratings": [
+      "5f5d2c5b7f3e4b0017b0d3b6",
+      "5f5d2c5b7f3e4b0017b0d3b7",
+      "5f5d2c5b7f3e4b0017b0d3b8"
+    ]
+  }
+]
