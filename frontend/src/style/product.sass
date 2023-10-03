@@ -1,0 +1,68 @@
+#product-component
+  display: flex
+  border: 1px solid #ccc
+  padding: 16px
+  margin-bottom: 16px
+  background-color: #fff
+  flex-flow: row wrap
+
+  .product-image
+    flex: 1
+    max-width: 600px
+    min-width: 400px
+    margin-right: 16px
+
+    img
+      max-width: 100%
+      height: auto
+    .thumbnail-container 
+      display: flex
+      flex-flow: row wrap
+      justify-content: space-between
+      margin-top: 16px
+      img
+        max-width: 100px
+        height: auto
+        margin-right: 16px
+        cursor: pointer
+        border: 1px solid #ccc
+        &:last-child
+          margin-right: 0
+
+  .product-details
+    flex: 2
+
+    .product-title
+      font-size: 24px
+      margin: 0
+
+    .product-description
+      margin: 8px 0
+
+    .product-price
+      font-size: 18px
+      font-weight: bold
+
+    .product-quantity
+      margin-top: 8px
+
+  .product-reviews
+    flex: 3
+    border-left: 1px solid #ccc
+    padding-left: 16px
+
+    h3
+      font-size: 18px
+      margin-top: 0
+
+    ul
+      list-style-type: none
+      padding: 0
+
+      li
+        margin-bottom: 16px
+        border-bottom: 1px solid #ccc
+        padding-bottom: 8px
+
+        &:last-child
+          border-bottom: none

@@ -1,30 +1,38 @@
+const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-const APP_SECRET = 'GraphQL-is-aw3some';
+require('dotenv').config();
 
-function getTokenPayload(token) {
-  return jwt.verify(token, APP_SECRET);
-}
-
-function getUserId(req, authToken) {
-  if (req) {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.replace('Bearer ', '');
-      if (!token) {
-        throw new Error('No token found');
-      }
-      const { userId } = getTokenPayload(token);
-      return userId;
-    }
-  } else if (authToken) {
-    const { userId } = getTokenPayload(authToken);
-    return userId;
-  }
-
-  throw new Error('Not authenticated');
-}
+const secret = process.env.APP_SECRET
+const expiration = '2h';
 
 module.exports = {
-  APP_SECRET,
-  getUserId
+  AuthenticationError: new GraphQLError('Could not authenticate user.', {
+    extensions: {
+      code: 'UNAUTHENTICATED',
+    },
+  }),
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
+
+
+    if (req.headers.authorization) token = token.split(' ').pop().trim();
+  
+
+    if (!token) return req;
+
+    try {
+      const data = jwt.verify(token, secret);
+      req.user = data;
+      console.log(data)
+    } catch {
+      console.log('Invalid token :(');
+      throw new Error('Invalid token :(');
+    }
+
+    return req;
+  },
+  signToken: function ({ username, _id }) {
+    const payload = { username, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
 };

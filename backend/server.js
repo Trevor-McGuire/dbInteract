@@ -5,6 +5,7 @@ const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
+const { getUserId } = require('./utils/auth')
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,17 +13,32 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => {
+    const context = {
+      ...req,
+      // userId: req && req.headers.authorization ? getUserId(req) : null,
+      customHeader: "some-value",  // Add your custom header
+    };
+
+    // Log the context to the terminal
+    console.log("Context=>", context);
+
+    return context;
+  },
 });
+
 
 const startApolloServer = async () => {
   await server.start();
   
   const configureMiddleware = () => {
+    console.log("Configuring middleware...");
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use('/graphql', expressMiddleware(server, {
       context: authMiddleware
     }));
+    console.log("Middleware configured.");
   };
   
   configureMiddleware();

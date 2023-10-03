@@ -29,11 +29,13 @@ const typeDefs = `
   type User {
     _id: ID!
     username: String!
-    email: String!
-    password: String!
-    firstName: String!
-    lastName: String!
-    address: String!
+    email: String
+    password: String
+    isGuest: Boolean!
+    firstName: String
+    lastName: String
+    billingAddress: String
+    shippingAddress: String
     cart: [Product!]!
     orders: [Order!]!
     reviews: [Review!]!
@@ -52,7 +54,8 @@ const typeDefs = `
 
   type Query {
     readCategories: [Category!]!
-    readCategory(_id: ID!): Category!
+    readCategoryById(_id: ID!): Category!
+    readCategoryByName(name: String!): Category!
 
     readImages: [Image!]!
     readImage(_id: ID!): Image!
@@ -62,9 +65,13 @@ const typeDefs = `
 
     readProducts: [Product!]!
     readProduct(_id: ID!): Product!
+    readProductsByCategory(category: String!): [Product!]!
+    searchProducts(query: String!): [Product!]!
 
     readUsers: [User!]!
-    readUser(_id: ID!): User!
+    readUser: User
+    # check a JWT from context and decode the logged in user's data
+    me: User
 
     readOrders: [Order!]!
     readOrder(_id: ID!): Order!
@@ -72,7 +79,15 @@ const typeDefs = `
   }
 
   type Mutation {
-    signup(email: String!, password: String!, name: String!): AuthPayload
+    registerUser(
+      username: String!
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+      billingAddress: String!
+      shippingAddress: String!
+    ): AuthPayload
     login(email: String!, password: String!): AuthPayload
   }
 `;
