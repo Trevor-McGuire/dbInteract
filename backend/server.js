@@ -33,11 +33,11 @@ const startApolloServer = async () => {
 
   configureMiddleware();
 
+  console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
   // if we're in production, serve client/dist as static assets
   if (process.env.NODE_ENV === "production") {
-    // Use the absolute path from the root directory
-    const clientDistPath = path.join(__dirname, "client/dist");
-
+    console.log('__dirname:', __dirname);
+    const clientDistPath = path.join(__dirname, "../client/dist");
     app.use(express.static(clientDistPath));
 
     app.get("*", (req, res) => {
