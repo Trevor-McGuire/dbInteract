@@ -10,6 +10,8 @@ import About from "./pages/About";
 import SearchList from "./pages/SearchList";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />
+      },
+      {
+        path: '/cart',
+        element: <Cart />
+      },
+      {
+        path: '/profile',
+        element: <Profile />
       }
 
     ],

@@ -1,55 +1,22 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import "../style/Product.sass";
 import ProductImageCarousel from "../components/ProductImageCarousel";
+import AddToCart from "../components/AddToCart";
+import { READ_PRODUCTS } from "../utils/queries";
+import ReviewForm from "../components/ReviewForm";
 
-const READ_PRODUCT = gql`
-  query Query($id: ID!) {
-    readProduct(_id: $id) {
-      _id
-      title
-      quantity
-      price
-      description
-      images {
-        _id
-        altText
-        url
-      }
-      ratings {
-        _id
-        body
-        rating
-        title
-        user {
-          _id
-          username
-        }
-      }
-    }
-  }
-`;
 
 const Product = () => {
-  const baseUrl = window.location.origin;
   const { productId } = useParams();
   const [quantity, setQuantity] = React.useState(1);
 
-  const { data, loading, error } = useQuery(READ_PRODUCT, {
-    variables: { id: productId },
-  });
-  const product = data?.readProduct || {};
-
-  const handleAddToCart = () => {
-    console.log("Add to cart clicked", product._id, quantity);
-  };
+  const { data, loading, error } = useQuery(READ_PRODUCTS, { variables: { id: productId } });
+  const product = data?.readProducts[0] || {};
 
   if (loading) return <p>Loading...</p>;
-
-  if (error) return <p>Error: {error.message}</p>;
-
+  if (error) return <p>{error.message}</p>;
   if (product.length === 0) return <p>No product found</p>;
 
   return (
@@ -70,21 +37,28 @@ const Product = () => {
           className="product-quantity-input"
           onChange={(e) => setQuantity(e.target.value)}
         />
-        <button type="button" onClick={handleAddToCart} className="add-to-cart">
-          Add to Cart
-        </button>
+        <AddToCart productId={product._id} quantity={quantity} />
       </div>
       <div className="product-reviews">
         <h3>Customer Reviews:</h3>
         <ul>
+        <ReviewForm />
           {product.ratings.map((rating, index) => (
             <li key={index}>
               <strong>{rating.title}</strong>
               <p>{rating.body}</p>
-              <p>Rating: {rating.rating}</p>
+              <p>Rating: {
+                [...Array(5)].map((_, i) => (
+                  <i
+                    key={i}
+                    className={`fa fa-star${i < rating.rating ? '' : '-o'}`}
+                  ></i>
+                ))
+                }</p>
               <p>By: {rating.user.username}</p>
             </li>
           ))}
+
         </ul>
       </div>
     </div>

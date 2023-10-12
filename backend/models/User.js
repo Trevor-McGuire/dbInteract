@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   shippingAddress: {
     type: String,
   },
-  cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+  cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CartItem' }],
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
 });

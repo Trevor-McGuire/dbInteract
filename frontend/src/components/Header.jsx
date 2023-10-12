@@ -1,52 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
-import { useAppState } from "../AppStateContext";
-import { gql } from "@apollo/client";
+import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
-import Auth from '../utils/auth';
-
-export const QUERY_ME = gql`
-  query Query {
-    me {
-      _id,
-      username
-    }
-  }
-`;
+import { READ_CART } from "../utils/queries";
+import '../style/header.sass'
+import TopMenue from "./TopMenu";
 
 const Header = () => {
-  const { data, loading, error } = useQuery(QUERY_ME);
-  const user = data?.me || {};
-  
-  const handleSignOut = () => {
-    Auth.logout();
-  };
+  let numberOfItems = 0;
 
+  if (Auth.loggedIn()) {
+    const { data, error, loading } = useQuery(READ_CART);
+    if (loading) return <p>?</p>;
+    if (error) {console.log(error); return <p>:\</p>;}
+    numberOfItems = data?.readUser?.cart.length || 0;
+  }
+  
 
   return (
     <>
-      <div className="w3-hide-large" style={{ marginTop: "83px" }}></div>
-
-      <header className="w3-container w3-xlarge w3-black">
-        <p className="w3-left">Jeans</p>
+      <TopMenue />
+      <header id="header-component">
         <Search />
         <p className="w3-right">
-          {user ? (
+          {Auth.loggedIn() ? (
             <>
-            <Link to="/profile">hello {user.username}</Link>
-              <Link to="/" onClick={handleSignOut}>
-                <button>Sign Out</button>
+              <Link
+                to="/cart"
+                className="w3-bar-item w3-button w3-padding-large w3-hover-white w3-xxlarge w3-round-large"
+              >
+                <i className="fa fa-shopping-cart"></i>
+                <span>{numberOfItems}</span>
               </Link>
-              
+              <Link to="/profile"className="w3-bar-item w3-button w3-padding-large w3-hover-white w3-xxlarge w3-round-large">
+                <i className="fa fa-user"></i>
+                <span>{Auth.getProfile().data.username}</span>
+              </Link>
+              <Link to="/"className="w3-bar-item w3-button w3-padding-large w3-hover-white w3-xxlarge w3-round-large" onClick={() => {Auth.logout()}}>
+                <i className="fa fa-sign-out"></i>
+              </Link>
             </>
           ) : (
             <>
-              
-              <Link to="/login">Sign In</Link>
+              <Link to="login"className="w3-bar-item w3-button w3-padding-large w3-hover-white w3-xxlarge w3-round-large">
+                <i className="fa fa-sign-in"></i>
+              </Link>
+              <Link to="register"className="w3-bar-item w3-button w3-padding-large w3-hover-white w3-xxlarge w3-round-large">
+                <i className="fa fa-user-plus"></i>
+              </Link>
             </>
           )}
-          <i className="fa fa-shopping-cart w3-margin-right"></i>
         </p>
       </header>
     </>

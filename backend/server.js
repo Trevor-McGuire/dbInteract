@@ -13,18 +13,6 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
-    const context = {
-      ...req,
-      // userId: req && req.headers.authorization ? getUserId(req) : null,
-      customHeader: "some-value",  // Add your custom header
-    };
-
-    // Log the context to the terminal
-    console.log("Context=>", context);
-
-    return context;
-  },
 });
 
 

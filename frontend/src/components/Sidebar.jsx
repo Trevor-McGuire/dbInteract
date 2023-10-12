@@ -27,12 +27,21 @@ const Sidebar = () => {
       id="mySidebar"
     >
       <Link to={'/'} className="w3-container w3-display-container w3-padding-16">
-        <i
-          onClick={handleCloseClick}
-          className="fa fa-remove w3-hide-large w3-button w3-display-topright"
-        ></i>
-        <h3 className="w3-wide">
-          <b>NexCommerce</b>
+        <h3 className="w3-wide w3-center">
+          <b
+            style={{
+              fontSize: "30px",
+              fontFamily: "fantasy",
+              color: "yellow",
+              textDecoration: "underline",
+              backgroundColor: "black",
+              padding: "10px",
+            }}
+            onClick={() => {
+              handleCloseClick();
+              window.scrolltop = 0;
+            }}
+          >NexCommerce</b>
         </h3>
       </Link>
       <div
@@ -45,20 +54,19 @@ const Sidebar = () => {
               to={`/category/${category.name}`}
               key={category._id}
               className="w3-bar-item w3-button"
+              onClick={handleCloseClick}
             >
               {category.name}
             </Link>
           ))}
       </div>
-      <a href="#" className="w3-bar-item w3-button w3-padding">
+      <Link
+        to="/about"
+        className="w3-bar-item w3-button w3-padding-large"
+        onClick={handleCloseClick}
+      >
         Contact
-      </a>
-      <a href="#" className="w3-bar-item w3-button w3-padding">
-        Newsletter
-      </a>
-      <a href="#" className="w3-bar-item w3-button w3-padding">
-        Subscribe
-      </a>
+      </Link>
     </nav>
   );
 };

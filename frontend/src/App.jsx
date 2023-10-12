@@ -2,7 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@ap
 import { setContext } from "@apollo/client/link/context";
 import { StrictMode } from "react";
 import { Outlet } from "react-router-dom";
-import { AppStateProvider } from "./AppStateContext"; // Import the AppStateProvider
+
 import TopMenu from "./components/topMenu.jsx";
 import Sidebar from "./components/sidebar.jsx";
 import Overlay from "./components/overlay.jsx";
@@ -29,14 +29,13 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  connectToDevTools: true, // Enable Devtools
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <StrictMode>
-        <AppStateProvider> {/* Wrap your app with the AppStateProvider */}
-          <TopMenu />
           <Sidebar />
           <Overlay />
           <div className="w3-main" style={{ marginLeft: "250px" }}>
@@ -44,7 +43,6 @@ function App() {
             <Outlet />
             <Footer />
           </div>
-        </AppStateProvider>
       </StrictMode>
     </ApolloProvider>
   );

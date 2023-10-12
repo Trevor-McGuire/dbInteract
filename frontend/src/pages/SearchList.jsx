@@ -2,31 +2,17 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import ProductList from "../components/ProductList";
-
-const PRODUCT_SEARCH_QUERY = gql`
-  query Query($query: String!) {
-    searchProducts(query: $query) {
-      _id
-      title
-      price
-      images {
-        _id
-        url
-        altText
-      }
-    }
-  }
-`;
+import { READ_PRODUCTS } from "../utils/queries";
+import '../style/search.sass'
 
 const SearchList = () => {
   const { searchText } = useParams();
+  const { data, loading, error } = useQuery(READ_PRODUCTS, { variables: { search: searchText } });
+  const products = data?.readProducts || [];
 
-  const { data, loading, error } = useQuery(PRODUCT_SEARCH_QUERY, {
-    variables: { query: searchText },
-    skip: !searchText, // Skip the query if searchText is empty
-  });
-
-  const products = data?.searchProducts || [];
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
+  if (products.length === 0) return <p>No products found</p>;
 
   return (
     <div>

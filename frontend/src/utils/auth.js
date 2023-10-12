@@ -23,8 +23,8 @@ class AuthService {
     return localStorage.getItem('auth_token');
   }
 
-  login(idToken) {
-    localStorage.setItem('auth_token', idToken);
+  login(token) {
+    localStorage.setItem('auth_token', token);
     window.location.assign('/');
   }
 
