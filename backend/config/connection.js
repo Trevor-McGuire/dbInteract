@@ -9,6 +9,5 @@ if (!process.env.MONGODB_URI) {
 }
 
 const connectionString = process.env.MONGODB_URI;
-connect(connectionString);
+connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 module.exports = connection;
-
