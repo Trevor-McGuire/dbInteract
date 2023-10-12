@@ -5,7 +5,7 @@ import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { READ_CART } from "../utils/queries";
 import '../style/header.sass'
-import TopMenue from "./TopMenu";
+import TopMenu from "./TopMenu";
 
 const Header = () => {
   let numberOfItems = 0;
@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <>
-      <TopMenue />
+      <TopMenu />
       <header id="header-component">
         <Search />
         <p className="w3-right">

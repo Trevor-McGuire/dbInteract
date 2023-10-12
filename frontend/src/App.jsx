@@ -3,7 +3,6 @@ import { setContext } from "@apollo/client/link/context";
 import { StrictMode } from "react";
 import { Outlet } from "react-router-dom";
 
-import TopMenu from "./components/topMenu.jsx";
 import Sidebar from "./components/sidebar.jsx";
 import Overlay from "./components/overlay.jsx";
 import Footer from "./components/Footer.jsx";
