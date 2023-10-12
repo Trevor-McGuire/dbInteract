@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "nex-commerce: an e-commerce website built to exhibit the skills of a full-stack developer",
   "scripts": {
-    "postinstall": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install",
     "develop": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm run dev\" ",
     "seed": "cd backend && npm run seed",
     "start": "cd backend && npm start"
   },
   "dependencies": {
     "concurrently": "^6.2.0"
+  },
+  "engines": {
+    "node": "18.16.0"
   }
 }
