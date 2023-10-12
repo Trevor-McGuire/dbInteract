@@ -4,7 +4,8 @@
   "description": "nex-commerce: an e-commerce website built to exhibit the skills of a full-stack developer",
   "scripts": {
     "develop": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm run dev\" ",
-    "seed": "cd backend && npm run seed"
+    "seed": "cd backend && npm run seed",
+    "start": "cd backend && npm start"
   },
   "dependencies": {
     "concurrently": "^6.2.0"
