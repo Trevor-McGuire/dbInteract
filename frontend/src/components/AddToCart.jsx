@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_TO_CART } from '../utils/mutations';
-import { READ_CART } from '../utils/queries';
+import { READ_CART_QUERY } from '../utils/queries';
 
 
 const AddToCart = ({ productId, quantity }) => {
@@ -11,7 +11,7 @@ const AddToCart = ({ productId, quantity }) => {
     try {
       const { data } = await addToCart({
         variables: { productId, quantity: parseInt(quantity) },
-        refetchQueries: [{ query: READ_CART }],
+        refetchQueries: [{ query: READ_CART_QUERY }],
       });
       console.log("data", data);
     } catch (e) {

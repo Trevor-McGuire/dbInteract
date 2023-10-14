@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const READ_CART = gql`
+export const READ_CART_QUERY = gql`
   query Query {
     readUser {
       cart {
@@ -106,5 +106,14 @@ export const HAS_PRODUCT_IN_ORDERS = gql`
 export const HAS_EXISTING_REVIEW = gql`
   query Query($productId: ID!) {
     hasExistingReview(productId: $productId)
+  }
+`;
+
+export const READ_CATEGORIES_QUERY = gql`
+  query {
+    readCategories {
+      _id
+      name
+    }
   }
 `;

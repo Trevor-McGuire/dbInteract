@@ -4,22 +4,22 @@ const Search = () => {
   const [searchText, setSearchText] = useState("");
   const searchInputRef = useRef(null);
 
-  const handleInputChange = (e) => {
+  const handleSearchInputChange = (e) => {
     setSearchText(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
     searchText ? (window.location.href = `/search/${searchText}`) : "";
   };
 
   return (
-    <form onSubmit={handleSubmit} id="search-component">
+    <form onSubmit={handleSearchSubmit} id="search-component">
       <input
         type="text"
         placeholder="Search..."
         value={searchText}
-        onChange={handleInputChange}
+        onChange={handleSearchInputChange}
         ref={searchInputRef}
       />
       <button type="submit">

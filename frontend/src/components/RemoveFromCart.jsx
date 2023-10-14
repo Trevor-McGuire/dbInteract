@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FROM_CART } from "../utils/mutations";
-import { READ_CART } from "../utils/queries";
+import { READ_CART_QUERY } from "../utils/queries";
 
 function RemoveFromCart({ id }) {
   console.log("id", id);
@@ -13,7 +13,7 @@ function RemoveFromCart({ id }) {
     try {
       const { data } = await removeFromCart({
         id,
-        refetchQueries: [{ query: READ_CART }],
+        refetchQueries: [{ query: READ_CART_QUERY }],
       });
       console.log("data", data);
     } catch (e) {

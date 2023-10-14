@@ -3,6 +3,12 @@ import { setContext } from "@apollo/client/link/context";
 import { StrictMode } from "react";
 import { Outlet } from "react-router-dom";
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+
 import Sidebar from "./components/sidebar.jsx";
 import Overlay from "./components/overlay.jsx";
 import Footer from "./components/Footer.jsx";
@@ -35,13 +41,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <StrictMode>
-          <Sidebar />
-          <Overlay />
-          <div className="w3-main" style={{ marginLeft: "250px" }}>
-            <Header />
-            <Outlet />
-            <Footer />
-          </div>
+        <Header />
+        <Outlet />
+        <Overlay />
+        <Footer />
       </StrictMode>
     </ApolloProvider>
   );

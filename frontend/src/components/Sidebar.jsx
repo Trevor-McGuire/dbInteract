@@ -2,14 +2,7 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 
-export const READ_CATEGORIES_QUERY = gql`
-  query {
-    readCategories {
-      _id
-      name
-    }
-  }
-`;
+
 
 const Sidebar = () => {
   const handleCloseClick = () => {
@@ -17,7 +10,7 @@ const Sidebar = () => {
     document.getElementById("myOverlay").style.display = "none";
   };
 
-  const { data, loading, error } = useQuery(READ_CATEGORIES_QUERY);
+  const { data } = useQuery(READ_CATEGORIES_QUERY);
   const categories = data?.readCategories || [];
 
   return (

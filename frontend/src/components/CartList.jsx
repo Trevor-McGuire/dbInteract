@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { READ_CART } from "../utils/queries";
+import { READ_CART_QUERY } from "../utils/queries";
 import RemoveFromCart from "../components/RemoveFromCart";
 import Checkout from "../components/Checkout";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import "../style/CartList.sass"
 const CartList = () => {
   const baseUrl = window.location.origin;
 
-  const { data, error, loading } = useQuery(READ_CART);
+  const { data, error, loading } = useQuery(READ_CART_QUERY);
   const cart = data?.readUser?.cart;
   if (loading) return <h2>Loading...</h2>;
   if (error) return <h2>Error!</h2>;

@@ -1,72 +1,148 @@
-import React from 'react'
-import { useMutation } from '@apollo/client'
-import { LOGIN_USER } from '../utils/mutations'
-import Auth from '../utils/auth'
+import React from "react";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
-const Login = () => {
-  const [login, { data, loading, error }] = useMutation(LOGIN_USER)
+import LoginIcon from "@mui/icons-material/Login";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import Alert from "@mui/material/Alert";
+import '../style/login.sass'
+
+export default function BasicStack() {
+  const [login, { loading, error }] = useMutation(LOGIN_USER);
   const [formState, setFormState] = React.useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
+
+  const [validEmail, setValidEmail] = React.useState(true);
+  const [validPassword, setValidPassword] = React.useState(true);
+  const [validCredentials, setValidCredentials] = React.useState(true);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-
+    const { name, value } = e.target;
+    console.log("name", name, "value", value)
     setFormState({
       ...formState,
-      [name]: value
-    })
-  }
+      [name]: value.trim(),
+    });
+  };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault()
-    console.log('formState', formState)
+    e.preventDefault();
+    handleEmailValidation();
+    handlePasswordValidation();
+    if (!validEmail) return;
+    if (!validPassword) return;
     try {
       const { data } = await login({
-        variables: { ...formState }
-      })
-      console.log('data', data)
-      Auth.login(data.login.token)
+        variables: { ...formState },
+      });
+      Auth.login(data.login.token);
     } catch (e) {
-      console.error(e)
+      setValidCredentials(false)
+      document.getElementsByName("email")[0].focus();
     }
     setFormState({
-      email: '',
-      password: ''
-    })
-  }
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleEmailValidation = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setValidEmail(emailRegex.test(formState.email));
+  };
+
+  const handlePasswordValidation = () => {
+    setValidPassword(formState.password !== "");
+  };
 
   return (
-    <div
-      className='login-component'
+    <Box
+      id='login-page'
+      sx={{
+        maxWidth: "500px",
+        marginX: "auto",
+        padding: "2rem",
+        filter: loading ? "blur(5px)" : "",
+      }}
     >
-      <h1>Login</h1>
-      <form
-        onSubmit={handleFormSubmit}
-      >
-        <input
-          placeholder="Your email"
-          name="email"
-          type="email"
-          value={formState.email}
-          onChange={handleChange}
-        />
-        <input
-          placeholder="******"
-          name="password"
-          type="password"
-          value={formState.password}
-          onChange={handleChange}
-        />
-        <button
-          type='submit'
+      <h4>Log In</h4>
+      <form onSubmit={handleFormSubmit} noValidate>
+        <Stack>
+          <TextField
+            label="Email"
+            variant="outlined"
+            name="email"
+            type="email"
+            value={formState.email}
+            autoFocus
+            onChange={(e) => {
+              handleChange(e);
+              setValidEmail(true);
+              setValidCredentials(true);
+            }}
+            onBlur={handleEmailValidation}
+            error={!validEmail}
+            helperText={
+              !validEmail
+                ? "Invalid email address"
+                : ""
+            }
+            sx={{
+              paddingBottom: validEmail ? "2rem" : "1rem",
+            }}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            name="password"
+            type="password"
+            value={formState.password}
+            onChange={(e) => {
+              handleChange(e);
+              setValidPassword(true);
+              setValidCredentials(true);
+            }}
+            onBlur={handlePasswordValidation}
+            error={!validPassword}
+            helperText={
+              !validPassword
+                ? "Password cannot be empty "
+                : ""
+            }
+            sx={{
+              paddingBottom: validPassword ? "2rem" : "1rem",
+            }}
+          />
+        </Stack>
+        <Button type="submit" variant="outlined" startIcon={<LoginIcon />}>
+          Log In
+        </Button>
+        <Link to="/register">
+          <Button
+            sx={{ float: "right" }}
+            variant="contained"
+            endIcon={<HowToRegIcon />}
+          >
+            Register
+          </Button>
+        </Link>
+        <Alert
+          variant="outlined"
+          severity="error"
+          sx={{ visibility: !validCredentials ? "visible" : "hidden", 
+            marginTop: "1rem",
+        }}
         >
-          Submit
-        </button>
+          Email and/or Password is incorrect
+        </Alert>
       </form>
-    </div>
-  )
+    </Box>
+  );
 }
-
-export default Login
