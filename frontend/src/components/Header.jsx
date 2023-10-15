@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -13,17 +12,18 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
-
-import TemporaryDrawer from "./TemporaryDrawer"; // Import the Drawer component
+import TemporaryDrawer from "./TemporaryDrawer";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { READ_CART_QUERY } from "../utils/queries";
-import { useEffect } from "react";
+import LogoutIcon from "@mui/icons-material/Logout";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Logout from "@mui/icons-material/Logout";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,16 +65,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const generateMenuProps = (anchorEl, opened, handleClose, id) => ({
+  anchorEl,
+  anchorOrigin: {
+    vertical: "top",
+    horizontal: "right",
+  },
+  id: id,
+  keepMounted: true,
+  transformOrigin: {
+    vertical: "top",
+    horizontal: "right",
+  },
+  open: opened,
+  onClose: handleClose,
+});
+
 export default function PrimarySearchAppBar() {
-  //
-  // start of drawer component logic
-  //
-  const [state, setState] = React.useState({
-    // top: false,
-    left: false,
-    // bottom: false,
-    // right: false,
-  });
+  const [state, setState] = React.useState({ left: false });
+  const [searchText, setSearchText] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [numberOfItems, setNumberOfItems] = useState(0);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -83,19 +95,9 @@ export default function PrimarySearchAppBar() {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
-  //
-  // end of drawer component logic
-  //
-
-  //
-  // start of search component logic
-  //
-
-  const [searchText, setSearchText] = useState("");
   const searchInputRef = useRef(null);
 
   const handleSearchInputChange = (e) => {
@@ -109,28 +111,13 @@ export default function PrimarySearchAppBar() {
     }
   };
 
-  //
-  // end of search component logic
-  //
-
-  //
-  // start of cart component logic
-  //
-
-  const [numberOfItems, setNumberOfItems] = useState(0);
   const { data } = useQuery(READ_CART_QUERY);
   useEffect(() => {
     if (data) {
-      setNumberOfItems(data.readCart.items.length);
+      setNumberOfItems(data.readUser.cart.length);
+      console.log(data.readUser.cart.length);
     }
   }, [data]);
-
-  //
-  // end of cart component logic
-  //
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -152,77 +139,116 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const NavButton = ({ icon, label, to, onClick, badge }) => {
+    const buttonProps = {
+      size: "large",
+      color: "inherit",
+      "aria-label": label,
+      sx: { gap: "16px" },
+    };
+  
+    if (to) {
+      buttonProps.component = Link;
+      buttonProps.to = to;
+    } else if (onClick) {
+      buttonProps.onClick = onClick;
+    }
+  
+    return (
+      <IconButton {...buttonProps}>
+        {badge ? (
+          <Badge badgeContent={badge} color="error">
+            {icon}
+          </Badge>
+        ) : (
+          icon
+        )}
+        {label && <span>{label}</span>}
+      </IconButton>
+    );
+  };
+
+  const ProfileNavButton = ({ text }) => (
+    <NavButton
+      icon={<AccountCircle />}
+      label={text ? "Profile" : ""}
+      to="/profile"
+    />
+  );
+
+  const LoginNavButton = ({ text }) => (
+    <NavButton icon={<LoginIcon />} label={text ? "Login" : ""} to="/login" />
+  );
+
+  const LogoutNavButton = ({ text }) => (
+    <NavButton
+      icon={<LogoutIcon />}
+      label={text ? "Logout" : ""}
+      onClick={() => Auth.logout()}
+    />
+  );
+
+  const RegisterNavButton = ({ text }) => (
+    <NavButton
+      icon={<HowToRegIcon />}
+      label={text ? "Register" : ""}
+      to="/register"
+    />
+  );
+
+  const CartNavButton = ({ text, badge }) => (
+    <NavButton
+      icon={<ShoppingCartIcon />}
+      label={text ? "Cart" : ""}
+      to="/cart"
+      badge={badge}
+    />
+  );
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    <Menu {...generateMenuProps(anchorEl, isMenuOpen, handleMenuClose, menuId)}>
+      <MenuItem onClick={handleMenuClose}>
+        <ProfileNavButton text={true} />
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <LogoutNavButton text={true} />
+      </MenuItem>
     </Menu>
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      {...generateMenuProps(
+        mobileMoreAnchorEl,
+        isMobileMenuOpen,
+        handleMobileMenuClose,
+        mobileMenuId
+      )}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={7} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      {Auth.loggedIn() ? (
+        <>
+          <MenuItem>
+            <CartNavButton text={true} badge={numberOfItems} />
+          </MenuItem>
+          <MenuItem>
+            <ProfileNavButton text={true} />
+          </MenuItem>
+          <MenuItem>
+            <LogoutNavButton text={true} />
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem>
+            <LoginNavButton text={true} />
+          </MenuItem>
+          <MenuItem>
+            <RegisterNavButton text={true} />
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
@@ -268,53 +294,28 @@ export default function PrimarySearchAppBar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          {Auth.loggedIn() ? (
-            <>
-              <IconButton size="large" aria-label="show cart" color="inherit">
-                <Badge badgeContent={numberOfItems} color="error">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <IconButton size="large" aria-label="register" color="inherit">
-                  <LoginIcon />
-                </IconButton>
-              </Link>
-            </>
-          )}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {Auth.loggedIn() ? (
+              <>
+                <CartNavButton text={false} badge={numberOfItems} />
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <LoginNavButton text={false} />
+                <RegisterNavButton text={false} />
+              </>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

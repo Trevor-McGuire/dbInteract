@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { Link } from "react-router-dom";
@@ -12,169 +11,173 @@ import { REGISTER_USER } from "../utils/mutations";
 import Alert from "@mui/material/Alert";
 import "../style/register.sass";
 import CreateIcon from "@mui/icons-material/Create";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import Divider from "@mui/material/Divider";
+import registerLists from "../utils/lists";
+import Auth from "../utils/auth";
+
+const { inputValues, firstNames, lastNames, addresses } = registerLists;
 
 export default function BasicStack() {
   const [registerUser, { loading, error }] = useMutation(REGISTER_USER);
 
-  const [formState, setFormState] = React.useState({
-    username: "",
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    billingAddress: "",
-    shippingAddress: "",
+  // holds the state of the form inputs
+  const [formState, setFormState] = useState(
+    Object.fromEntries(inputValues.map((i) => [i.lowercase, ""]))
+  );
+  // holds the validation state of the form inputs
+  const [formValidation, setFormValidation] = useState({
+    ...Object.fromEntries(inputValues.map((i) => [i.lowercase, true])),
   });
+  // controls visibility of alert
+  const [cridentials, setCridentials] = useState(true);
+  // value of the same address switch
+  const [sameAddress, setSameAddress] = useState(true);
 
   const autoFill = () => {
-    const randInt = (mag) => Math.floor(Math.random() * mag);
+    const randInt = (max) => Math.floor(Math.random() * max);
     const userNumber = randInt(999999);
-    const firstNames = [
-      'James',
-      'Jessica',
-      'John',
-      'Jennifer',
-      'Jack',
-      'Julia',
-      'Jonathan',
-      'Jasmine',
-      'Joseph',
-      'Jocelyn',
-      'Jackson',
-      'Jenna',
-      'Jake',
-      'Jade',
-      'Jordan',
-    ]
-    const lastNames = [
-      'Smith',
-      'Stewart',
-      'Sanders',
-      'Sullivan',
-      'Simpson',
-      'Stevens',
-      'Snyder',
-      'Shaw',
-      'Schmidt',
-      'Sharp',
-      'Singleton',
-      'Silva',
-      'Saunders',
-      'Stephens',
-      'Scott',
-    ];
-    const addresses = [
-      '123 Main St, Monroe, WI 53566',
-      '456 Oak St, Springfield, IL 62701',
-      '789 Elm St, Portland, OR 97201',
-      '101 Pine St, Austin, TX 78701',
-      '202 Cedar St, Denver, CO 80202',
-      '303 Maple St, Seattle, WA 98101',
-      '404 Birch St, Phoenix, AZ 85001',
-      '505 Spruce St, Nashville, TN 37201',
-      '606 Redwood St, Boston, MA 02101',
-      '707 Walnut St, Atlanta, GA 30301',
-      '808 Cypress St, Chicago, IL 60601',
-      '909 Magnolia St, San Francisco, CA 94101',
-      '111 Oakwood St, Miami, FL 33101',
-      '222 Pinecrest St, New York, NY 10001',
-      '333 Birchwood St, Los Angeles, CA 90001',
-    ];
-    const userAdress = addresses[Math.floor(Math.random() * addresses.length)];
+    const userAddress = addresses[Math.floor(Math.random() * addresses.length)];
     setFormState({
       username: `user${userNumber}`,
       email: `user${userNumber}@test.com`,
       password: "password123",
       firstName: firstNames[Math.floor(Math.random() * firstNames.length)],
       lastName: lastNames[Math.floor(Math.random() * lastNames.length)],
-      billingAddress: userAdress,
-      shippingAddress: userAdress,
+      billingAddress: userAddress,
+      shippingAddress: userAddress,
+    });
+    if (!sameAddress) setSameAddress(true);
+    setFormValidation({
+      ...Object.fromEntries(
+        Object.keys(formValidation).map((key) => [key, true])
+      ),
     });
   };
 
-  const [formValidation, setFormValidation] = React.useState({
-    username: true,
-    email: true,
-    password: true,
-    firstName: true,
-    lastName: true,
-    billingAddress: true,
-    shippingAddress: true,
-  });
+  const textFieldConfig = ({ lowercase, proper }, sameAddress, index) => {
+    const commonProps = {
+      name: lowercase,
+      type: lowercase,
+      value: formState[lowercase],
+      autoFocus: index === 0,
+      onChange: (e) => {
+        handleFormStateChange(e);
+        setFormValidation({
+          ...formValidation,
+          [lowercase]: true,
+        });
+        setCridentials(true);
+      },
+      onBlur: (e) => handleFormValidationChange(lowercase, e.target.value),
+      error: !formValidation[lowercase],
+      helperText: !formValidation[lowercase] ? `Invalid ${proper}` : "",
+      sx: {
+        paddingBottom: formValidation[lowercase] ? "2rem" : "1rem",
+        width: "100%",
+      },
+    };
 
-  const [cridentials, setCridentials] = React.useState(true);
+    if (lowercase === "shippingAddress") {
+      return {
+        ...commonProps,
+        label: proper,
+        variant: sameAddress ? "filled" : "outlined",
+        disabled: sameAddress,
+      };
+    }
 
-  const handleFormStateChange = (e) => {
-    const { name, value } = e.target;
+    return {
+      ...commonProps,
+      label: proper,
+      variant: "outlined",
+      disabled: false,
+    };
+  };
+
+  const handleFormStateChange = ({ target: { name, value } }) => {
     setFormState({
       ...formState,
       [name]: value.trim(),
+      ["shippingAddress"]:
+        name === "billingAddress" && sameAddress
+          ? value.trim()
+          : name === "shippingAddress"
+          ? value.trim()
+          : formState.shippingAddress,
     });
   };
 
-  const handleFormValidationChange = (name, e) => {
-    const { value } = e.target;
-    let pass = true;
+  const handleFormValidationChange = (name, value, returnVal) => {
+    let pass;
     switch (name) {
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         pass = emailRegex.test(value);
-        console.log(name, value, "email", pass);
         break;
       default:
-        console.log(name, value, "default", pass);
         pass = value.length > 0;
         break;
     }
     setFormValidation({
       ...formValidation,
       [name]: pass,
+      ["shippingAddress"]:
+        name === "billingAddress" && sameAddress
+          ? pass
+          : name === "shippingAddress"
+          ? pass
+          : formValidation.shippingAddress,
     });
+    if (returnVal) return pass;
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleEmailValidation();
-    handlePasswordValidation();
-    if (!validEmail) return;
-    if (!validPassword) return;
+    const updatedFormValidation = {};
+    Object.keys(formState).forEach((key) => {
+      updatedFormValidation[key] = handleFormValidationChange(
+        key,
+        formState[key],
+        true
+      );
+    });
+    setFormValidation(updatedFormValidation);
+    console.log(formValidation);
     try {
-      const { data } = await login({
-        variables: { ...formState },
+      const { data } = await registerUser({
+        variables: { input: { ...formState } },
       });
-      Auth.login(data.login.token);
+      Auth.login(data.registerUser.token);
     } catch (e) {
-      setValidCredentials(false);
-      document.getElementsByName("email")[0].focus();
+      setCridentials(false);
+      console.log(e)
     }
     setFormState({
       email: "",
       password: "",
     });
   };
-  const handleFormSubmitnew = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await registerUser({
-        variables: { input: { ...formState } },
-      });
-      console.log("data", data);
 
-      Auth.login(data.registerUser.token);
-    } catch (e) {
-      console.error(e);
-    }
+  const handleSameAddress = () => {
+    setFormState({
+      ...formState,
+      shippingAddress: !sameAddress ? formState.billingAddress : "",
+    });
+    setSameAddress(!sameAddress);
+    setFormValidation({
+      ...formValidation,
+      shippingAddress: true,
+    });
   };
 
-  const inputValues = [
-    { Proper: "Username", lowercase: "username" },
-    { Proper: "Email", lowercase: "email" },
-    { Proper: "Password", lowercase: "password" },
-    { Proper: "First Name", lowercase: "firstName" },
-    { Proper: "Last Name", lowercase: "lastName" },
-    { Proper: "Billing Address", lowercase: "billingAddress" },
-    { Proper: "Shipping Address", lowercase: "shippingAddress" },
-  ];
+  useEffect(() => {
+    if (!sameAddress) {
+      document.getElementsByName("shippingAddress")[0].focus();
+    }
+  }, [sameAddress]);
+
   return (
     <Box
       id="register-page"
@@ -185,39 +188,45 @@ export default function BasicStack() {
         filter: loading ? "blur(5px)" : "",
       }}
     >
-      <h4>Log In</h4>
+      <h4>Register</h4>
       <form onSubmit={handleFormSubmit} noValidate>
         <Stack>
           {inputValues.map((i, index) => (
-            <TextField
-              key={i.lowercase}
-              label={i.Proper}
-              variant={index < 3 ? "outlined" : "filled"}
-              name={i.lowercase}
-              type={i.lowercase}
-              value={formState[i.lowercase]}
-              autoFocus={index === 0}
-              onChange={(e) => {
-                handleFormStateChange(e);
-                setFormValidation({
-                  ...formValidation,
-                  [i.lowercase]: true,
-                });
-                setCridentials(true);
-              }}
-              onBlur={(e) => handleFormValidationChange(i.lowercase, e)}
-              error={!formValidation[i.lowercase]}
-              helperText={
-                !formValidation[i.lowercase] ? `Invalid ${i.lowercase}` : ""
-              }
-              sx={{
-                paddingBottom: formValidation[i.lowercase] ? "2rem" : "1rem",
-              }}
-            />
+            <Box key={i.lowercase}>
+              <TextField
+                key={i.lowercase}
+                {...textFieldConfig(i, sameAddress, index)}
+              />
+              {index === 2 && (
+                <Divider
+                  sx={{
+                    marginBottom: "2rem",
+                  }}
+                />
+              )}
+              {index === 5 && (
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={(e) => {
+                        handleSameAddress();
+                      }}
+                      checked={sameAddress}
+                    />
+                  }
+                  label="Same as Billing Address"
+                />
+              )}
+            </Box>
           ))}
         </Stack>
-        <Box id='register-page-buttons'>
-          <Button type="submit" variant="outlined" startIcon={<HowToRegIcon />}>
+        <Box id="register-page-buttons">
+          <Button
+            type="submit"
+            variant="contained"
+            startIcon={<HowToRegIcon />}
+            size="large"
+          >
             Register
           </Button>
           <Button
@@ -229,129 +238,29 @@ export default function BasicStack() {
           >
             Auto Fill
           </Button>
-          <Link to="/login">
-            <Button
-              sx={{ float: "right" }}
-              variant="contained"
-              endIcon={<LoginIcon />}
-            >
-              Log In
-            </Button>
-          </Link>
+          <Button
+            component={Link}
+            to="/login"
+            sx={{ float: "right" }}
+            variant="outlined"
+            endIcon={<LoginIcon />}
+          >
+            Log In
+          </Button>
         </Box>
         <Alert
           variant="outlined"
           severity="error"
           sx={{
-            visibility: !formValidation.cridentials ? "visible" : "hidden",
+            visibility: !cridentials ? "visible" : "hidden",
             marginTop: "1rem",
           }}
         >
-          Email and/or Password is incorrect
+          {error && error.message
+            ? error.message
+            : "Please double check the information you entered."}
         </Alert>
       </form>
     </Box>
   );
 }
-
-// import { useState } from "react";
-// import { useMutation } from "@apollo/client";
-// import { REGISTER_USER } from "../utils/mutations";
-// import Auth from "../utils/auth";
-// import "../style/Register.sass";
-
-// const randInt = Math.floor(Math.random() * 1000);
-// const Register = () => {
-//   const [formState, setFormState] = useState({
-//     username: `user${randInt}`,
-//     email: `user${randInt}@test.com`,
-//     password: "password",
-//     firstName: "Test",
-//     lastName: "User",
-//     billingAddress: "123 Test St",
-//     shippingAddress: "321 Test Dr",
-//   });
-
-//   const [registerUser, { loading }] = useMutation(REGISTER_USER);
-//   if (loading) {
-//     return <h2>LOADING...</h2>;
-//   }
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormState({ ...formState, [name]: value });
-//   };
-
-//   const handleFormSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const { data } = await registerUser({
-//         variables: { input: { ...formState } },
-//       });
-//       console.log("data", data);
-
-//       Auth.login(data.registerUser.token);
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
-
-//   return (
-//     <div id="register-component">
-//       <form onSubmit={handleFormSubmit}>
-//         <input
-//           placeholder="Your username"
-//           name="username"
-//           type="text"
-//           value={formState.username}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="Your email"
-//           name="email"
-//           type="email"
-//           value={formState.email}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="******"
-//           name="password"
-//           type="password"
-//           value={formState.password}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="Your first name"
-//           name="firstName"
-//           type="text"
-//           value={formState.firstName}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="Your last name"
-//           name="lastName"
-//           type="text"
-//           value={formState.lastName}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="Your billing address"
-//           name="billingAddress"
-//           type="text"
-//           value={formState.billingAddress}
-//           onChange={handleChange}
-//         />
-//         <input
-//           placeholder="Your shipping address"
-//           name="shippingAddress"
-//           type="text"
-//           value={formState.shippingAddress}
-//           onChange={handleChange}
-//         />
-//         <button type="submit">Submit</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Register;

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Alert from "@mui/material/Alert";
-import '../style/login.sass'
+import "../style/login.sass";
 
 export default function BasicStack() {
   const [login, { loading, error }] = useMutation(LOGIN_USER);
@@ -25,7 +25,7 @@ export default function BasicStack() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("name", name, "value", value)
+    console.log("name", name, "value", value);
     setFormState({
       ...formState,
       [name]: value.trim(),
@@ -44,7 +44,7 @@ export default function BasicStack() {
       });
       Auth.login(data.login.token);
     } catch (e) {
-      setValidCredentials(false)
+      setValidCredentials(false);
       document.getElementsByName("email")[0].focus();
     }
     setFormState({
@@ -64,7 +64,7 @@ export default function BasicStack() {
 
   return (
     <Box
-      id='login-page'
+      id="login-page"
       sx={{
         maxWidth: "500px",
         marginX: "auto",
@@ -89,11 +89,7 @@ export default function BasicStack() {
             }}
             onBlur={handleEmailValidation}
             error={!validEmail}
-            helperText={
-              !validEmail
-                ? "Invalid email address"
-                : ""
-            }
+            helperText={!validEmail ? "Invalid email address" : ""}
             sx={{
               paddingBottom: validEmail ? "2rem" : "1rem",
             }}
@@ -111,34 +107,40 @@ export default function BasicStack() {
             }}
             onBlur={handlePasswordValidation}
             error={!validPassword}
-            helperText={
-              !validPassword
-                ? "Password cannot be empty "
-                : ""
-            }
+            helperText={!validPassword ? "Password cannot be empty " : ""}
             sx={{
               paddingBottom: validPassword ? "2rem" : "1rem",
             }}
           />
         </Stack>
-        <Button type="submit" variant="outlined" startIcon={<LoginIcon />}>
-          Log In
-        </Button>
-        <Link to="/register">
-          <Button
-            sx={{ float: "right" }}
-            variant="contained"
-            endIcon={<HowToRegIcon />}
-          >
-            Register
-          </Button>
-        </Link>
+        <Box id="login-page-buttons">
+          <Link>
+            <Button
+              type="submit"
+              variant="contained"
+              startIcon={<LoginIcon />}
+              size="large"
+            >
+              Log In
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button
+              sx={{ float: "right" }}
+              variant="outlined"
+              endIcon={<HowToRegIcon />}
+            >
+              Register
+            </Button>
+          </Link>
+        </Box>
         <Alert
           variant="outlined"
           severity="error"
-          sx={{ visibility: !validCredentials ? "visible" : "hidden", 
+          sx={{
+            visibility: !validCredentials ? "visible" : "hidden",
             marginTop: "1rem",
-        }}
+          }}
         >
           Email and/or Password is incorrect
         </Alert>
