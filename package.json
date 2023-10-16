@@ -6,7 +6,7 @@
     "postinstall": "cd backend && npm install && cd ../frontend && npm install",
     "develop": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm run dev\" ",
     "seed": "cd backend && npm run seed",
-    "start": "cd backend && npm start",
+    "start": "cd backend && npm start"
   },
   "dependencies": {
     "concurrently": "^6.2.0"
