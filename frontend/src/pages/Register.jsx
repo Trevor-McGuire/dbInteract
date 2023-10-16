@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { Box, Stack, TextField, Button, FormControlLabel, Alert, Switch, Divider } from "@mui/material";
+
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import CreateIcon from "@mui/icons-material/Create";
+
+
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../utils/mutations";
-import Alert from "@mui/material/Alert";
+
 import "../style/register.sass";
-import CreateIcon from "@mui/icons-material/Create";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Divider from "@mui/material/Divider";
+
+
 import registerLists from "../utils/lists";
 import Auth from "../utils/auth";
 

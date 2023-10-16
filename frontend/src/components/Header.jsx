@@ -146,14 +146,14 @@ export default function PrimarySearchAppBar() {
       "aria-label": label,
       sx: { gap: "16px" },
     };
-  
+
     if (to) {
       buttonProps.component = Link;
       buttonProps.to = to;
     } else if (onClick) {
       buttonProps.onClick = onClick;
     }
-  
+
     return (
       <IconButton {...buttonProps}>
         {badge ? (
@@ -229,22 +229,22 @@ export default function PrimarySearchAppBar() {
     >
       {Auth.loggedIn() ? (
         <>
-          <MenuItem>
+          <MenuItem onClick={handleMenuClose}>
             <CartNavButton text={true} badge={numberOfItems} />
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleMenuClose}>
             <ProfileNavButton text={true} />
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleMenuClose}>
             <LogoutNavButton text={true} />
           </MenuItem>
         </>
       ) : (
         <>
-          <MenuItem>
+          <MenuItem onClick={handleMenuClose}>
             <LoginNavButton text={true} />
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleMenuClose}>
             <RegisterNavButton text={true} />
           </MenuItem>
         </>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Paper, Grid } from '@mui/material';
 
 const ProductImageCarousel = ({ images }) => {
   const baseUrl = window.location.origin;
@@ -9,26 +10,30 @@ const ProductImageCarousel = ({ images }) => {
   };
 
   return (
-    <div className="product-image-carousel">
-      <div className="main-image-container">
-        <img
-          src={`${baseUrl}/${images[selectedImageIndex].url}`}
-          alt={images[selectedImageIndex].altText}
-          className="main-image"
-        />
-      </div>
-      <div className="thumbnail-container">
-        {images.map((image, index) => (
+    <Paper className="product-image-carousel" elevation={3}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
           <img
-            key={index}
-            src={`${baseUrl}/${image.url}`}
-            alt={image.altText}
-            className={`thumbnail ${index === selectedImageIndex ? 'selected' : ''}`}
-            onClick={() => handleThumbnailClick(index)}
+            src={`${baseUrl}/${images[selectedImageIndex].url}`}
+            alt={images[selectedImageIndex].altText}
+            className="main-image"
+            style={{ width: '100%', height: 'auto' }}
           />
-        ))}
-      </div>
-    </div>
+        </Grid>
+        <Grid item xs={12} md={6} className="thumbnail-container">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={`${baseUrl}/${image.url}`}
+                alt={image.altText}
+                className={`thumbnail ${index === selectedImageIndex ? 'selected' : ''}`}
+                onClick={() => handleThumbnailClick(index)}
+                style={{ cursor: 'pointer', marginRight: '8px', marginBottom: '8px' }}
+              />
+            ))}
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

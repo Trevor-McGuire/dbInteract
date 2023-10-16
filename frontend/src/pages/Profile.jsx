@@ -1,26 +1,63 @@
-import React from 'react'
-import Auth from '../utils/auth'
-import { useQuery } from '@apollo/client'
-import { READ_USER } from '../utils/queries'
+import React from "react";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import { useQuery } from "@apollo/client";
+import { READ_USER } from "../utils/queries";
+import Item from "@mui/material/Grid";
+import registerLists from "../utils/lists";
 
-const Profile = () => {
-  const { data, error, loading } = useQuery(READ_USER)
-  const user = data?.readUser || {}
-  if (loading) {return <h2>LOADING...</h2>}
-  if (error) {return <h2>{error.message}</h2>}
-  if (!user) {return <h2>Please log in to view your profile.</h2>}
-  
+const { inputValues } = registerLists;
+const updatedInputValues = inputValues.filter(item => item.lowercase !== 'password');
+
+
+export default function OutlinedCard() {
+  const { data, error, loading } = useQuery(READ_USER);
+  const user = data?.readUser || {};
+
+  if (error) {
+    return <h2>{error.message}</h2>;
+  }
+  if (!user) {
+    window.location.assign("/");
+  }
+
   return (
-    <div>
-      <h2>Profile</h2>
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <p>First Name: {user.firstName}</p>
-      <p>Last Name: {user.lastName}</p>
-      <p>Billing Address: {user.billingAddress}</p>
-      <p>Shipping Address: {user.shippingAddress}</p>
-    </div>
-  )
+    <Box sx={{ maxWidth: 800, margin: "2rem auto" }}>
+      <Box sx={{ maxWidth: 800, margin: "2rem " }}>
+        <Card variant="outlined">
+          <CardContent>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ textAlign: "center" }}
+            >
+              Profile
+            </Typography>
+            <Grid container rowSpacing={1} columnSpacing={{ sm: 2 }}>
+              {updatedInputValues.map((input, index) => (
+                <>
+                  <Grid item xs={6} key={index}>
+                    <Item
+                      sx={{
+                        fontWeight: "bold",
+                        textAlign: "right",
+                      }}
+                    >
+                      {input.proper}:
+                    </Item>
+                  </Grid>
+                  <Grid item xs={6} key={index}>
+                    <Item>{user[input.lowercase]}</Item>
+                  </Grid>
+                </>
+              ))}
+            </Grid>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
+  );
 }
-
-export default Profile

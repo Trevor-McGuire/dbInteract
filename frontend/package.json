@@ -20,6 +20,7 @@
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
     "@mui/styled-engine-sc": "^6.0.0-alpha.1",
+    "@mui/styles": "^5.14.13",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "node-sass": "^9.0.0",
