@@ -7,7 +7,8 @@ const ProductType = `
     category: Category!
     quantity: Int!
     images: [Image!]!
-    ratings: [Review!]!
+    reviews: [Review!]!
+    stars: [Int!]!
   }
 
   type Category {
@@ -19,6 +20,13 @@ const ProductType = `
     _id: ID!
     url: String!
     altText: String!
+  }
+
+  type reviews {
+    body: String
+    rating: Int
+    title: String
+    user: User
   }
 `;
 

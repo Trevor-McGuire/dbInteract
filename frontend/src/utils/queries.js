@@ -22,27 +22,37 @@ export const READ_CART_QUERY = gql`
 `;
 
 export const READ_PRODUCTS = gql`
-  query ReadProducts($id: ID, $category: String, $search: String) {
-    readProducts(_id: $id, category: $category, search: $search) {
-      _id
+  query GetProductPageData($productId: ID!) {
+    getProductInfo(productId: $productId) {
       title
       quantity
       price
       description
-      images {
-        _id
-        altText
-        url
+      stars
+    }
+    getProductImages(productId: $productId) {
+      altText
+      url
+    }
+    getProductReviews(productId: $productId page: 1 pageSize: 5) {
+      body
+      rating
+      title
+      user {
+        username
       }
-      ratings {
-        _id
-        body
-        rating
-        title
-        user {
-          _id
-          username
-        }
+    }
+  }
+`;
+
+export const READ_REVIEW_BY_RATING = gql`
+  query Query($productId: ID!, $rating: Int!) {
+    getProductReviews(productId: $productId, rating: $rating) {
+      body
+      rating
+      title
+      user {
+        username
       }
     }
   }

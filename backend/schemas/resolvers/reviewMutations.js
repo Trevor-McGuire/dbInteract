@@ -13,10 +13,10 @@ const userResolver = {
       });
   
       console.log("user.reviews", user.reviews);
-      console.log("product.reviews", product.ratings);
+      console.log("product.reviews", product.reviews);
 
       user.reviews.push(review._id);
-      product.ratings.push(review._id);
+      product.reviews.push(review._id);
   
       await user.save();
       await product.save();

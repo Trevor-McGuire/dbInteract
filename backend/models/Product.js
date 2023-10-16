@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Image',
   }],
-  ratings: [{
+  reviews: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review',
   }],
