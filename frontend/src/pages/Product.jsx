@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import "../style/Product.sass";
 import AddToCart from "../components/AddToCart";
 import { READ_PRODUCT, READ_REVIEW_BY_RATING } from "../utils/queries";
 import ReviewForm from "../components/ReviewForm";
-import { Box, Grid, Paper, Avatar, Button } from "@mui/material";
-import Item from "@mui/material/ListItem";
-import { useState, useEffect } from "react";
+import { Box, Grid, Paper, Button, Slider, Hidden } from "@mui/material";
 
 const Product = () => {
   const baseUrl = window.location.origin;
@@ -37,7 +35,7 @@ const Product = () => {
   const { data, error } = useQuery(READ_PRODUCT, {
     variables: { productId: productId },
   });
-
+  const { images } = product;
   useEffect(() => {
     if (data) {
       setProduct(data.getProductInfo || {});
@@ -50,51 +48,94 @@ const Product = () => {
 
   const ProductImageCarousel = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [sliderInUse, setSliderInUse] = useState(false);
+
+    const containerRef = useRef(null);
+    const startX = useRef(null);
+
     const handleThumbnailClick = (index) => {
       setSelectedImageIndex(index);
     };
-    const { images } = product;
+
+    useEffect(() => {
+      console.log("useEffect");
+      // Capture the current reference to the container inside the useEffect
+      const container = containerRef.current;
+
+      const handleTouchStart = (e) => {
+        startX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchMove = (e) => {
+        if (startX.current === null) return;
+        if (e.target.localName !== "img") return;
+
+        const currentX = e.touches[0].clientX;
+        const deltaX = startX.current - currentX;
+
+        if (deltaX > 5) {
+          setSelectedImageIndex((prevIndex) =>
+            prevIndex === images.length - 1 ? 0 : prevIndex + 1
+          );
+        } else if (deltaX < -5) {
+          setSelectedImageIndex((prevIndex) =>
+            prevIndex === 0 ? images.length - 1 : prevIndex - 1
+          );
+        }
+
+        startX.current = null;
+      };
+
+      container.addEventListener("touchstart", handleTouchStart);
+      container.addEventListener("touchmove", handleTouchMove);
+
+      return () => {
+        container.removeEventListener("touchstart", handleTouchStart);
+        container.removeEventListener("touchmove", handleTouchMove);
+      };
+    }, [selectedImageIndex, images]);
 
     return (
       <Grid container columnSpacing={2}>
         {/* Thumbnails */}
-        <Grid
-          id="asdf"
-          item
-          xs="auto"
-          sx={{
-            maxHeight: `calc(100vh - 64px - 2rem)`,
-            overflowY: "auto",
-          }}
-        >
-          <Grid container direction="column" spacing={1}>
-            {images.map((image, index) => (
-              <Grid item key={index}>
-                <img
-                  src={`${baseUrl}/${image.url}`}
-                  onClick={() => handleThumbnailClick(index)}
-                  style={{
-                    cursor: "pointer",
-                    width: "80px",
-                    maxHeight: "80px",
-                    objectFit: "contain",
-                    borderRadius: "5px",
-                    padding: "2px",
-                    border:
-                      index === selectedImageIndex
-                        ? "2px solid blue"
-                        : "2px solid gray",
-                  }}
-                />
-              </Grid>
-            ))}
+        <Hidden smDown>
+          <Grid
+            item
+            sx={{
+              maxHeight: `calc(100vh - 64px - 2rem)`,
+              overflowY: "auto",
+            }}
+          >
+            <Grid container direction="column" spacing={1}>
+              {images.map((image, index) => (
+                <Grid item key={index}>
+                  <img
+                    src={`${baseUrl}/${image.url}`}
+                    onClick={() => handleThumbnailClick(index)}
+                    style={{
+                      cursor: "pointer",
+                      width: "80px",
+                      maxHeight: "80px",
+                      objectFit: "contain",
+                      borderRadius: "5px",
+                      padding: "2px",
+                      border:
+                        index === selectedImageIndex
+                          ? "2px solid blue"
+                          : "2px solid gray",
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
-        </Grid>
+        </Hidden>
 
         {/* Main Image */}
         <Grid
           item
           xs
+          ref={containerRef}
           sx={{ maxHeight: "100%", maxHeight: `calc(100vh - 64px - 2rem)` }}
         >
           <img
@@ -104,6 +145,15 @@ const Product = () => {
               height: "100%",
               objectFit: "contain",
             }}
+          />
+          <Slider
+            aria-label="Picture"
+            defaultValue={0}
+            value={selectedImageIndex}
+            onChange={(e, value) => setSelectedImageIndex(value)}
+            step={1}
+            min={0}
+            max={images.length - 1}
           />
         </Grid>
       </Grid>
@@ -161,44 +211,41 @@ const Product = () => {
         <h3>Customer Reviews:</h3>
 
         <Paper elevation={5} sx={{}}>
-          <Grid container>
-            <Grid item xs="auto">
-              {[...Array(5)].map((_, i) => (
-                <Button
-                  key={i}
-                  sx={{
-                    display: "block",
-                  }}
-                  onClick={() => setReviewRating(i + 1)}
-                >
-                  {[...Array(5)].map((_, j) => (
-                    <i
-                      key={`${i}${j}`}
-                      className={`fa fa-star${j < i + 1 ? "" : "-o"}`}
-                    ></i>
-                  ))}{" "}
-                  {product.stars[i]} Reviews
-                </Button>
-              ))}
-            </Grid>
-            <Grid item xs>
-              {[...Array(5)].map((_, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    display: "block",
-                    backgroundColor: "primary.light",
-                    color: "primary.contrastText",
-                    // width: parseInt((product.stars[i] / totalReviews)*100) + "%",
-                    width: "100%",
-                  }}
-                  onClick={() => setReviewRating(i + 1)}
-                  
-                >
-                   {parseInt((product.stars[i] / totalReviews)*100) + "%"}
-                </Box>
-              ))}
-            </Grid>
+          <Grid container spacing={1} columns={2}>
+            {[...Array(5)].map((_, i) => (
+              <Fragment key={`review${i}`}>
+                <Grid item xs="auto">
+                  <Button
+                    key={i}
+                    sx={{
+                      display: "block",
+                    }}
+                    onClick={() => setReviewRating(i + 1)}
+                  >
+                    {[...Array(5)].map((_, j) => (
+                      <i
+                        key={`${i}${j}`}
+                        className={`fa fa-star${j < i + 1 ? "" : "-o"}`}
+                      ></i>
+                    ))}{" "}
+                    {product.stars[i + 1]} Reviews
+                  </Button>
+                </Grid>
+                <Grid item xs>
+                  <Button
+                    sx={{
+                      display: "block",
+                      backgroundColor: "primary.main",
+                      width:
+                        (parseInt(product.stars[i]) / totalReviews) * 100 + "%",
+                    }}
+                    onClick={() => setReviewRating(i + 1)}
+                  >
+                    x
+                  </Button>
+                </Grid>
+              </Fragment>
+            ))}
           </Grid>
         </Paper>
         {reviews.map((rating, index) => (
@@ -251,7 +298,7 @@ const Product = () => {
         <Grid item xs={12} sm={4} md={4} lg={4} xl={2}>
           <ProductInfo />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3} xl={5}>
+        <Grid item xs={12} sm={12} md={8} lg={3} xl={5}>
           <ReviewForm />
           <ProductReviews />
         </Grid>
