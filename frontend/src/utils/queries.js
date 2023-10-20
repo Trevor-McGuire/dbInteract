@@ -10,8 +10,6 @@ export const READ_CART_QUERY = gql`
           price
           _id
           images {
-            _id
-            altText
             url
           }
         }
@@ -22,18 +20,31 @@ export const READ_CART_QUERY = gql`
 `;
 
 export const READ_PRODUCTS = gql`
+query Query {
+  readProducts {
+    _id
+    images {
+      url
+    }
+    price
+    title
+  }
+}
+`;
+
+export const READ_PRODUCT = gql`
   query GetProductPageData($productId: ID!) {
     getProductInfo(productId: $productId) {
       title
       quantity
       price
       description
+      images {
+        url
+      }
       stars
     }
-    getProductImages(productId: $productId) {
-      altText
-      url
-    }
+
     getProductReviews(productId: $productId page: 1 pageSize: 5) {
       body
       rating
@@ -84,8 +95,6 @@ export const READ_ORDERS = gql`
             title
             price
             images {
-              _id
-              altText
               url
             }
           }

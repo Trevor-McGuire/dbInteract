@@ -3,24 +3,10 @@ import { useQuery, gql } from "@apollo/client";
 
 import ProductList from "../components/ProductList";
 import HeaderImage from "../components/HeaderImage";
-
-export const READ_PRODUCTS_QUERY = gql`
-  query ReadProducts {
-    readProducts {
-      _id
-      title
-      price
-      images {
-        _id
-        url
-        altText
-      }
-    }
-  }
-`;
+import { READ_PRODUCTS } from "../utils/queries";
 
 const Home = () => {
-  const { data, loading, error } = useQuery(READ_PRODUCTS_QUERY);
+  const { data, loading, error } = useQuery(READ_PRODUCTS);
   const products = data?.readProducts || [];
 
   return (

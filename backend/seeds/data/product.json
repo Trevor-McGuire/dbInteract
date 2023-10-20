@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a0",
+    "title": "INSIGNIA 32-inch Class F20 Series Smart HD 720p Fire TV with Alexa Voice Remote (NS-32F201NA23, 2022 Model)",
+    "description": "720p resolution View your favorite movies, shows and games in high definition. Alexa voice control - The Alexa Voice Remote lets you easily control your entertainment, search across apps, switch inputs, and more using just your voice. Press and hold the voice button and ask Alexa to easily find, launch, and control content, and even switch to cable.     Fire TV experience built-in - Watch over 1 Million streaming movies and TV episodes with access to tens of thousands of channels, apps, and Alexa skills.     Supports Apple AirPlay - Share videos, photos, music and more from an Apple device to your TV with the touch of a button.     Supports HDMI ARC - Sends audio directly from the HDMI jack to a compatible soundbar or AV receiver, removing the need for an extra cable.",
+    "price": 89.99,
+    "category": "5f5d2c5b7f3e4b0017b0d3a1",
+    "quantity": 50
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a4",
+    "title": "INSIGNIA 50-inch Class F30 Series LED 4K UHD Smart Fire TV with Alexa Voice Remote (NS-50F301NA24, 2023 Model)",
+    "description": "4K Ultra HD (2160p resolution) - Enjoy breathtaking 4K movies and TV shows at 4 times the resolution of Full HD, and upscale your current content to Ultra HD-level picture quality.    Alexa voice control - Speak commands into the voice remote with Alexa to control your Fire TV verbally—ask it to watch live TV, search for titles, play music, switch inputs, control smart home devices and more.    Access thousands of shows with Fire TV - Watch over 1 million streaming movies and TV episodes with access to thousands of channels, apps and Alexa skills, including Apple TV+, Disney+, Hulu, Netflix, Prime Video, Sling TV, YouTube and other services right from this TV.    DTS Studio Sound - This premium audio enhancement suite creates realistic and immersive audio with two-speaker playback that expands your sense of space and ambience.    Hands-free control: Pair with your Amazon Echo and go hands-free, controlling volume, search, channels and more.",
+    "price": 249.99,
+    "category": "5f5d2c5b7f3e4b0017b0d3a1",
+    "quantity": 30
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3a8",
+    "title": "VIZIO 40-inch D-Series Full HD 1080p Smart TV with AMD FreeSync, Apple AirPlay and Chromecast Built-in, Alexa Compatibility, D40f-J09, 2022 Model",
+    "description": "1080p High-Definition - Watch TV in crisp, clear 1080p Full HD resolution and experience a brilliant picture with the VIZIO D-Series..Voltage : 120V.Viewable Area : 39.5''. Standby Power : <0.5W    Full Array LED Backlight - Evenly distributed LEDs across the screen’s backlight deliver superior light uniformity and picture performance.    IQ Picture Processor - Delivers superior picture processing, faster navigation, and quicker load times to get to your favorite content faster.    V-Gaming Engine Automatically optimizes picture mode for gaming and makes next-gen console gameplay more responsive with Auto Game Mode, Variable Refresh Rate with AMD Freesync, D-Series lowest input lag, and newly added gaming menu.    SmartCast - With intuitive navigation, enjoy instant access to the best selection of apps from top-tier streaming services like Netflix, Disney+, YouTube, HBO Max and many more right out of the box.",
+    "price": 168.00,
+    "category": "5f5d2c5b7f3e4b0017b0d3a1",
+    "quantity": 100
+  }
+]

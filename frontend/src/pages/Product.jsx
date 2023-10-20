@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import "../style/Product.sass";
 import AddToCart from "../components/AddToCart";
-import { READ_PRODUCTS, READ_REVIEW_BY_RATING } from "../utils/queries";
+import { READ_PRODUCT, READ_REVIEW_BY_RATING } from "../utils/queries";
 import ReviewForm from "../components/ReviewForm";
 import { Box, Grid, Paper, Avatar, Button } from "@mui/material";
+import Item from "@mui/material/ListItem";
 import { useState, useEffect } from "react";
 
 const Product = () => {
   const baseUrl = window.location.origin;
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const { productId } = useParams();
   const [quantity, setQuantity] = React.useState(1);
@@ -20,16 +20,12 @@ const Product = () => {
     description: "Loading...",
     price: "#.##",
     quantity: "##",
-    images: [],
+    images: Array.from({ length: 8 }, (_, index) => ({
+      url: `./images/products/template1x1.png`,
+    })),
     reviews: [],
     stars: [0, 0, 0, 0, 0, 0],
   });
-  const [images, setImages] = useState(
-    Array.from({ length: 5 }, (_, index) => ({
-      url: `./images/products/template1x1.png`,
-      altText: `Loading ${index + 1}`,
-    }))
-  );
   const [reviews, setReviews] = useState(
     Array.from({ length: 5 }, (_, index) => ({
       title: `Loading ${index + 1}`,
@@ -38,85 +34,85 @@ const Product = () => {
       user: { username: `Loading ${index + 1}` },
     }))
   );
-  const { data, error } = useQuery(READ_PRODUCTS, {
+  const { data, error } = useQuery(READ_PRODUCT, {
     variables: { productId: productId },
   });
-
-
 
   useEffect(() => {
     if (data) {
       setProduct(data.getProductInfo || {});
-      setImages(data.getProductImages || []);
       setReviews(data.getProductReviews || []);
     }
   }, [data]);
-
-
-  const [reviewRating, setReviewRating] = useState(null);
-
-  const { data: reviewData, error: reviewError } = useQuery(
-    READ_REVIEW_BY_RATING,
-    {
-      variables: { productId: productId, rating: reviewRating },
-    }
-  );
-  useEffect(() => {
-    if (reviewData) {
-      setReviews(reviewData.getProductReviews || []);
-    }
-  }, [reviewData]);
 
   if (error) return <p>{error.message}</p>;
   if (product.length === 0) return <p>No product found</p>;
 
   const ProductImageCarousel = () => {
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const handleThumbnailClick = (index) => {
       setSelectedImageIndex(index);
     };
+    const { images } = product;
+
     return (
-      <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
-        <img
-          src={`${baseUrl}/${images[selectedImageIndex].url}`}
-          alt={images[selectedImageIndex].altText}
-          style={{ width: "100%", height: "auto", aspectRatio: "1/1" }}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            overflowX: "auto",
-            padding: "8px",
+      <Grid container columnSpacing={2}>
+        {/* Thumbnails */}
+        <Grid
+          id="asdf"
+          item
+          xs="auto"
+          sx={{
+            maxHeight: `calc(100vh - 64px - 2rem)`,
+            overflowY: "auto",
           }}
         >
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={`${baseUrl}/${image.url}`}
-              alt={image.altText}
-              onClick={() => handleThumbnailClick(index)}
-              style={{
-                cursor: "pointer",
-                marginRight: "8px",
-                marginBottom: "8px",
-                width: "100px",
-                filter: index === selectedImageIndex ? "brightness(0.5)" : "",
-                border: index === selectedImageIndex ? "10px solid blue" : "",
-              }}
-            />
-          ))}
-        </div>
-        <div>
-          <button onClick={() => handleNavigation("left")}>Left</button>
-          <button onClick={() => handleNavigation("right")}>Right</button>
-        </div>
-      </div>
+          <Grid container direction="column" spacing={1}>
+            {images.map((image, index) => (
+              <Grid item key={index}>
+                <img
+                  src={`${baseUrl}/${image.url}`}
+                  onClick={() => handleThumbnailClick(index)}
+                  style={{
+                    cursor: "pointer",
+                    width: "80px",
+                    maxHeight: "80px",
+                    objectFit: "contain",
+                    borderRadius: "5px",
+                    padding: "2px",
+                    border:
+                      index === selectedImageIndex
+                        ? "2px solid blue"
+                        : "2px solid gray",
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+
+        {/* Main Image */}
+        <Grid
+          item
+          xs
+          sx={{ maxHeight: "100%", maxHeight: `calc(100vh - 64px - 2rem)` }}
+        >
+          <img
+            src={`${baseUrl}/${images[selectedImageIndex].url}`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </Grid>
+      </Grid>
     );
   };
 
   const ProductInfo = () => {
     return (
-      <div>
+      <Box>
         <h2 className="product-title">{product.title}</h2>
         <p className="product-description">{product.description}</p>
         <p className="product-price">${product.price}</p>
@@ -130,11 +126,22 @@ const Product = () => {
           onChange={(e) => setQuantity(e.target.value)}
         />
         <AddToCart productId={product._id} quantity={quantity} />
-      </div>
+      </Box>
     );
   };
 
   const ProductReviews = () => {
+    const [reviewRating, setReviewRating] = useState(null);
+    const { data: reviewData } = useQuery(READ_REVIEW_BY_RATING, {
+      variables: { productId: productId, rating: reviewRating },
+      skip: reviewRating === null,
+    });
+    useEffect(() => {
+      if (reviewData) {
+        setReviews(reviewData.getProductReviews || []);
+      }
+    }, [reviewData]);
+
     const [showFullText, setShowFullText] = useState(
       Array.from({ length: reviews.length }, (_, index) => false)
     );
@@ -146,44 +153,56 @@ const Product = () => {
         return newState;
       });
     };
+    const [totalReviews, setTotalReviews] = useState(
+      product.stars.reduce((acc, cur) => acc + cur, 0)
+    );
     return (
-      <div>
+      <Box>
         <h3>Customer Reviews:</h3>
-        <ReviewForm />
-        <Paper
-          elevation={5}
-          sx={{
-            margin: "1rem 0",
-            padding: "1rem",
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
-            <Button
-              key={i}
-              sx={{
-                display: "block",
-              }}
-              onClick={() => setReviewRating(i)}
-            >
-              {[...Array(5)].map((_, j) => (
-                <i
-                  key={`${i}${j}`}
-                  className={`fa fa-star${j < i ? "" : "-o"}`}
-                ></i>
-              ))}{" "}
-              {product.stars[i]} Reviews
-            </Button>
-          ))}
+
+        <Paper elevation={5} sx={{}}>
+          <Grid container>
+            <Grid item xs="auto">
+              {[...Array(5)].map((_, i) => (
+                <Button
+                  key={i}
+                  sx={{
+                    display: "block",
+                  }}
+                  onClick={() => setReviewRating(i + 1)}
+                >
+                  {[...Array(5)].map((_, j) => (
+                    <i
+                      key={`${i}${j}`}
+                      className={`fa fa-star${j < i + 1 ? "" : "-o"}`}
+                    ></i>
+                  ))}{" "}
+                  {product.stars[i]} Reviews
+                </Button>
+              ))}
+            </Grid>
+            <Grid item xs>
+              {[...Array(5)].map((_, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    display: "block",
+                    backgroundColor: "primary.light",
+                    color: "primary.contrastText",
+                    // width: parseInt((product.stars[i] / totalReviews)*100) + "%",
+                    width: "100%",
+                  }}
+                  onClick={() => setReviewRating(i + 1)}
+                  
+                >
+                   {parseInt((product.stars[i] / totalReviews)*100) + "%"}
+                </Box>
+              ))}
+            </Grid>
+          </Grid>
         </Paper>
         {reviews.map((rating, index) => (
-          <Paper
-            elevation={2}
-            sx={{
-              margin: "1rem 0",
-              padding: "1rem",
-            }}
-            key={index}
-          >
+          <Paper elevation={2} sx={{}} key={index}>
             <strong>{rating.title}</strong>
             <p>
               Rating:{" "}
@@ -214,25 +233,26 @@ const Product = () => {
             )}
           </Paper>
         ))}
-      </div>
+      </Box>
     );
   };
 
   return (
     <Box
       sx={{
-        maxWidth: 1200,
-        margin: "2rem auto",
+        margin: "auto",
+        padding: "1rem",
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container columnSpacing={2} rowSpacing={2}>
         <Grid item xs={12} sm={8} md={8} lg={5} xl={5}>
           <ProductImageCarousel />
         </Grid>
-        <Grid item xs={12} sm={4} md={4} lg={2} xl={2}>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={2}>
           <ProductInfo />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
+        <Grid item xs={12} sm={12} md={12} lg={3} xl={5}>
+          <ReviewForm />
           <ProductReviews />
         </Grid>
       </Grid>

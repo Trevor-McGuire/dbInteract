@@ -21,7 +21,6 @@ const ProductList = ({ products }) => {
               <div className="product-image">
                 <img
                   src={`${baseUrl}/${product.images[0].url}`}
-                  alt={product.images[0].altText}
                   className="product-image"
                 />
               </div>

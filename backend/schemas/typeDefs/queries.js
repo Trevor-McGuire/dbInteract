@@ -16,7 +16,6 @@ const QueryTypes = `
     readUserReview(productId: ID!): Review
 
     getProductInfo(productId: ID!): Product
-    getProductImages(productId: ID! fetchFirstImageOnly:Boolean): [Image]
     getProductReviews(
       productId: ID!
       rating: Int

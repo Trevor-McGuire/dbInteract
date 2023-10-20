@@ -23,15 +23,8 @@ const productResolver = {
       }
     
       const products = await Product.find(filter)
-        .populate("category")
-        .populate("images")
-        .populate({
-          path: "reviews",
-          populate: {
-            path: "user",
-            model: "User",
-          },
-        });
+      console.log(products)
+
       return products;
     },
 
@@ -44,15 +37,6 @@ const productResolver = {
         product.stars[review.rating] += 1;
       });
       return product;
-    },
-    getProductImages: async (_, { productId, fetchFirstImageOnly }) => {
-      const product = await Product.findById(productId)
-        .populate("images");
-      if (fetchFirstImageOnly) {
-        return [product.images[0]];
-      }
-      console.log(product.images)
-      return product.images
     },
     getProductReviews: async (_, { productId, rating, date, page, pageSize }) => {
       const product = await Product.findById(productId)

@@ -15,7 +15,6 @@ const ProductImageCarousel = ({ images }) => {
         <Grid item xs={12} md={6}>
           <img
             src={`${baseUrl}/${images[selectedImageIndex].url}`}
-            alt={images[selectedImageIndex].altText}
             className="main-image"
             style={{ width: '100%', height: 'auto' }}
           />
@@ -25,7 +24,6 @@ const ProductImageCarousel = ({ images }) => {
               <img
                 key={index}
                 src={`${baseUrl}/${image.url}`}
-                alt={image.altText}
                 className={`thumbnail ${index === selectedImageIndex ? 'selected' : ''}`}
                 onClick={() => handleThumbnailClick(index)}
                 style={{ cursor: 'pointer', marginRight: '8px', marginBottom: '8px' }}

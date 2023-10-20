@@ -111,13 +111,7 @@ export default function PrimarySearchAppBar() {
     }
   };
 
-  const { data } = useQuery(READ_CART_QUERY);
-  useEffect(() => {
-    if (data) {
-      setNumberOfItems(data.readUser.cart.length);
-      console.log(data.readUser.cart.length);
-    }
-  }, [data]);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -196,14 +190,23 @@ export default function PrimarySearchAppBar() {
     />
   );
 
-  const CartNavButton = ({ text, badge }) => (
+  const CartNavButton = ({ text, badge }) => {
+
+    const { data } = useQuery(READ_CART_QUERY);
+    useEffect(() => {
+      if (data) {
+        setNumberOfItems(data?.readUser.cart.length);
+      }
+    }, [data]);
+
+    return(
     <NavButton
       icon={<ShoppingCartIcon />}
       label={text ? "Cart" : ""}
       to="/cart"
       badge={badge}
-    />
-  );
+    />)
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (

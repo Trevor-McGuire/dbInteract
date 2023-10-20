@@ -26,7 +26,6 @@ const OrderListSub = ({ order }) => {
                       <img
                         height="100px"
                         src={`${baseUrl}/${item.product.images[0].url}`}
-                        alt={item.product.images.altText}
                       />
                     </Link>
                   </td>

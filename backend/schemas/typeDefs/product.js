@@ -17,9 +17,7 @@ const ProductType = `
   }
 
   type Image {
-    _id: ID!
     url: String!
-    altText: String!
   }
 
   type reviews {

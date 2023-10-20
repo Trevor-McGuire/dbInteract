@@ -1,71 +1,83 @@
-const db = require("../config/connection");
-const { Product, User, Category, Image, Review, Order,  } = require("../models");
-const cleanDB = require("./cleanDB");
+const fs = require('fs');
+const path = require('path');
+const db = require('../config/connection');
+const { Product, User, Category, Review, Order } = require('../models');
+const cleanDB = require('./cleanDB');
 const bcrypt = require('bcryptjs');
 
-const productData = require("./productData.json");
-const categoryData = require("./categoryData.json");
-const imageData = require("./imageData.json");
-const userData = require("./userData.json");
-const reviewData = require("./reviewData.json");
+// Function to capitalize the first letter of a string
+const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
-db.once("open", async () => {
+db.once('open', async () => {
   try {
     // Console log that the connection to the database was successful
-    console.log("Database connected!");
+    console.log('Database connected!');
 
     // Delete all data from the database
-    console.log("Deleting data...");
+    console.log('Deleting data...');
     await cleanDB();
-    console.log("Data deleted!");
+    console.log('Data deleted!');
 
-    // Bulk create categories
-    console.log("Creating categories...");
-    await Category.insertMany(categoryData);
-    console.log("Categories created!");
+    // Read all .json files in the data folder
+    const dataFiles = fs.readdirSync(path.join(__dirname, 'data')).filter(file => file.endsWith('.json'));
 
-    // Bulk create images
-    console.log("Creating images...");
-    await Image.insertMany(imageData);
-    console.log("Images created!");
+    // Loop through each data file
+    for (const file of dataFiles) {
+      // Extract the model name from the filename (remove the ".json" extension)
+      const modelName = capitalizeFirstLetter(path.parse(file).name);
 
-    // Bulk create users
-    console.log("Creating users...");
-    // running bcrypt on the password before seeding the database
-    const salt = await bcrypt.genSalt(10);
-    const saltedUserData = userData.map(user => {
-      user.password = bcrypt.hashSync(user.password, salt);
-      return user;
-    });
-    await User.insertMany(saltedUserData);
-    console.log("Users created!");
+      // Bulk create documents for the current model
+      console.log(`Creating ${modelName}s...`);
+      const data = require(path.join(__dirname, 'data', file));
+      
+      // If it's the User model, hash the passwords
+      if (modelName === 'User') {
+        const salt = await bcrypt.genSalt(10);
+        data.forEach(user => {
+          user.password = bcrypt.hashSync(user.password, salt);
+        });
+      }
 
-    // Bulk create products
-    console.log("Creating products...");
-    await Product.insertMany(productData);
-    console.log("Products created!");
+      await eval(modelName).insertMany(data);
+      console.log(`${modelName}s created!`);
+    }
 
-    // Bulk create reviews
-    console.log("Creating reviews...");
-    await Review.insertMany(reviewData);
-    console.log("Reviews created!");
+    // Import images
+    console.log('Importing images...');
+    const importImages = require('./importImages');
+    await importImages();
+    console.log('Images imported!');
 
-    console.log("Seed process completed!");
+    // Import users
+    console.log('Importing users...');
+    const importUsers = require('./importUsers');
+    await importUsers();
+    console.log('Users imported!');
+
+    // Import reviews
+    console.log('Importing reviews...');
+    const importReviews = require('./importReviews');
+    await importReviews();
+    console.log('Reviews imported!');
+
+    console.log('Seed process completed!');
     process.exit(0);
   } catch (error) {
-    console.error("Error during seeding process:", error);
+    console.error('Error during seeding process:', error);
     process.exit(1);
   }
 });
 
 // Handle any uncaught exceptions
-process.on("uncaughtException", (err) => {
-  console.error("Uncaught exception:", err);
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
   process.exit(1);
 });
 
 // Handle any unhandled promise rejections
-process.on("unhandledRejection", (reason, promise) => {
-  console.error("Unhandled Promise rejection:", reason);
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Promise rejection:', reason);
   process.exit(1);
 });
