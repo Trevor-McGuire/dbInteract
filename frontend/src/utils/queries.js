@@ -20,16 +20,16 @@ export const READ_CART_QUERY = gql`
 `;
 
 export const READ_PRODUCTS = gql`
-query Query {
-  readProducts {
-    _id
-    images {
-      url
+  query Query {
+    readProducts {
+      _id
+      images {
+        url
+      }
+      price
+      title
     }
-    price
-    title
   }
-}
 `;
 
 export const READ_PRODUCT = gql`
@@ -45,7 +45,7 @@ export const READ_PRODUCT = gql`
       stars
     }
 
-    getProductReviews(productId: $productId page: 1 pageSize: 5) {
+    getProductReviews(productId: $productId, page: 1, pageSize: 5) {
       body
       rating
       title
@@ -128,11 +128,4 @@ export const HAS_EXISTING_REVIEW = gql`
   }
 `;
 
-export const READ_CATEGORIES_QUERY = gql`
-  query {
-    readCategories {
-      _id
-      name
-    }
-  }
-`;
+

@@ -23,7 +23,6 @@ const productResolver = {
       }
     
       const products = await Product.find(filter)
-      console.log(products)
 
       return products;
     },

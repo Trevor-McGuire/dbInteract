@@ -9,10 +9,10 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 
-import Sidebar from "./components/sidebar.jsx";
+
 import Overlay from "./components/overlay.jsx";
 import Footer from "./components/Footer.jsx";
-import Header from "./components/Header";
+import Header from "./components/Header/Header.jsx";
 
 const httpLink = createHttpLink({
   uri: "/graphql", // Adjust the URI to match your server endpoint

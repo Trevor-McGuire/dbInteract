@@ -16,14 +16,13 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
 import TemporaryDrawer from "./TemporaryDrawer";
 import { Link } from "react-router-dom";
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
-import { READ_CART_QUERY } from "../utils/queries";
+import { READ_CART_QUERY } from "../../utils/queries";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Logout from "@mui/icons-material/Logout";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -195,7 +194,7 @@ export default function PrimarySearchAppBar() {
     const { data } = useQuery(READ_CART_QUERY);
     useEffect(() => {
       if (data) {
-        setNumberOfItems(data?.readUser.cart.length);
+        setNumberOfItems(data?.readUser?.cart.length);
       }
     }, [data]);
 

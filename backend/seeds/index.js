@@ -44,6 +44,12 @@ db.once('open', async () => {
       console.log(`${modelName}s created!`);
     }
 
+    // Import categories
+    console.log('Importing categories...');
+    const importCategories = require('./importCategories');
+    await importCategories();
+    console.log('Categories imported!');
+
     // Import images
     console.log('Importing images...');
     const importImages = require('./importImages');

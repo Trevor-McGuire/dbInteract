@@ -9,6 +9,7 @@ const { getUserId } = require("./utils/auth");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const { generateCategoryString } = require("./utils/generateCategoryString.js");
 
 const server = new ApolloServer({
   typeDefs,

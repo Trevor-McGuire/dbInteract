@@ -1,6 +1,7 @@
 const QueryTypes = `
   type Query {
-    readCategories: [Category!]!
+    getCategories: String!
+    getCategory(identifier: String!): Category!
 
     readProducts(
       _id: ID,
@@ -27,4 +28,3 @@ const QueryTypes = `
 `;
 
 module.exports = QueryTypes;
-

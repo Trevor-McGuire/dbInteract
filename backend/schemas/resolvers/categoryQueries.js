@@ -1,9 +1,25 @@
 const { Category } = require("../../models");
+const { generateCategoryString } = require("../../utils/generateCategoryString");
 
 const categoryResolver = {
   Query: {
-    readCategories: async () => {
-      return await Category.find({});
+    getCategories: async () => {
+      try {
+        const categoryString = await generateCategoryString();
+        return categoryString;
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        throw error;
+      }
+    },
+    getCategory: async (_, { identifier }) => {
+      try {
+        const category = await Category.findOne({ identifier });
+        return category;
+      } catch (error) {
+        console.error('Error fetching category:', error);
+        throw error;
+      }
     },
   },
 };

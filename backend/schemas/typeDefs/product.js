@@ -14,6 +14,11 @@ const ProductType = `
   type Category {
     _id: ID!
     name: String!
+    parentCategory: Category
+    subCategories: [Category!]!
+    depth: Int!
+    identifier: String!
+    products: [Product!]!
   }
 
   type Image {
