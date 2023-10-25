@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
-import ProductList from "../components/ProductList";
+import ProductList from "../components/ProductList/ProductList";
 import { READ_PRODUCTS } from "../utils/queries";
 import '../style/search.sass'
 

@@ -46,7 +46,6 @@ const userResolver = {
       const existingReview = user.reviews.find(
         (review) => review.product._id.toString() === productId
       );
-      console.log("existingReview", existingReview)
       return existingReview;
     },
 
@@ -66,7 +65,6 @@ const userResolver = {
           return cartItem.product._id.toString() === productId;
         });
       });
-      console.log(hasProduct)
       return hasProduct;
     },
 
@@ -81,7 +79,6 @@ const userResolver = {
       const hasReview = user.reviews.some((review) => {
         return review.product._id.toString() === productId;
       });
-      console.log(hasReview)
       return hasReview;
     }
   },

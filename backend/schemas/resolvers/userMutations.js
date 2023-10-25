@@ -9,7 +9,6 @@ const userResolver = {
   Mutation: {
     registerUser: async (parent, args, context, info) => {
       args.input.password = await bcrypt.hash(args.input.password, 10);
-      console.log("args", args.input);
 
       const unique = await User.findOne({
         $or: [{ username: args.input.username }, { email: args.input.email }],
@@ -33,7 +32,6 @@ const userResolver = {
       return { token, user };
     },
     addToCart: async (parent, { productId, quantity }, context) => {
-      console.log("addToCart", productId, quantity);
       const userId = context.user.data._id;
 
       const user = await User.findOne({ _id: userId }).populate({
@@ -52,10 +50,6 @@ const userResolver = {
         (cartItem) => cartItem.product._id.toString() === productId
       );
 
-      console.log("user", user);
-      console.log("product", product);
-      console.log("existingCartItem", existingCartItem);
-
       if (existingCartItem) {
         const updatedCartItem = await CartItem.findOneAndUpdate(
           { _id: existingCartItem._id },
@@ -63,7 +57,6 @@ const userResolver = {
           { new: true }
         );
         const updatedUser = await User.findOne({ _id: userId });
-        console.log("CartItem updated");
         return updatedUser;
       } else {
         const cartItem = await CartItem.create({
@@ -76,7 +69,6 @@ const userResolver = {
           { $addToSet: { cart: cartItem } },
           { new: true }
         );
-        console.log("CartItem created");
         return updatedUser;
       }
     },

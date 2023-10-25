@@ -11,9 +11,6 @@ const userResolver = {
       const review = await Review.create({
         ...input,
       });
-  
-      console.log("user.reviews", user.reviews);
-      console.log("product.reviews", product.reviews);
 
       user.reviews.push(review._id);
       product.reviews.push(review._id);
@@ -25,7 +22,6 @@ const userResolver = {
     },
   
     updateReview: async (parent, { input }, context) => {
-      console.log("updateReview", input)
       const review = await Review.findByIdAndUpdate(
         input.reviewId,
         {

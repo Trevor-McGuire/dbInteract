@@ -38,7 +38,6 @@ const generateCategoryString = async () => {
     }
 
     result = JSON.stringify(result, null, 2)
-    console.log("result", result);
     return result;
   } catch (error) {
     console.error('Error generating category string:', error);

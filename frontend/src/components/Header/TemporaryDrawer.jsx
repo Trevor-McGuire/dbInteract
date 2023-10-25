@@ -52,18 +52,18 @@ export default function TemporaryDrawer({ open, onClose }) {
       <React.Fragment key={subcategory.identifier}>
         {subcategory.subCategories.length > 0 ? (
           <ListItemButton sx={{ pl: subcategory.depth * 3 }}>
-                          <Link
-                onClick={onClose}
-                to={`/category/${subcategory.identifier}`}
-                component={RouterLink}
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-            <ListItemText primary={subcategory.name} />
+            <Link
+              onClick={onClose}
+              to={`/category/${subcategory.identifier}`}
+              component={RouterLink}
+              sx={{
+                display: "flex",
+                width: "100%",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              <ListItemText primary={subcategory.name} />
             </Link>
             {openLists[subcategory._id] ? (
               <ExpandLess
@@ -81,11 +81,20 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         ) : (
           <React.Fragment key={subcategory.identifier}>
-            <ListItemButton
-              onClick={() => handleClick(subcategory._id)}
-              sx={{ pl: subcategory.depth * 3 }}
-            >
-              <ListItemText primary={subcategory.name} />
+            <ListItemButton sx={{ pl: subcategory.depth * 3 }}>
+              <Link
+                onClick={onClose}
+                to={`/category/${subcategory.identifier}`}
+                component={RouterLink}
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemText primary={subcategory.name} />
+              </Link>
             </ListItemButton>
           </React.Fragment>
         )}
@@ -104,7 +113,9 @@ export default function TemporaryDrawer({ open, onClose }) {
 
   const list = (
     <Box sx={{ minWidth: 250, maxWidth: 500 }}>
-      <List subheader={<ListSubheader color='primary'>Categories</ListSubheader>}>
+      <List
+        subheader={<ListSubheader color="primary">Categories</ListSubheader>}
+      >
         {categories.map((category) => (
           <React.Fragment key={category._id}>
             <ListItemButton sx={{ pl: category.depth * 2 }}>
@@ -142,7 +153,7 @@ export default function TemporaryDrawer({ open, onClose }) {
         ))}
       </List>
       <Divider />
-      <List subheader={<ListSubheader color='primary'>Info</ListSubheader>}>
+      <List subheader={<ListSubheader color="primary">Info</ListSubheader>}>
         <ListItem key={"Contact"} disablePadding>
           <ListItemButton>
             <StyledLink to="/about" onClick={onClose}>

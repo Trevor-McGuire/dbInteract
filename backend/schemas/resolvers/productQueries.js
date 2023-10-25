@@ -31,7 +31,6 @@ const productResolver = {
       const product = await Product.findById(productId)
         .populate("reviews")
       product.stars = [0,0,0,0,0,0,]
-      console.log(product.reviews)
       product.reviews.map((review) => {
         product.stars[review.rating] += 1;
       });

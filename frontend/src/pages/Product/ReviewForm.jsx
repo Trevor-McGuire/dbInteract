@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
-import { HAS_PRODUCT_IN_ORDERS, HAS_EXISTING_REVIEW } from "../utils/queries";
+import { HAS_PRODUCT_IN_ORDERS, HAS_EXISTING_REVIEW } from "../../utils/queries";
 import { useParams } from "react-router-dom";
-import UpdateReview from "./UpdateReview";
-import AddReview from "./AddReview";
+import UpdateReview from "../../components/UpdateReview";
+import AddReview from "../../components/AddReview";
 
 const ReviewForm = () => {
   const [loggedIn] = useState(Auth.loggedIn());

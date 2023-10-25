@@ -1,7 +1,7 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
-import ProductList from "../components/ProductList";
+import ProductList from "../components/ProductList/ProductList";
 import HeaderImage from "../components/HeaderImage";
 import { READ_PRODUCTS } from "../utils/queries";
 

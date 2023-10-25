@@ -28,6 +28,7 @@ export const READ_PRODUCTS = gql`
       }
       price
       title
+      averageStars
     }
   }
 `;
@@ -35,6 +36,7 @@ export const READ_PRODUCTS = gql`
 export const READ_PRODUCT = gql`
   query GetProductPageData($productId: ID!) {
     getProductInfo(productId: $productId) {
+      _id
       title
       quantity
       price

@@ -5,7 +5,7 @@ import "./style/normalize.css";
 import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import Category from "./pages/Category";
-import Product from "./pages/Product";
+import Product from "./pages/Product/Product";
 import About from "./pages/About";
 import SearchList from "./pages/SearchList";
 import Login from "./pages/Login";

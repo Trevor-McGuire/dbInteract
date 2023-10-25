@@ -9,6 +9,7 @@ const ProductType = `
     images: [Image!]!
     reviews: [Review!]!
     stars: [Int!]!
+    averageStars: Float!
   }
 
   type Category {

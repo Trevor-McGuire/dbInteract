@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_TO_CART } from '../utils/mutations';
-import { READ_CART_QUERY } from '../utils/queries';
+import { ADD_TO_CART } from '../../utils/mutations';
+import { READ_CART_QUERY } from '../../utils/queries';
 
 
 const AddToCart = ({ productId, quantity }) => {
