@@ -60,7 +60,6 @@ export default function BasicStack() {
       name: lowercase,
       type: lowercase,
       value: formState[lowercase],
-      autoFocus: index === 0,
       onChange: (e) => {
         handleFormStateChange(e);
         setFormValidation({
@@ -170,12 +169,6 @@ export default function BasicStack() {
       shippingAddress: true,
     });
   };
-
-  useEffect(() => {
-    if (!sameAddress) {
-      document.getElementsByName("shippingAddress")[0].focus();
-    }
-  }, [sameAddress]);
 
   return (
     <Box

@@ -51,6 +51,8 @@ const ProductImageCarousel = ({ images }) => {
     };
   }, [selectedImageIndex, images]);
 
+  
+
   return (
     <Grid container columnSpacing={2}>
       {/* Thumbnails */}
@@ -58,7 +60,7 @@ const ProductImageCarousel = ({ images }) => {
         <Grid
           item
           sx={{
-            maxHeight: `calc(100vh - 64px - 2rem)`,
+            height: `calc(100vh - 64px - 2rem)`,
             overflowY: "auto",
           }}
         >

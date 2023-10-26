@@ -45,7 +45,6 @@ export default function BasicStack() {
       Auth.login(data.login.token);
     } catch (e) {
       setValidCredentials(false);
-      document.getElementsByName("email")[0].focus();
     }
     setFormState({
       email: "",
@@ -81,7 +80,6 @@ export default function BasicStack() {
             name="email"
             type="email"
             value={formState.email}
-            autoFocus
             onChange={(e) => {
               handleChange(e);
               setValidEmail(true);

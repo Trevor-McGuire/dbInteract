@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { Box } from "@mui/material";
+
 function getCurrentSeason() {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns a zero-based index
@@ -24,10 +26,10 @@ function getCurrentSeason() {
 
 const HeaderImage = () => {
   const baseUrl = window.location.origin;
-
   const seasonAndYear = getCurrentSeason();
+
   return (
-    <div className="w3-display-container w3-container">
+    <Box>
       <img
         src={`${baseUrl}/images/categories/electronics1.png`}
         alt="Jeans"
@@ -50,7 +52,7 @@ const HeaderImage = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </Box>
   );
 };
 

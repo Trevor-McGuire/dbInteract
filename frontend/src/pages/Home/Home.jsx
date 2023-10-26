@@ -1,9 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 
-import ProductList from "../components/ProductList/ProductList";
-import HeaderImage from "../components/HeaderImage";
-import { READ_PRODUCTS } from "../utils/queries";
+import ProductList from "../../components/ProductList/ProductList";
+import HeaderImage from "./HeaderImage";
+
+import { READ_PRODUCTS } from "../../utils/queries";
 
 const Home = () => {
   const { data, loading, error } = useQuery(READ_PRODUCTS);

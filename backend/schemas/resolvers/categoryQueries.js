@@ -14,7 +14,14 @@ const categoryResolver = {
     },
     getCategory: async (_, { identifier }) => {
       try {
-        const category = await Category.findOne({ identifier });
+        const category = await Category.findOne({ identifier })
+          .populate({
+            path: 'products',
+            populate: {
+              path: 'images',
+              model: 'Image',
+            },
+          })
         return category;
       } catch (error) {
         console.error('Error fetching category:', error);

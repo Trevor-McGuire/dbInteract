@@ -5,7 +5,7 @@ const QueryTypes = `
 
     readProducts(
       _id: ID,
-      category: String,
+      identifier: String,
       search: String
     ): [Product!]!
 
