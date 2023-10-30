@@ -48,8 +48,7 @@ productSchema.virtual('ratingStats').get(async function () {
 
 productSchema.virtual('image').get(async function () {
   const defaultImage = this.images.find((image) => {
-    image.url.includes('default')
-    console.log("image.url", image.url);
+    return image.url.includes('default'); // Return the result of the includes method
   });
   console.log("defaultImage", defaultImage);
   if (defaultImage) return defaultImage.url;
