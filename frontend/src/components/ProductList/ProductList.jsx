@@ -7,9 +7,13 @@ const ProductList = (props) => {
   const [products, setProducts] = useState(
     Array.from({ length: 10 }, () => ({
       averageStars: 0,
-      images: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      image: "./images/products/template1x1.png",
       price: "###.##",
-      stars: [],
+      ratingStats: {
+        averageStars: 1,
+        stars: [0, 0, 0, 0, 0, 0],
+        totalReviews: 0,
+      },
       title: "Loading...",
       _id: "5f5d2c5b7f3e4b0017b0d3ac",
     }))

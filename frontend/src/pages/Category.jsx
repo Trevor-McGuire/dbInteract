@@ -5,24 +5,26 @@ import ProductList from "../components/ProductList/ProductList";
 import { gql } from "@apollo/client";
 
 export const GET_CATEGORY = gql`
-query GetCategory($identifier: String!) {
-  getCategory(identifier: $identifier) {
-    _id
-    depth
-    identifier
-    name
-    products {
+
+  query GetCategory($identifier: String!) {
+    getCategory(identifier: $identifier) {
       _id
-      title
-      stars
-      price
-      images {
-        url
+      depth
+      identifier
+      name
+      products {
+        _id
+        title
+        price
+        image
+        ratingStats {
+          averageStars
+          stars
+          totalReviews
+        }
       }
-      averageStars
     }
   }
-}
 `;
 
 const Category = () => {

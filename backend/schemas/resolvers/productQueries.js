@@ -23,17 +23,13 @@ const productResolver = {
       }
     
       const products = await Product.find(filter)
-
+      console.log("products", products);
       return products;
     },
 
     getProductInfo: async (_, { productId }) => {
       const product = await Product.findById(productId)
         .populate("reviews")
-      product.stars = [0,0,0,0,0,0,]
-      product.reviews.map((review) => {
-        product.stars[review.rating] += 1;
-      });
       return product;
     },
     getProductReviews: async (_, { productId, rating, date, page, pageSize }) => {

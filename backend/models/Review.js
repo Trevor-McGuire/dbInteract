@@ -15,9 +15,9 @@ const reviewSchema = new mongoose.Schema({
     max: 5,
     validate: {
       validator: function(value) {
-        return Number.isInteger(value) && value >= 0 && value <= 5;
+        return Number.isInteger(value) && value >= 1 && value <= 5;
       },
-      message: 'Rating must be an integer between 0 and 5'
+      message: 'Rating must be an integer of 1 to 5'
     }
   },
   title: {

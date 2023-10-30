@@ -94,7 +94,7 @@ const ProductImageCarousel = ({ images }) => {
         item
         xs
         ref={containerRef}
-        sx={{ maxHeight: "100%", maxHeight: `calc(100vh - 64px - 2rem)` }}
+        sx={{ maxHeight: `calc(100vh - 64px - 2rem)` }}
       >
         <img
           src={`${baseUrl}/${images[selectedImageIndex].url}`}

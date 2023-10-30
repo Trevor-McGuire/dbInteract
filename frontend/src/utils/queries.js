@@ -23,9 +23,7 @@ export const READ_PRODUCTS = gql`
   query Query {
     readProducts {
       _id
-      images {
-        url
-      }
+      image
       price
       title
       averageStars

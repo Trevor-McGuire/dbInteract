@@ -17,11 +17,7 @@ const categoryResolver = {
         const category = await Category.findOne({ identifier })
           .populate({
             path: 'products',
-            populate: {
-              path: 'images',
-              model: 'Image',
-            },
-          })
+          });
         return category;
       } catch (error) {
         console.error('Error fetching category:', error);
