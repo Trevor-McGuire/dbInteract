@@ -46,6 +46,12 @@ const userResolver = {
       const product = await Product.findOne({ _id: productId });
       if (!product) throw new Error("Product not found");
 
+      if (quantity > product.quantity) {
+        throw new Error("Not enough stock");
+      }
+
+      product.quantity -= quantity;
+
       const existingCartItem = user.cart.find(
         (cartItem) => cartItem.product._id.toString() === productId
       );

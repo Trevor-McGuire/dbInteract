@@ -1,19 +1,19 @@
+import React from 'react';
+import { Button, CircularProgress } from '@mui/material';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_TO_CART } from '../../utils/mutations';
 import { READ_CART_QUERY } from '../../utils/queries';
 
-
 const AddToCart = ({ productId, quantity }) => {
   const [addToCart, { loading }] = useMutation(ADD_TO_CART);
-  if (loading) {return <h2>LOADING...</h2>;}
+  const { loading: queryLoading } = useQuery(READ_CART_QUERY);
 
   const handleAddToCartClick = async () => {
     try {
-      const { data } = await addToCart({
+      await addToCart({
         variables: { productId, quantity: parseInt(quantity) },
         refetchQueries: [{ query: READ_CART_QUERY }],
       });
-      console.log("data", data);
     } catch (e) {
       console.error(e);
     }
@@ -21,30 +21,11 @@ const AddToCart = ({ productId, quantity }) => {
 
   return (
     <div>
-      <button onClick={handleAddToCartClick}>Add to cart</button>
+      <Button variant="contained" color="primary" onClick={handleAddToCartClick} disabled={loading || queryLoading}>
+        {loading ? <CircularProgress size={24} /> : 'Add to Cart'}
+      </Button>
     </div>
   );
 };
 
 export default AddToCart;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,12 +4,11 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import StarRating from "./StarRating";
+import StarRating from "../StarRating";
 
 import { Link } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const baseUrl = window.location.origin;
-  console.log(product);
 
   const totalStars = () => {
     let total = 0;
@@ -42,7 +41,6 @@ const ProductCard = ({ product }) => {
           sx={{ height: 194, width: "100%", objectFit: "contain" }}
           height="194"
           image={`${baseUrl}/${product.image}`}
-          alt="Paella dish"
         />
         <CardContent>
           <Typography variant="h6" color="text.secondary">

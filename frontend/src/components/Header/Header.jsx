@@ -230,26 +230,26 @@ export default function PrimarySearchAppBar() {
       )}
     >
       {Auth.loggedIn() ? (
-        <>
-          <MenuItem onClick={handleMenuClose}>
+        [
+          <MenuItem key="cart" onClick={handleMenuClose}>
             <CartNavButton text={true} badge={numberOfItems} />
-          </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
+          </MenuItem>,
+          <MenuItem key="profile" onClick={handleMenuClose}>
             <ProfileNavButton text={true} />
-          </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
+          </MenuItem>,
+          <MenuItem key="logout" onClick={handleMenuClose}>
             <LogoutNavButton text={true} />
-          </MenuItem>
-        </>
+          </MenuItem>,
+        ]
       ) : (
-        <>
-          <MenuItem onClick={handleMenuClose}>
+        [
+          <MenuItem key="login" onClick={handleMenuClose}>
             <LoginNavButton text={true} />
-          </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
+          </MenuItem>,
+          <MenuItem key="register" onClick={handleMenuClose}>
             <RegisterNavButton text={true} />
-          </MenuItem>
-        </>
+          </MenuItem>,
+        ]
       )}
     </Menu>
   );

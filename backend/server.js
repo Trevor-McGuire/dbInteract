@@ -20,7 +20,6 @@ const startApolloServer = async () => {
   await server.start();
 
   const configureMiddleware = () => {
-    console.log("Configuring middleware...");
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(
@@ -29,15 +28,12 @@ const startApolloServer = async () => {
         context: authMiddleware,
       })
     );
-    console.log("Middleware configured.");
   };
 
   configureMiddleware();
 
-  console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
   // if we're in production, serve frontend/dist as static assets
   if (process.env.NODE_ENV === "production") {
-    console.log("__dirname:", __dirname);
     const clientDistPath = path.join(__dirname, "../frontend/dist");
     app.use(express.static(clientDistPath));
 
@@ -50,13 +46,11 @@ const startApolloServer = async () => {
     db.on("error", console.error.bind(console, "connection error:"));
     db.once("open", () => {
       app.listen(PORT, () => {
-        console.log(`API server running on port ${PORT}!`);
         console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
       });
     });
   } else {
     app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
     });
   }

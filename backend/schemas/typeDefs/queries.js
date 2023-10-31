@@ -2,6 +2,7 @@ const QueryTypes = `
   type Query {
     getCategories: String!
     getCategory(identifier: String!): Category!
+    getBestReviews: [Category!]!
 
     readProducts(
       _id: ID,

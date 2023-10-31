@@ -22,6 +22,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review',
   }],
+  badges: [String],
 });
 
 productSchema.virtual('ratingStats').get(async function () {
@@ -48,15 +49,14 @@ productSchema.virtual('ratingStats').get(async function () {
 
 productSchema.virtual('image').get(async function () {
   const defaultImage = this.images.find((image) => {
-    return image.url.includes('default'); // Return the result of the includes method
+    return image.url.includes('default'); 
   });
-  console.log("defaultImage", defaultImage);
   if (defaultImage) return defaultImage.url;
   return this.images.length > 0 ? this.images[0].url : null;
 });
 
-
-
+productSchema.set('toObject', { virtuals: true });
+productSchema.set('toJSON', { virtuals: true });
 
 const Product = mongoose.model('Product', productSchema);
 

@@ -33,12 +33,10 @@ export const GET_CATEGORIES = gql`
 export default function TemporaryDrawer({ open, onClose }) {
   const { loading, error, data } = useQuery(GET_CATEGORIES);
   const [openLists, setOpenLists] = React.useState({});
-  if (loading) return <p>Loading...</p>;
+  if (loading) return;
   if (error) return <p>Error: {error.message}</p>;
   const categoriesString = data?.getCategories || "";
   const categories = JSON.parse(categoriesString);
-
-  console.log("categories", categories);
 
   const handleClick = (listId) => {
     setOpenLists((prevOpenLists) => ({

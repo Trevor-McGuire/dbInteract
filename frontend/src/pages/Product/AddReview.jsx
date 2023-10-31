@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_REVIEW } from "../utils/mutations";
-import { READ_PRODUCTS } from "../utils/queries";
+import { ADD_REVIEW } from "../../utils/mutations";
+import { READ_PRODUCTS } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 
 const AddReview = ({setHasExistingReview}) => {

@@ -26,7 +26,11 @@ export const READ_PRODUCTS = gql`
       image
       price
       title
-      averageStars
+      ratingStats {
+        averageStars
+        totalReviews
+        stars
+      }
     }
   }
 `;
@@ -42,7 +46,11 @@ export const READ_PRODUCT = gql`
       images {
         url
       }
-      stars
+      ratingStats {
+        averageStars
+        totalReviews
+        stars
+      }
     }
 
     getProductReviews(productId: $productId, page: 1, pageSize: 5) {

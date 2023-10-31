@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { UPDATE_REVIEW } from "../utils/mutations";
-import { READ_PRODUCTS } from "../utils/queries";
-import { DELETE_REVIEW } from "../utils/mutations";
-import { READ_USER_REVIEW } from "../utils/queries";
+import { UPDATE_REVIEW } from "../../utils/mutations";
+import { READ_PRODUCTS } from "../../utils/queries";
+import { DELETE_REVIEW } from "../../utils/mutations";
+import { READ_USER_REVIEW } from "../../utils/queries";
 
 
 
@@ -20,7 +20,6 @@ const UpdateReview = ({setHasExistingReview,productId}) => {
         body: data.body,
         rating: parseInt(data.rating),
       });
-      console.log('formState', formState)
     }
   }, [readUserReviewData]);
   

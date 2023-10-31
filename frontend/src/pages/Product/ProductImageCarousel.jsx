@@ -54,7 +54,7 @@ const ProductImageCarousel = ({ images }) => {
   
 
   return (
-    <Grid container columnSpacing={2}>
+    <Grid container columnSpacing={2} >
       {/* Thumbnails */}
       <Hidden smDown>
         <Grid
@@ -94,7 +94,7 @@ const ProductImageCarousel = ({ images }) => {
         item
         xs
         ref={containerRef}
-        sx={{ maxHeight: `calc(100vh - 64px - 2rem)` }}
+        sx={{ maxHeight: `calc(100vh - 64px - 4rem)`, marginBottom: "2rem" }}
       >
         <img
           src={`${baseUrl}/${images[selectedImageIndex].url}`}

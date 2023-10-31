@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Box } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+} from "@mui/material";
 
 function getCurrentSeason() {
   const currentDate = new Date();
@@ -29,30 +34,82 @@ const HeaderImage = () => {
   const seasonAndYear = getCurrentSeason();
 
   return (
-    <Box>
-      <img
-        src={`${baseUrl}/images/categories/electronics1.png`}
-        alt="Jeans"
-        style={{ width: "100%" }}
-      />
-      <div
-        className="w3-display-topleft w3-text-white"
-        style={{ padding: "24px 48px",}}
+    <Grid
+      container
+      component={Link}
+      to="/category/electronics"
+      sx={{
+        backgroundImage: `url(${baseUrl}/images/categories/electronics1BG.png)`,
+        height: `calc(100vh - 64px)`,
+      }}
+    >
+      <Grid
+        item
+        xs={12}
+        sm="auto"
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "0 1rem",
+        }}
       >
-        <h1 className="w3-jumbo w3-hide-small">New arrivals</h1>
-        <h1 className="w3-hide-large w3-hide-medium">New arrivals</h1>
-        <h1 className="w3-hide-small">{seasonAndYear} Collection</h1>
-        <p>
-          <Link
-            to={"/category/Electronics"}
-            href="#jeans"
-            className="w3-button w3-black w3-padding-large w3-large"
-          >
-            SHOP ELECTRONICS
-          </Link>
-        </p>
-      </div>
-    </Box>
+        <Typography variant="h4" color="text.primary">
+          New arrivals
+        </Typography>
+        <Typography variant="h6" color="text.secondary">
+          {`${seasonAndYear} Collection`}
+        </Typography>
+        <Button variant="contained" sx={{
+          backgroundColor: "primary.main",
+          color: "white",
+          padding: "0.5rem 1rem",
+          margin: "1rem 0",
+          width: "fit-content",
+          alignSelf: "center",
+        }}>
+          SHOP ELECTRONICS
+        </Button>
+      </Grid>
+
+      <Grid item xs={12} sm>
+        <img
+          src={`${baseUrl}/images/categories/electronics1.png`}
+          alt="Electronics"
+          style={{
+            width: "100%",
+            height: "100%",
+            maxHeight: `calc(100vh - 64px)`,
+            objectFit: "contain",
+          }}
+        />
+      </Grid>
+    </Grid>
+
+    // <Box>
+    //   <img
+    //     src={`${baseUrl}/images/categories/electronics1.png`}
+    //     alt="Jeans"
+    //     style={{ width: "100%" }}
+    //   />
+    //   <div
+    //     className="w3-display-topleft w3-text-white"
+    //     style={{ padding: "24px 48px",}}
+    //   >
+    //     <h1 className="w3-jumbo w3-hide-small">New arrivals</h1>
+    //     <h1 className="w3-hide-large w3-hide-medium">New arrivals</h1>
+    //     <h1 className="w3-hide-small">{seasonAndYear} Collection</h1>
+    //     <p>
+    //       <Link
+    //         to={"/category/electronics"}
+    //         className="w3-button w3-black w3-padding-large w3-large"
+    //       >
+    //         SHOP ELECTRONICS
+    //       </Link>
+    //     </p>
+    //   </div>
+    // </Box>
   );
 };
 

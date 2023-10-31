@@ -63,7 +63,6 @@ const addIdentifiers = async () => {
 };
 
 const checkforUniqueIdentifier = async () => {
-  console.log("checking for unique identifiers");
   const cats = await Category.find();
 
   for (const cat of cats) {

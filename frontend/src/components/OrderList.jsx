@@ -29,7 +29,6 @@ const OrderList = () => {
                 document
                   .querySelector(`#row-${order._id}`)
                   .nextElementSibling.classList.toggle("w3-hide");
-                console.log("clicked");
               }}
             >
               <td>{order._id}</td>

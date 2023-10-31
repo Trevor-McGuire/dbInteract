@@ -4,7 +4,6 @@ const path = require('path');
 function importModules(directory) {
   try {
     const fullPath = path.join(__dirname, directory);
-    console.log('Full path:', fullPath);
 
     if (!fs.existsSync(fullPath)) {
       console.error(`Directory not found: ${directory}`);

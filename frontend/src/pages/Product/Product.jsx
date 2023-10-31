@@ -6,10 +6,11 @@ import { Box, Grid } from "@mui/material";
 
 import { READ_PRODUCT } from "../../utils/queries";
 
-import ReviewForm from "./ReviewForm";
+import ReviewForm from "./ReviewSection/ReviewForm";
 import ProductImageCarousel from "./ProductImageCarousel";
 import ProductInfo from "./ProductInfo";
-import ProductReviews from "./ProductReviews";
+import ProductReviews from "./ReviewSection/ProductReviews";
+import ProductDescription from "./ProductDescription";
 
 const Product = () => {
   const { productId } = useParams();
@@ -28,7 +29,11 @@ const Product = () => {
       rating: index + 1,
       user: { username: `Loading ${index + 1}` },
     })),
-    stars: [0, 0, 0, 0, 0, 0],
+    ratingStats: {
+      averageStars: 0,
+      totalRatings: 0,
+      stars: [0, 0, 0, 0, 0],
+    },
   });
 
   const { data, error } = useQuery(READ_PRODUCT, {
@@ -54,13 +59,16 @@ const Product = () => {
       }}
     >
       <Grid container columnSpacing={2} rowSpacing={2}>
-        <Grid item xs={12} sm={8} md={8} lg={5} xl={5}>
+        <Grid item xs={12} sm={12} md={6} lg={5} xl={5}>
           <ProductImageCarousel images={product.images} />
         </Grid>
-        <Grid item xs={12} sm={4} md={4} lg={4} xl={2}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
           <ProductInfo product={product} />
         </Grid>
-        <Grid item xs={12} sm={12} md={8} lg={3} xl={5}>
+        <Grid item xs={12} sm={12} md={12} lg={4} xl={2}>
+          <ProductDescription product={product} />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={3} xl={5}>
           <ReviewForm />
           <ProductReviews product={product} setProduct={setProduct} />
         </Grid>

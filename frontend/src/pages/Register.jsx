@@ -142,7 +142,6 @@ export default function BasicStack() {
       );
     });
     setFormValidation(updatedFormValidation);
-    console.log(formValidation);
     try {
       const { data } = await registerUser({
         variables: { input: { ...formState } },
@@ -150,7 +149,6 @@ export default function BasicStack() {
       Auth.login(data.registerUser.token);
     } catch (e) {
       setCridentials(false);
-      console.log(e)
     }
     setFormState({
       email: "",

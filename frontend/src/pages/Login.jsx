@@ -25,7 +25,6 @@ export default function BasicStack() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("name", name, "value", value);
     setFormState({
       ...formState,
       [name]: value.trim(),
