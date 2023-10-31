@@ -7,8 +7,10 @@ import Typography from "@mui/material/Typography";
 import StarRating from "../StarRating";
 
 import { Link } from "react-router-dom";
+import Badges from "../Badges";
 const ProductCard = ({ product }) => {
   const baseUrl = window.location.origin;
+  const isValidId = product._id.length === 24;
 
   const totalStars = () => {
     let total = 0;
@@ -18,7 +20,7 @@ const ProductCard = ({ product }) => {
     return total;
   }
   return (
-    <Link to={`/product/${product._id}`}>
+    <Link to={isValidId ? `/product/${product._id}` : '#'} disabled={!isValidId}>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
           title={
@@ -45,6 +47,7 @@ const ProductCard = ({ product }) => {
         <CardContent>
           <Typography variant="h6" color="text.secondary">
             {product.price}
+            <Badges badges={product.badges} />
           </Typography>
           <StarRating rating={product.ratingStats.averageStars} numReviews={product.ratingStats.totalReviews} />
         </CardContent>

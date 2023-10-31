@@ -33,7 +33,7 @@ const Category = () => {
     variables: { identifier: categoryName },
   });
   const category = data?.getCategory || [];
-  
+
   return (
     <>
       <ProductList products={category.products} />

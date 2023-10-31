@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema({
   title: {
     type: String,
   },
-  description: String,
+  description: [String],
   price: {
     type: Number,
   },
@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     ref: 'Category',
   },
-  quantity: String,
+  stock: Number,
   images: [
     {
       url: String,
@@ -22,7 +22,11 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review',
   }],
-  badges: [String],
+  badges: 
+    {
+      inStock: Boolean,
+    },
+
 });
 
 productSchema.virtual('ratingStats').get(async function () {

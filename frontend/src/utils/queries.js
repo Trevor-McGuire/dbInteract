@@ -31,6 +31,9 @@ export const READ_PRODUCTS = gql`
         totalReviews
         stars
       }
+      badges {
+        inStock
+      }
     }
   }
 `;
@@ -40,7 +43,7 @@ export const READ_PRODUCT = gql`
     getProductInfo(productId: $productId) {
       _id
       title
-      quantity
+      stock
       price
       description
       images {
@@ -50,6 +53,9 @@ export const READ_PRODUCT = gql`
         averageStars
         totalReviews
         stars
+      }
+      badges {
+        inStock
       }
     }
 
@@ -135,5 +141,3 @@ export const HAS_EXISTING_REVIEW = gql`
     hasExistingReview(productId: $productId)
   }
 `;
-
-

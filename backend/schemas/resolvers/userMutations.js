@@ -46,7 +46,7 @@ const userResolver = {
       const product = await Product.findOne({ _id: productId });
       if (!product) throw new Error("Product not found");
 
-      if (quantity > product.quantity) {
+      if (quantity > product.stock) {
         throw new Error("Not enough stock");
       }
 

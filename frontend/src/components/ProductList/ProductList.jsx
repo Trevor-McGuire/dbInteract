@@ -16,6 +16,9 @@ const ProductList = (props) => {
         totalReviews: 0,
       },
       title: "Loading...",
+      badges: {
+        inStock: true,
+      },
     }))
   );
 

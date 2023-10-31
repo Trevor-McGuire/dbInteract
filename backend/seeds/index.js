@@ -68,6 +68,12 @@ db.once('open', async () => {
     await importReviews();
     console.log('Reviews imported!');
 
+    // run initial badge update
+    console.log('Updating badges...');
+    const updateBadges = require('./updateBadges');
+    await updateBadges();
+    console.log('Badges updated!');
+
     console.log('Seed process completed!');
     process.exit(0);
   } catch (error) {

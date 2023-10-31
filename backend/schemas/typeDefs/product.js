@@ -2,14 +2,19 @@ const ProductType = `
 type Product {
   _id: ID!
   title: String!
-  description: String!
+  description: [String!]!
   price: Float!
   category: Category!
-  quantity: Int!
+  stock: Int!
   images: [Image!]!
   image: String!
   reviews: [Review!]!
   ratingStats: RatingStats!
+  badges: Badges!
+}
+
+type Badges {
+  inStock: Boolean!
 }
 
 type RatingStats {

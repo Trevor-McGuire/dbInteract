@@ -255,7 +255,7 @@ this in the docs: http://dev.apollodata.com/core/fragments.html#unique-names`):a
     getProductInfo(productId: $productId) {
       _id
       title
-      quantity
+      stock
       price
       description
       images {

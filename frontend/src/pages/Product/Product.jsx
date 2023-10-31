@@ -17,9 +17,15 @@ const Product = () => {
 
   const [product, setProduct] = useState({
     title: "Loading...",
-    description: "Loading...",
+    description: [
+      "Loading...",
+      "Loading...",
+      "Loading...",
+      "Loading...",
+      "Loading..."
+    ],
     price: "#.##",
-    quantity: "##",
+    stock: "##",
     images: Array.from({ length: 8 }, (_, index) => ({
       url: `./images/products/template1x1.png`,
     })),
@@ -33,6 +39,9 @@ const Product = () => {
       averageStars: 0,
       totalRatings: 0,
       stars: [0, 0, 0, 0, 0],
+    },
+    badges: {
+      inStock: true,
     },
   });
 

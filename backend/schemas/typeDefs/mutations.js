@@ -42,6 +42,7 @@ const MutationTypes = `
     addReview(input: AddReviewInput!): Review!
     updateReview(input: UpdateReviewInput!): Review!
     deleteReview(reviewId: ID!): Review!
+    inStock(productId: ID!): Product!
   }
 `;
 
