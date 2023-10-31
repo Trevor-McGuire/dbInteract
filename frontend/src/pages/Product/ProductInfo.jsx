@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, Input, InputAdornment } from "@mui/material";
+import { Box, Typography, Input, InputAdornment, Link } from "@mui/material";
 import AddToCart from "./AddToCart";
 import StarRating from "../../components/StarRating";
 import Auth from "../../utils/auth";
@@ -51,10 +51,12 @@ const ProductInfo = ({ product }) => {
       </Typography>
       <Divider />
       <Box>
-        <StarRating
-          rating={product.ratingStats.averageStars}
-          numReviews={product.ratingStats.totalReviews}
-        />
+      <a href="#review-section">
+          <StarRating
+            rating={product.ratingStats.averageStars}
+            numReviews={product.ratingStats.totalReviews}
+          />
+        </a>
         <Badges badges={product.badges} />
       </Box>
       <Divider />

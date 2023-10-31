@@ -22,6 +22,9 @@ export const GET_CATEGORY = gql`
           stars
           totalReviews
         }
+        badges {
+          inStock
+        }
       }
     }
   }

@@ -3,7 +3,10 @@ import { Box, Typography, Rating as MuiRating } from '@mui/material';
 
 const StarRating = ({ rating, numReviews }) => {
   return (
-    <Box display="flex" alignItems="center">
+    <Box 
+    display="flex" 
+    alignItems="center"
+    >
       <MuiRating
         name="read-only"
         value={rating}

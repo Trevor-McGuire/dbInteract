@@ -12,6 +12,7 @@ const ProductInfo = ({ product }) => {
 
   return (
     <Box>
+      <h3>Product Description:</h3>
       <List dense>
         {product.description.slice(0, linesToShow).map((description, index) => (
           <ListItem key={index} component="div">

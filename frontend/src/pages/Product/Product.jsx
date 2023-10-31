@@ -25,7 +25,7 @@ const Product = () => {
       "Loading..."
     ],
     price: "#.##",
-    stock: "##",
+    stock: 1,
     images: Array.from({ length: 8 }, (_, index) => ({
       url: `./images/products/template1x1.png`,
     })),
@@ -68,16 +68,16 @@ const Product = () => {
       }}
     >
       <Grid container columnSpacing={2} rowSpacing={2}>
-        <Grid item xs={12} sm={12} md={6} lg={5} xl={5}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <ProductImageCarousel images={product.images} />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <ProductInfo product={product} />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={4} xl={2}>
+        <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <ProductDescription product={product} />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3} xl={5}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <ReviewForm />
           <ProductReviews product={product} setProduct={setProduct} />
         </Grid>
