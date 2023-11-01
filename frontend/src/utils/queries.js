@@ -58,30 +58,10 @@ export const READ_PRODUCT = gql`
         inStock
       }
     }
-
-    getProductReviews(productId: $productId, page: 1, pageSize: 5) {
-      body
-      rating
-      title
-      user {
-        username
-      }
-    }
   }
 `;
 
-export const READ_REVIEW_BY_RATING = gql`
-  query Query($productId: ID!, $rating: Int!) {
-    getProductReviews(productId: $productId, rating: $rating) {
-      body
-      rating
-      title
-      user {
-        username
-      }
-    }
-  }
-`;
+
 
 export const READ_USER = gql`
   query Query {

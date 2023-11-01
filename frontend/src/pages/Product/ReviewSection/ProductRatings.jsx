@@ -1,48 +1,101 @@
-import React from 'react'
-import { Grid, Paper, Button } from '@mui/material'
-import { useState, useEffect, Fragment } from "react";
+import React from "react";
+import { Paper, Grid, Box } from "@mui/material";
+import StarRating from "../../../components/StarRating";
 
-const ProductRatings = ({product}) => {
+const ProductRatings = ({ stats, reviewState, setReviewState }) => {
+
+  const percentage = (i) =>
+    parseInt(
+      (stats.stars[4 - i] / stats.totalReviews) *
+        100
+    ) + "%";
+  
+  const handleReviewState = (rating) => {
+    setReviewState({
+      ...reviewState,
+      rating: rating,
+      page: 1,
+    });
+  }
+
   return (
-    <Paper elevation={5} sx={{maxWidth: "300px",}}>
-    <Grid container spacing={1} columns={2} >
-      {[...Array(5)].map((_, i) => (
-        <Fragment key={`review${i}`}>
-          <Grid item xs="auto">
-            <Button
-              key={i}
-              sx={{
-                display: "block",
-              }}
-              onClick={() => setReviewRating(i + 1)}
-            >
-              {[...Array(5)].map((_, j) => (
-                <i
-                  key={`${i}${j}`}
-                  className={`fa fa-star${j < i + 1 ? "" : "-o"}`}
-                ></i>
-              ))}{" "}
-              {product.ratingStats.totalReviews} Reviews
-            </Button>
+    <Paper elevation={5} sx={{ width: "300px", padding: "1rem" }}>
+      <Grid container spacing={2}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            "&:hover": {
+              backgroundColor: "primary.light",
+            },
+          }}
+        >
+          <Grid
+            container
+            padding
+            borderRadius={2}
+            onClick={() => handleReviewState(null)}
+            sx={{
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "primary.light",
+              },
+              backgroundColor: reviewState.rating === null ? "primary.light" : "",
+            }}
+          >
+            <StarRating
+              rating={stats.averageStars}
+              numReviews={stats.totalReviews}
+            />
           </Grid>
-          <Grid item xs>
-            <Button
+        </Grid>
+        <Grid item xs={12}>
+          {[...Array(5)].map((_, i) => (
+            <Grid
+              container
+              padding
+              borderRadius={2}
+              key={5 - i}
+              onClick={() => handleReviewState(5 - i)}
               sx={{
-                display: "block",
-                backgroundColor: "primary.main",
-                width:
-                  (parseInt(product.ratingStats.stars[i]) / product.ratingStats.totalReviews) * 100 + "%",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "primary.light",
+                },
+                backgroundColor: reviewState.rating === 5 - i ? "primary.light" : "",
               }}
-              onClick={() => setReviewRating(i + 1)}
             >
-              x
-            </Button>
-          </Grid>
-        </Fragment>
-      ))}
-    </Grid>
-  </Paper>
-  )
-}
+              <Grid item xs={3}>
+                {5 - i}&nbsp;Stars
+              </Grid>
+              <Grid
+                item
+                xs={7}
+                sx={{
+                  backgroundColor: "primary.secondary",
+                  width: "100%",
+                  outline: "1px solid black",
+                  borderRadius: "5px",
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: "primary.main",
+                    width: percentage(i),
+                  }}
+                >
+                  &nbsp;
+                </Box>
+              </Grid>
+              <Grid item xs={2} paddingLeft={1}>
+                {percentage(i)}
+              </Grid>
+            </Grid>
+          ))}
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};
 
-export default ProductRatings
+export default ProductRatings;

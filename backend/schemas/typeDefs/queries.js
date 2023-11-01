@@ -18,10 +18,9 @@ const QueryTypes = `
     readUserReview(productId: ID!): Review
 
     getProductInfo(productId: ID!): Product
-    getProductReviews(
+    readReviews(
       productId: ID!
       rating: Int
-      date: String
       page: Int
       pageSize: Int
     ): [Review]

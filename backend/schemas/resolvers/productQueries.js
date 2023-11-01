@@ -31,7 +31,7 @@ const productResolver = {
         .populate("reviews")
       return product;
     },
-    getProductReviews: async (_, { productId, rating, date, page, pageSize }) => {
+    readReviews: async (_, { productId, rating, page, pageSize }) => {
       const product = await Product.findById(productId)
         .populate({
           path: "reviews",
@@ -43,9 +43,6 @@ const productResolver = {
       let reviews = product.reviews;
       if (rating) {
         reviews = reviews.filter((review) => review.rating === rating);
-      }
-      if (date) {
-        reviews = reviews.filter((review) => review.createdAt === date);
       }
       if (page && pageSize) {
         reviews = reviews.slice(
