@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Skeleton } from "@mui/material";
 
 import { READ_PRODUCT } from "../../utils/queries";
 
@@ -16,15 +16,59 @@ const Product = () => {
   const { productId } = useParams();
 
   const [product, setProduct] = useState({
-    title: "Loading...",
-    description: [
-      "Loading...",
-      "Loading...",
-      "Loading...",
-      "Loading...",
-      "Loading..."
-    ],
-    price: "#.##",
+    title: (
+      <>
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "48px" }}
+          width={"100%"}
+          animation="wave"
+        />
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "48px" }}
+          width={"60%"}
+          animation="wave"
+        />
+      </>
+    ),
+    description: Array.from({ length: 3 }).map((_, index) => (
+      <React.Fragment key={index}>
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "1rem" }}
+          width={"100%"}
+          animation="wave"
+        />
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "1rem" }}
+          width={"100%"}
+          animation="wave"
+        />
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "1rem" }}
+          width={"60%"}
+          animation="wave"
+        />
+      </React.Fragment>
+    )),
+    price: (
+      <>
+        <Skeleton
+          variant="text"
+          sx={{
+            display: "inline-block",
+            textAlign: "center",
+            fontSize: "48px",
+            verticalAlign: "middle",
+          }}
+          width={"100px"}
+          animation="wave"
+        />
+      </>
+    ),
     stock: 1,
     images: Array.from({ length: 8 }, (_, index) => ({
       url: `./images/products/template1x1.png`,

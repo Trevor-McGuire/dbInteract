@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
   }
   return (
     <Link to={isValidId ? `/product/${product._id}` : '#'} disabled={!isValidId}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card>
         <CardHeader
           title={
             <Typography
