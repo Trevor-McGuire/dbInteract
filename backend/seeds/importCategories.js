@@ -127,10 +127,10 @@ const categoryData = {
       //   Chargers: null,
       // },
     },
-    // Computers: {
+    Computers: {
     //   Laptops: null,
-    //   Desktops: null,
-    // },
+      Desktops: null,
+    },
     TVs: null,
   },
   // Clothing: {

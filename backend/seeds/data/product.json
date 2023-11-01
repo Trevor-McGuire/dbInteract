@@ -132,5 +132,44 @@
     "price": 548.00,
     "category": "ios",
     "stock": 100
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3c4",
+    "title": "Lenovo V50t Gen 2 Business Tower Desktop, Intel Core i5-10400, 32GB RAM DDR4, 1TB PCIe M.2 SSD, DVD-RW, HDMI, RJ-45, Display Port, No Wi-Fi, Windows 11 Pro, Black",
+    "description": [
+      "【High Speed RAM And Enormous Space】32GB DDR4 RAM to smoothly run multiple applications and browser tabs all at once; 1TB PCIe Solid State Drive allows to fast bootup and data transfer",
+      "【Processor】 Intel Core i5-10400 Processor (6 Cores, 12 Threads, 12MB Cache, 2.90GHz Base Frequency, Up to 4.30GHz Max Turbo Frequency) with Intel UHD Graphics 630",
+      "【Tech Specs】1 x Power Button, 1 x Optical Drive, 1 x Card Reader, 1 x Mic, 1 x Headphone/ Mic Combo, 4 x USB 3.2 Type-A, 1 x Audio Line out, 1 x HDMI, 1 x Display Port 1.4, 1 x VGA, 1 x Serial, 4 x USB Type-A 2.0, 1 x Power In, 1 x Kensington Security Slot; No Wi-Fi; Wired Keyboard & Mouse",
+      "【Operating System】Windows 11 Pro - Organize open apps with pre-configured layouts to optimize productivity, Navigate with more intuitive experience to get things done, Collaborate with teams with more features"
+    ],
+    "price": 599.00,
+    "category": "desktops",
+    "stock": 100
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3c8",
+    "title": "DELL OptiPlex 7000 Series 7090 Tower Business Desktop, Intel Core i7-11700, 16GB RAM, 1TB SSD, DVD-RW, Display Port, Wired Keyboard & Mouse, Wi-Fi, Windows 11 Pro, Black",
+    "description": [
+      "[High-Speed RAM And Enormous Space] 16GB high-bandwidth RAM to smoothly run multiple applications and browser tabs all at once; 1TB PCIe NVMe M.2 Solid State Drive allows for fast bootup and data transfer",
+      "[Processor] Intel Core i7-11700 Processor (8 Cores, 16 Threads, 16MB L3 Cache, Base Frequency at 2.50GHz, up to 4.90GHz at Max Turbo Frequency)",
+      "[Tech Specs] Front Ports: 1 x Headphone/ Mic Combo, 2 x USB 2.0 Ports, 1 x USB 3.2 Type-A Port, 1 x USB 3.2 Type-C capable port, Rear Ports: 4 x USB 3.2 Type-A, 2 x USB 2.0 Ports, 1 x RJ-45, 1 x Serial Port, 2 x DisplayPort, 1 x Audio jack",
+      "[Operating System] Windows 11 Pro-Get all the features of Windows 11 Home operating system plus Mobile device management, Group Policy, Enterprise State Roaming, Assigned Access, Dynamic Provisioningm, Windows Update for Business, Kiosk mode, and Active Directory/Azure AD"
+    ],
+    "price": 889.00,
+    "category": "desktops",
+    "stock": 100
+  },
+  {
+    "_id": "5f5d2c5b7f3e4b0017b0d3cc",
+    "title": "HP Elite Desktop Computer PC, 3.1 GHz, Intel Core i5, 16GB, RAM, 1TB HDD, New 22 inch LED Monitor, RGB Speaker and Keyboard Mouse, WiFi, Windows 10 Pro (Renewed)",
+    "description": [
+      "🖥 POWERFUL PROCESSOR and SUPERIOR STORAGE: Configured with top of the Intel Core i5 processor for lightning-fast, reliable and consistent performance to ensure an exceptional PC experience. 16GB RAM memory to smoothly run multiple applications and browser tabs all at once. 1TB HDD storage space to store apps, games, photos, music, and movies. Loaded with 16GB to zip through multiple tasks in a hurry without lag.",
+      "🖥️ New 22 Inch Full HD (1920x1080) LED monitor: with 75hz, High-Quality IPS panel with quick refresh rate and response time. With 1080p resolution, you can enjoy gaming or a modern computing experience. 22 Inch monitor has a Smart Contrast to provide optimized image quality. Bezel-less and sleek design with glossy finish, crisp edge-to-edge visuals. Wide Viewing Angles for clarity from any viewpoint. VESA Mountable and built-in tilt options allow for a variety of monitor configurations.",
+      "⌨️ +🖱️ RGB KEYBOARD AND MOUSE | RGB SPEAKER: 3 LED colors - Blue, red, green, Backlight LED Lights for use at night time, looks amazing. The keyboard mouse and speaker are responsive, reliable, and probably plastered in RGB lights. It's important you pick the right one for your desktop.",
+      "⌨️ +🖱️ RGB KEYBOARD AND MOUSE | RGB SPEAKER: 3 LED colors - Blue, red, green, Backlight LED Lights for use at night time, looks amazing. The keyboard mouse and speaker are responsive, reliable, and probably plastered in RGB lights. It's important you pick the right one for your desktop."
+    ],
+    "price": 196.98,
+    "category": "desktops",
+    "stock": 100
   }
 ]
