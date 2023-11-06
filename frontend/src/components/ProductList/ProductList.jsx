@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Skeleton } from "@mui/material";
 import ProductCard from "./ProductCard";
 import { useState, useEffect } from "react";
 
@@ -9,13 +9,28 @@ const ProductList = (props) => {
       _id: index,
       averageStars: 0,
       image: "./images/products/template1x1.png",
-      price: "###.##",
+      price: 0,
       ratingStats: {
         averageStars: 1,
         stars: [0, 0, 0, 0, 0, 0],
         totalReviews: 0,
       },
-      title: "Loading...",
+      title: (
+        <>
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "1rem" }}
+            width={"100%"}
+            animation="wave"
+          />
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "1rem" }}
+            width={"60%"}
+            animation="wave"
+          />
+        </>
+      ),
       badges: {
         inStock: true,
       },
@@ -28,7 +43,6 @@ const ProductList = (props) => {
     }
   }, [props.products]);
 
-
   return (
     <Grid container spacing={2} padding={2}>
       {products.map((product) => (
@@ -38,6 +52,6 @@ const ProductList = (props) => {
       ))}
     </Grid>
   );
-}
+};
 
 export default ProductList;

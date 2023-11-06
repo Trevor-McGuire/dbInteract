@@ -8,6 +8,17 @@ import StarRating from "../StarRating";
 
 import { Link } from "react-router-dom";
 import Badges from "../Badges";
+
+const formatPrice = (price) => {
+  const [dollars, cents] = price.toFixed(2).split(".");
+  return (
+    <>
+      <span>{dollars}</span>
+      <sup style={{fontSize: "12px"}}>{cents}</sup>
+    </>
+  );
+};
+
 const ProductCard = ({ product }) => {
   const baseUrl = window.location.origin;
   const isValidId = product._id.length === 24;
@@ -18,9 +29,12 @@ const ProductCard = ({ product }) => {
       total += review.rating;
     });
     return total;
-  }
+  };
   return (
-    <Link to={isValidId ? `/product/${product._id}` : '#'} disabled={!isValidId}>
+    <Link
+      to={isValidId ? `/product/${product._id}` : "#"}
+      disabled={!isValidId}
+    >
       <Card>
         <CardHeader
           title={
@@ -46,10 +60,14 @@ const ProductCard = ({ product }) => {
         />
         <CardContent>
           <Typography variant="h6" color="text.secondary">
-            {product.price}
+            ${formatPrice(product.price)}
+            <span style={{ display: "inline-block", width: "12px" }}></span>
             <Badges badges={product.badges} />
           </Typography>
-          <StarRating rating={product.ratingStats.averageStars} numReviews={product.ratingStats.totalReviews} />
+          <StarRating
+            rating={product.ratingStats.averageStars}
+            numReviews={product.ratingStats.totalReviews}
+          />
         </CardContent>
       </Card>
     </Link>

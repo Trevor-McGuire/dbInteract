@@ -111,6 +111,17 @@ export default function TemporaryDrawer({ open, onClose }) {
 
   const list = (
     <Box sx={{ minWidth: 250, maxWidth: 500 }}>
+
+      <List>
+        <ListItem key={"Home"} disablePadding>
+          <ListItemButton>
+            <StyledLink to="/" onClick={onClose}>
+              <ListItemText primary={"Home"} />
+            </StyledLink>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
       <List
         subheader={<ListSubheader color="primary">Categories</ListSubheader>}
       >
@@ -155,7 +166,6 @@ export default function TemporaryDrawer({ open, onClose }) {
         <ListItem key={"Contact"} disablePadding>
           <ListItemButton>
             <StyledLink to="/about" onClick={onClose}>
-              <ListItemIcon>{/* <InboxIcon />  */}</ListItemIcon>
               <ListItemText primary={"Contact"} />
             </StyledLink>
           </ListItemButton>

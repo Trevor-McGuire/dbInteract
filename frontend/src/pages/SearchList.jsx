@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import ProductList from "../components/ProductList/ProductList";
 import { READ_PRODUCTS } from "../utils/queries";
 import '../style/search.sass'
+import { Typography } from "@mui/material";
 
 const SearchList = () => {
   const { searchText } = useParams();
@@ -16,6 +17,9 @@ const SearchList = () => {
 
   return (
     <div>
+      <Typography variant="h4" sx={{ margin: "1rem" }}>
+        Search results for "{searchText}"
+      </Typography>
       <ProductList products={products} />
     </div>
   );

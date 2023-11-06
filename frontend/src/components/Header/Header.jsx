@@ -15,13 +15,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
 import TemporaryDrawer from "./TemporaryDrawer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
 import { READ_CART_QUERY } from "../../utils/queries";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 
 
 const Search = styled("div")(({ theme }) => ({
@@ -287,7 +288,7 @@ export default function PrimarySearchAppBar() {
               inputProps={{
                 "aria-label": "search",
                 type: "text",
-                placeholder: "Search...",
+                placeholder: searchText ? searchText : "Search…",
                 value: searchText,
                 onChange: (e) => handleSearchInputChange(e),
                 onKeyDown: (e) => handleSearchSubmit(e),

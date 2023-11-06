@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Grid } from "@mui/material";
-import { Slider, Hidden } from "@mui/material";
+import { Hidden, MobileStepper, Button } from "@mui/material";
 
 const ProductImageCarousel = ({ images }) => {
   const baseUrl = window.location.origin;
@@ -29,11 +29,11 @@ const ProductImageCarousel = ({ images }) => {
       const currentX = e.touches[0].clientX;
       const deltaX = startX.current - currentX;
 
-      if (deltaX > 5) {
+      if (deltaX > 50) {
         setSelectedImageIndex((prevIndex) =>
           prevIndex === images.length - 1 ? 0 : prevIndex + 1
         );
-      } else if (deltaX < -5) {
+      } else if (deltaX < -50) {
         setSelectedImageIndex((prevIndex) =>
           prevIndex === 0 ? images.length - 1 : prevIndex - 1
         );
@@ -51,10 +51,8 @@ const ProductImageCarousel = ({ images }) => {
     };
   }, [selectedImageIndex, images]);
 
-  
-
   return (
-    <Grid container columnSpacing={2} >
+    <Grid container columnSpacing={2}>
       {/* Thumbnails */}
       <Hidden smDown>
         <Grid
@@ -94,7 +92,7 @@ const ProductImageCarousel = ({ images }) => {
         item
         xs
         ref={containerRef}
-        sx={{ maxHeight: `calc(100vh - 64px - 4rem)`, marginBottom: "2rem" }}
+        sx={{ height: `calc(100vh - 64px - 4rem)`, marginBottom: "2rem" }}
       >
         <img
           src={`${baseUrl}/${images[selectedImageIndex].url}`}
@@ -104,14 +102,15 @@ const ProductImageCarousel = ({ images }) => {
             objectFit: "contain",
           }}
         />
-        <Slider
-          aria-label="Picture"
-          defaultValue={0}
-          value={selectedImageIndex}
-          onChange={(e, value) => setSelectedImageIndex(value)}
-          step={1}
-          min={0}
-          max={images.length - 1}
+        <MobileStepper
+          variant="dots"
+          steps={images.length}
+          position="static"
+          activeStep={selectedImageIndex}
+          sx={{ 
+            display: { xs: "flex", sm: "none" },
+            justifyContent: "center",
+          }}
         />
       </Grid>
     </Grid>
