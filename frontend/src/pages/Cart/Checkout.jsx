@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
-import { CHECKOUT } from '../utils/mutations'
+import { CHECKOUT } from '../../utils/mutations'
 
 const Checkout = () => {
   const [checkout] = useMutation(CHECKOUT)

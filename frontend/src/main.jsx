@@ -10,7 +10,7 @@ import About from "./pages/About";
 import SearchList from "./pages/SearchList";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Cart from "./pages/Cart";
+import Cart from "./pages/Cart/Cart.jsx";
 import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([

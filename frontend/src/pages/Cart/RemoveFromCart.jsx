@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { REMOVE_FROM_CART } from "../utils/mutations";
-import { READ_CART_QUERY } from "../utils/queries";
+import { REMOVE_FROM_CART } from "../../utils/mutations";
+import { READ_CART_QUERY } from "../../utils/queries";
 
 function RemoveFromCart({ id }) {
   const [removeFromCart, { loading }] = useMutation(REMOVE_FROM_CART, {

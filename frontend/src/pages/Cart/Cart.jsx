@@ -1,6 +1,6 @@
 import React from "react";
-import CartList from "../components/CartList";
-import OrderList from "../components/OrderList";
+import CartList from "./CartList";
+import OrderList from "./OrderList";
 
 
 const Cart = () => {

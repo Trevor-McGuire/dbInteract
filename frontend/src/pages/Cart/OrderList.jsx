@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { READ_ORDERS } from "../utils/queries";
+import { READ_ORDERS } from "../../utils/queries";
 import OrderListSub from "./OrderListSub";
 
 const OrderList = () => {
