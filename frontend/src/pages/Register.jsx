@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Box, Stack, TextField, Button, FormControlLabel, Alert, Switch, Divider } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Stack,
+  TextField,
+  Button,
+  FormControlLabel,
+  Alert,
+  Switch,
+  Divider,
+} from "@mui/material";
 
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import CreateIcon from "@mui/icons-material/Create";
-
 
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../utils/mutations";
 
 import "../style/register.sass";
-
 
 import registerLists from "../utils/lists";
 import Auth from "../utils/auth";
@@ -55,7 +62,7 @@ export default function BasicStack() {
     });
   };
 
-  const textFieldConfig = ({ lowercase, proper }, sameAddress, index) => {
+  const textFieldConfig = ({ lowercase, proper }, sameAddress ) => {
     const commonProps = {
       name: lowercase,
       type: lowercase,
@@ -102,21 +109,21 @@ export default function BasicStack() {
         name === "billingAddress" && sameAddress
           ? value.trim()
           : name === "shippingAddress"
-          ? value.trim()
-          : formState.shippingAddress,
+            ? value.trim()
+            : formState.shippingAddress,
     });
   };
 
   const handleFormValidationChange = (name, value, returnVal) => {
     let pass;
     switch (name) {
-      case "email":
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        pass = emailRegex.test(value);
-        break;
-      default:
-        pass = value.length > 0;
-        break;
+    case "email":
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      pass = emailRegex.test(value);
+      break;
+    default:
+      pass = value.length > 0;
+      break;
     }
     setFormValidation({
       ...formValidation,
@@ -125,8 +132,8 @@ export default function BasicStack() {
         name === "billingAddress" && sameAddress
           ? pass
           : name === "shippingAddress"
-          ? pass
-          : formValidation.shippingAddress,
+            ? pass
+            : formValidation.shippingAddress,
     });
     if (returnVal) return pass;
   };
@@ -181,15 +188,15 @@ export default function BasicStack() {
       <h4>Register</h4>
       <form onSubmit={handleFormSubmit} noValidate>
         <Stack>
-        <Alert
+          <Alert
             variant="outlined"
             severity="info"
             sx={{
               marginBottom: "1rem",
             }}
           >
-            Dont want to provide personal details? Use the auto fill button to fill the form with random data.
-            
+            Dont want to provide personal details? Use the auto fill button to
+            fill the form with random data.
           </Alert>
           {inputValues.map((i, index) => (
             <Box key={i.lowercase}>
@@ -208,7 +215,7 @@ export default function BasicStack() {
                 <FormControlLabel
                   control={
                     <Switch
-                      onChange={(e) => {
+                      onChange={() => {
                         handleSameAddress();
                       }}
                       checked={sameAddress}

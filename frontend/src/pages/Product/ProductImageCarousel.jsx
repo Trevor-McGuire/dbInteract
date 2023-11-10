@@ -58,7 +58,7 @@ const ProductImageCarousel = ({ images }) => {
         <Grid
           item
           sx={{
-            height: `calc(100vh - 64px - 2rem)`,
+            height: "calc(100vh - 64px - 2rem)",
             overflowY: "auto",
           }}
         >
@@ -92,7 +92,7 @@ const ProductImageCarousel = ({ images }) => {
         item
         xs
         ref={containerRef}
-        sx={{ height: `calc(100vh - 64px - 4rem)`, marginBottom: "2rem" }}
+        sx={{ height: "calc(100vh - 64px - 4rem)", marginBottom: "2rem" }}
       >
         <img
           src={`${baseUrl}/${images[selectedImageIndex].url}`}

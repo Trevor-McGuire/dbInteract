@@ -59,6 +59,6 @@ const registerLists = {
     "222 Pinecrest St, New York, NY 10001",
     "333 Birchwood St, Los Angeles, CA 90001",
   ],
-}
+};
 
-export default registerLists
+export default registerLists;

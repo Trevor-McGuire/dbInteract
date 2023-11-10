@@ -13,17 +13,17 @@ function getCurrentSeason() {
   const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns a zero-based index
   let season = "";
   switch (true) {
-    case currentMonth >= 3 && currentMonth <= 5:
-      season = "Spring";
-      break;
-    case currentMonth >= 6 && currentMonth <= 8:
-      season = "Summer";
-      break;
-    case currentMonth >= 9 && currentMonth <= 11:
-      season = "Fall";
-      break;
-    default:
-      season = "Winter";
+  case currentMonth >= 3 && currentMonth <= 5:
+    season = "Spring";
+    break;
+  case currentMonth >= 6 && currentMonth <= 8:
+    season = "Summer";
+    break;
+  case currentMonth >= 9 && currentMonth <= 11:
+    season = "Fall";
+    break;
+  default:
+    season = "Winter";
   }
   const currentYear = currentDate.getFullYear();
   return `${season} ${currentYear}`;
@@ -40,7 +40,7 @@ const HeaderImage = () => {
       to="/category/electronics"
       sx={{
         backgroundImage: `url(${baseUrl}/images/categories/electronics1BG.png)`,
-        height: `calc(100vh - 64px)`,
+        height: "calc(100vh - 64px)",
       }}
     >
       <Grid
@@ -80,7 +80,7 @@ const HeaderImage = () => {
           style={{
             width: "100%",
             height: "100%",
-            maxHeight: `calc(100vh - 64px)`,
+            maxHeight: "calc(100vh - 64px)",
             objectFit: "contain",
           }}
         />

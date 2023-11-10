@@ -4,7 +4,7 @@ import { READ_CART_QUERY } from "../../utils/queries";
 import RemoveFromCart from "./RemoveFromCart";
 import Checkout from "./Checkout";
 import { Link } from "react-router-dom";
-import "../../style/CartList.sass"
+import "../../style/CartList.sass";
 
 const CartList = () => {
   const baseUrl = window.location.origin;

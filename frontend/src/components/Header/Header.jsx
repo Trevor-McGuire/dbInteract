@@ -200,12 +200,12 @@ export default function PrimarySearchAppBar() {
     }, [data]);
 
     return(
-    <NavButton
-      icon={<ShoppingCartIcon />}
-      label={text ? "Cart" : ""}
-      to="/cart"
-      badge={badge}
-    />)
+      <NavButton
+        icon={<ShoppingCartIcon />}
+        label={text ? "Cart" : ""}
+        to="/cart"
+        badge={badge}
+      />);
   };
 
   const menuId = "primary-search-account-menu";

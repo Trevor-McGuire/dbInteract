@@ -16,7 +16,7 @@ const ProductRatings = ({ stats, reviewState, setReviewState }) => {
       rating: rating,
       page: 1,
     });
-  }
+  };
 
   return (
     <Paper elevation={5} sx={{ width: "300px", padding: "1rem" }}>

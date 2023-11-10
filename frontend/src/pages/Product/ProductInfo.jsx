@@ -51,7 +51,7 @@ const ProductInfo = ({ product }) => {
       </Typography>
       <Divider />
       <Box>
-      <a href="#review-section">
+        <a href="#review-section">
           <StarRating
             rating={product.ratingStats.averageStars}
             numReviews={product.ratingStats.totalReviews}

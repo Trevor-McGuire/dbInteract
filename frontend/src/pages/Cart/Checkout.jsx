@@ -1,19 +1,19 @@
-import React from 'react'
-import { useMutation } from '@apollo/client'
-import { CHECKOUT } from '../../utils/mutations'
+import React from "react";
+import { useMutation } from "@apollo/client";
+import { CHECKOUT } from "../../utils/mutations";
 
 const Checkout = () => {
-  const [checkout] = useMutation(CHECKOUT)
+  const [checkout] = useMutation(CHECKOUT);
 
   const handleCheckout = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      const { data } = await checkout()
-      window.location.reload()
+      const { data } = await checkout();
+      window.location.reload();
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }  
-  }
+  };
   return (
     <form
       onSubmit={handleCheckout}
@@ -34,7 +34,7 @@ const Checkout = () => {
         "
       >Checkout</button>
     </form>
-  )
-}
+  );
+};
 
-export default Checkout
+export default Checkout;

@@ -71,7 +71,7 @@ const Product = () => {
     ),
     stock: 1,
     images: Array.from({ length: 8 }, (_, index) => ({
-      url: `./images/products/template1x1.png`,
+      url: "./images/products/template1x1.png",
     })),
     reviews: Array.from({ length: 5 }, (_, index) => ({
       title: `Loading ${index + 1}`,

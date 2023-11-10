@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography, Link, List, ListItem, Box } from '@mui/material';
+import React from "react";
+import { Typography, Link, List, ListItem, Box } from "@mui/material";
 
 const About = () => {
   return (

@@ -10,16 +10,13 @@ import Item from "@mui/material/Grid";
 import registerLists from "../utils/lists";
 
 const { inputValues } = registerLists;
-const updatedInputValues = inputValues.filter(item => item.lowercase !== 'password');
+const updatedInputValues = inputValues.filter(item => item.lowercase !== "password");
 
 
 export default function OutlinedCard() {
-  const { data, error, loading } = useQuery(READ_USER);
+  const { data  } = useQuery(READ_USER);
   const user = data?.readUser || {};
 
-  if (error) {
-    return <h2>{error.message}</h2>;
-  }
   if (!user) {
     window.location.assign("/");
   }

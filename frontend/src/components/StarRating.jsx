@@ -1,11 +1,11 @@
-import React from 'react';
-import { Box, Typography, Rating as MuiRating } from '@mui/material';
+import React from "react";
+import { Box, Typography, Rating as MuiRating } from "@mui/material";
 
 const StarRating = ({ rating, numReviews }) => {
   return (
     <Box 
-    display="flex" 
-    alignItems="center"
+      display="flex" 
+      alignItems="center"
     >
       <MuiRating
         name="read-only"

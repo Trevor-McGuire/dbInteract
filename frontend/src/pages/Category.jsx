@@ -32,14 +32,14 @@ export const GET_CATEGORY = gql`
 
 const Category = () => {
   const { categoryName } = useParams();
-  const { data, loading, error } = useQuery(GET_CATEGORY, {
+  const { data } = useQuery(GET_CATEGORY, {
     variables: { identifier: categoryName },
   });
-  const category = data?.getCategory || [];
+  const category = data?.getCategory.products || null;
 
   return (
     <>
-      <ProductList products={category.products} />
+      <ProductList products={category} />
     </>
   );
 };

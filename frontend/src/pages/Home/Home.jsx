@@ -1,19 +1,17 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-
 import ProductList from "../../components/ProductList/ProductList";
 import HeaderImage from "./HeaderImage";
-
 import { READ_PRODUCTS } from "../../utils/queries";
 
 const Home = () => {
-  const { data, loading, error } = useQuery(READ_PRODUCTS);
-  const products = data?.readProducts || [];
+  const { data } = useQuery(READ_PRODUCTS);
+  const home = data?.readProducts || null;
 
   return (
     <>
       <HeaderImage />
-      <ProductList products={products} />
+      <ProductList products={home} />
     </>
   );
 };

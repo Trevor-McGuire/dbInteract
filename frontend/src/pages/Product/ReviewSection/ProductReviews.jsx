@@ -78,10 +78,10 @@ const ProductReviews = () => {
     if (loading) {
       setReviews(
         Array.from({ length: 5 }, (_, index) => ({
-          title: <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={120} animation="wave"/>,
-          body: <Skeleton variant="text" sx={{ fontSize: '1rem' }}  animation="wave"/>,
+          title: <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={120} animation="wave"/>,
+          body: <Skeleton variant="text" sx={{ fontSize: "1rem" }}  animation="wave"/>,
           rating: index + 1,
-          user: { username: <Skeleton variant="text" sx={{ display: "inline-block", fontSize: '1rem' }} width={120} animation="wave"/> },
+          user: { username: <Skeleton variant="text" sx={{ display: "inline-block", fontSize: "1rem" }} width={120} animation="wave"/> },
         }))
       );
     }

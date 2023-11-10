@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Box, List, ListItem, ListItemText, Collapse, Button, ListItemIcon } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'; // Import the icon
+import React, { useState } from "react";
+import { Box, List, ListItem, ListItemText, Collapse, Button, ListItemIcon } from "@mui/material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"; // Import the icon
 
 const ProductInfo = ({ product }) => {
   const [showMore, setShowMore] = useState(false);
@@ -25,7 +25,7 @@ const ProductInfo = ({ product }) => {
       </List>
       {product.description.length > 3 && (
         <Button onClick={handleToggle} size="small">
-          {showMore ? 'Show less' : 'Show more'}
+          {showMore ? "Show less" : "Show more"}
         </Button>
       )}
     </Box>

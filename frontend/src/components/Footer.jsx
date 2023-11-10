@@ -35,7 +35,7 @@ const Footer = () => {
         justifyContent="center"
       >
         <Grid item xs="auto"
-        sx={{marginRight: "2rem"}}>
+          sx={{marginRight: "2rem"}}>
           <Typography variant="h4">About Creator</Typography>
           <Typography component="a" href="/about" color="inherit">
             <InfoIcon />
