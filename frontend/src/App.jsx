@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@ap
 import { setContext } from "@apollo/client/link/context";
 import { StrictMode } from "react";
 import { Outlet } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -41,6 +42,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <StrictMode>
+        <ScrollToTop />
         <Header />
         <Outlet />
         <Overlay />

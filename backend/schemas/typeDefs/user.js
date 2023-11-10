@@ -2,13 +2,13 @@ const UserType = `
   type User {
     _id: ID!
     username: String!
-    email: String
-    password: String
+    email: String!
+    password: String!
     isGuest: Boolean!
-    firstName: String
-    lastName: String
-    billingAddress: String
-    shippingAddress: String
+    firstName: String!
+    lastName: String!
+    billingAddress: String!
+    shippingAddress: String!
     cart: [CartItem!]!
     orders: [Order!]!
     reviews: [Review!]!

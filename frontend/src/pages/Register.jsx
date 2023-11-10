@@ -181,6 +181,16 @@ export default function BasicStack() {
       <h4>Register</h4>
       <form onSubmit={handleFormSubmit} noValidate>
         <Stack>
+        <Alert
+            variant="outlined"
+            severity="info"
+            sx={{
+              marginBottom: "1rem",
+            }}
+          >
+            Dont want to provide personal details? Use the auto fill button to fill the form with random data.
+            
+          </Alert>
           {inputValues.map((i, index) => (
             <Box key={i.lowercase}>
               <TextField
