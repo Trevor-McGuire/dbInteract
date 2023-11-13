@@ -1,29 +1,27 @@
 const QueryTypes = `
+  input readProductsInput {
+    _id: ID
+    identifier: String
+    search: String
+  }
+
+  input readReviewsInput {
+    productId: ID!
+    rating: Int
+    page: Int
+    pageSize: Int
+  }
+
   type Query {
-    getCategories: String!
     getCategory(identifier: String!): Category!
-    getBestReviews: [Category!]!
-
-    readProducts(
-      _id: ID,
-      identifier: String,
-      search: String
-    ): [Product!]!
-
-    readUser: User
-    
-    hasProductInOrders(productId: ID!): Boolean!
-    hasExistingReview(productId: ID!): Boolean!
-
-    readUserReview(productId: ID!): Review
-
+    getCategories: String!
     getProductInfo(productId: ID!): Product
-    readReviews(
-      productId: ID!
-      rating: Int
-      page: Int
-      pageSize: Int
-    ): [Review]
+    hasExistingReview(productId: ID!): Boolean!
+    hasProductInOrders(productId: ID!): Boolean!
+    readProducts(input: readProductsInput): [Product!]!
+    readReviews(input: readReviewsInput): [Review!]!
+    readUser: User
+    readUserReview(productId: ID!): Review
   }
 `;
 

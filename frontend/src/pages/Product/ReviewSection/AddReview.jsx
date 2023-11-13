@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_REVIEW } from "../../utils/mutations";
-import { READ_PRODUCTS } from "../../utils/queries";
+import { READ_PRODUCTS } from "../../../utils/queries";
 import { useParams } from "react-router-dom";
+import { gql } from "@apollo/client";
+
+const ADD_REVIEW = gql`
+  mutation AddReview($input: AddReviewInput!) {
+    addReview(input: $input) {
+      _id
+    }
+  }
+`;
 
 const AddReview = ({setHasExistingReview}) => {
-  // set up the add review mutation
-  // being sure to requery HAS_PRODUCT_IN_ORDERS and READ_USER_REVIEW
   const productId = useParams().productId;
   const [formState, setFormState] = useState({
     product: productId,
     title: "",
     body: "",
-    rating: 0,
+    rating: 1,
   });
   const [addReview] = useMutation(ADD_REVIEW);
   const handleFormSubmit = async (e) => {
@@ -66,7 +72,6 @@ const AddReview = ({setHasExistingReview}) => {
         className="w3-input w3-border-0"
         onChange={handleChange}
       >
-        <option value={0}>0 Stars</option>
         <option value={1}>1 Star</option>
         <option value={2}>2 Stars</option>
         <option value={3}>3 Stars</option>

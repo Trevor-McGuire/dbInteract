@@ -1,6 +1,14 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { CHECKOUT } from "../../utils/mutations";
+import { gql } from "@apollo/client";
+
+const CHECKOUT = gql`
+  mutation Checkout {
+    checkout {
+      _id
+    }
+  }
+`;
 
 const Checkout = () => {
   const [checkout] = useMutation(CHECKOUT);

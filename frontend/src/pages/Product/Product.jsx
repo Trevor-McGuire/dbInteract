@@ -1,95 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-
-import { Box, Grid, Skeleton } from "@mui/material";
-
-import { READ_PRODUCT } from "../../utils/queries";
-
+import { Box, Grid } from "@mui/material";
 import ReviewForm from "./ReviewSection/ReviewForm";
 import ProductImageCarousel from "./ProductImageCarousel";
 import ProductInfo from "./ProductInfo";
 import ProductReviews from "./ReviewSection/ProductReviews";
 import ProductDescription from "./ProductDescription";
+import { gql } from "@apollo/client";
+import LoadingSkeleton from "./LoadingSkeleton";
+import Title from "./Title";
+
+const GET_PRODUCT_INFO = gql`
+  query GetProductPageData($productId: ID!) {
+    getProductInfo(productId: $productId) {
+      _id
+      title
+      stock
+      price
+      description
+      images {
+        url
+      }
+      ratingStats {
+        averageStars
+        totalReviews
+        stars
+      }
+      badges {
+        inStock
+      }
+    }
+  }
+`;
 
 const Product = () => {
   const { productId } = useParams();
+  const [product, setProduct] = useState(LoadingSkeleton);
 
-  const [product, setProduct] = useState({
-    title: (
-      <>
-        <Skeleton
-          variant="text"
-          sx={{ fontSize: "48px" }}
-          width={"100%"}
-          animation="wave"
-        />
-        <Skeleton
-          variant="text"
-          sx={{ fontSize: "48px" }}
-          width={"60%"}
-          animation="wave"
-        />
-      </>
-    ),
-    description: Array.from({ length: 3 }).map((_, index) => (
-      <React.Fragment key={index}>
-        <Skeleton
-          variant="text"
-          sx={{ fontSize: "1rem" }}
-          width={"100%"}
-          animation="wave"
-        />
-        <Skeleton
-          variant="text"
-          sx={{ fontSize: "1rem" }}
-          width={"100%"}
-          animation="wave"
-        />
-        <Skeleton
-          variant="text"
-          sx={{ fontSize: "1rem" }}
-          width={"60%"}
-          animation="wave"
-        />
-      </React.Fragment>
-    )),
-    price: (
-      <>
-        <Skeleton
-          variant="text"
-          sx={{
-            display: "inline-block",
-            textAlign: "center",
-            fontSize: "48px",
-            verticalAlign: "middle",
-          }}
-          width={"100px"}
-          animation="wave"
-        />
-      </>
-    ),
-    stock: 1,
-    images: Array.from({ length: 8 }, (_, index) => ({
-      url: "./images/products/template1x1.png",
-    })),
-    reviews: Array.from({ length: 5 }, (_, index) => ({
-      title: `Loading ${index + 1}`,
-      body: `Loading ${index + 1}`,
-      rating: index + 1,
-      user: { username: `Loading ${index + 1}` },
-    })),
-    ratingStats: {
-      averageStars: 0,
-      totalRatings: 0,
-      stars: [0, 0, 0, 0, 0],
-    },
-    badges: {
-      inStock: true,
-    },
-  });
-
-  const { data, error } = useQuery(READ_PRODUCT, {
+  const { data } = useQuery(GET_PRODUCT_INFO, {
     variables: { productId: productId },
   });
   useEffect(() => {
@@ -101,21 +50,14 @@ const Product = () => {
     }
   }, [data]);
 
-  if (error) return <p>{error.message}</p>;
-  if (product.length === 0) return <p>No product found</p>;
-
   return (
-    <Box
-      sx={{
-        margin: "auto",
-        padding: "1rem",
-      }}
-    >
+    <Box>
       <Grid container columnSpacing={2} rowSpacing={2}>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <ProductImageCarousel images={product.images} />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
+          <Title title={product.title} />
           <ProductInfo product={product} />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>

@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { UPDATE_REVIEW } from "../../utils/mutations";
-import { READ_PRODUCTS } from "../../utils/queries";
-import { DELETE_REVIEW } from "../../utils/mutations";
-import { READ_USER_REVIEW } from "../../utils/queries";
+import { READ_PRODUCTS } from "../../../utils/queries";
+import { gql } from "@apollo/client";
 
+const READ_USER_REVIEW = gql`
+  query Query($productId: ID!) {
+    readUserReview(productId: $productId) {
+      _id
+      body
+      rating
+      title
+    }
+  }
+`;
 
+const DELETE_REVIEW = gql`
+  mutation DeleteReview($reviewId: ID!) {
+    deleteReview(reviewId: $reviewId) {
+      _id
+    }
+  }
+`;
+
+const UPDATE_REVIEW = gql`
+  mutation UpdateReview($input: UpdateReviewInput!) {
+    updateReview(input: $input) {
+      _id
+    }
+  }
+`;
 
 const UpdateReview = ({setHasExistingReview,productId}) => {
   const { data: readUserReviewData } = useQuery(READ_USER_REVIEW, {

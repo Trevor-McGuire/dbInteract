@@ -1,7 +1,30 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { READ_ORDERS } from "../../utils/queries";
 import OrderListSub from "./OrderListSub";
+import { gql } from "@apollo/client";
+
+const READ_ORDERS = gql`
+  query Query {
+    readUser {
+      orders {
+        _id
+        purchaseDate
+        cart {
+          _id
+          product {
+            _id
+            title
+            price
+            images {
+              url
+            }
+          }
+          quantity
+        }
+      }
+    }
+  }
+`;
 
 const OrderList = () => {
   const { data, loading, error } = useQuery(READ_ORDERS);

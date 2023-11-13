@@ -5,7 +5,6 @@ import ProductList from "../components/ProductList/ProductList";
 import { gql } from "@apollo/client";
 
 export const GET_CATEGORY = gql`
-
   query GetCategory($identifier: String!) {
     getCategory(identifier: $identifier) {
       _id

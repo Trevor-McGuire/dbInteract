@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Auth from "../../../utils/auth";
 import { useQuery } from "@apollo/client";
-import { HAS_PRODUCT_IN_ORDERS, HAS_EXISTING_REVIEW } from "../../../utils/queries";
 import { useParams } from "react-router-dom";
-import UpdateReview from "../UpdateReview";
-import AddReview from "../AddReview";
+import UpdateReview from "./UpdateReview";
+import AddReview from "./AddReview";
 import { gql } from "@apollo/client";
 
 const ReviewForm = () => {
@@ -37,7 +36,7 @@ const ReviewForm = () => {
       {loggedIn && hasExistingReview && (
         <UpdateReview setHasExistingReview={setHasExistingReview} productId={productId} />
       )}
-      {loggedIn && !hasExistingReview && <AddReview setHasExistingReview />}
+      {loggedIn && !hasExistingReview && <AddReview setHasExistingReview={setHasExistingReview} />}
     </>
   );
 };

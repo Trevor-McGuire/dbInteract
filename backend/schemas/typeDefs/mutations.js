@@ -23,9 +23,9 @@ const MutationTypes = `
 
   input UpdateReviewInput {
     reviewId: ID!
-    title: String
-    body: String
-    rating: Int
+    title: String!
+    body: String!
+    rating: Int!
   }
 
   type AuthPayload {
@@ -34,15 +34,16 @@ const MutationTypes = `
   }
 
   type Mutation {
-    registerUser(input: RegisterUserInput!): AuthPayload
-    login(email: String!, password: String!): AuthPayload
-    addToCart(productId: ID!, quantity: Int!): User!
-    removeFromCart(cartItemId: ID!): User!
-    checkout: Order!
     addReview(input: AddReviewInput!): Review!
-    updateReview(input: UpdateReviewInput!): Review!
+    addToCart(productId: ID!, quantity: Int!): User!
+    checkout: Order!
     deleteReview(reviewId: ID!): Review!
     inStock(productId: ID!): Product!
+    login(email: String!, password: String!): AuthPayload
+    registerGuest: AuthPayload
+    registerUser(input: RegisterUserInput!): AuthPayload
+    removeFromCart(cartItemId: ID!): User!
+    updateReview(input: UpdateReviewInput!): Review!
   }
 `;
 

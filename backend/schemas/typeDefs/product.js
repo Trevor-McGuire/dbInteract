@@ -1,28 +1,27 @@
 const ProductType = `
-type Product {
-  _id: ID!
-  title: String!
-  description: [String!]!
-  price: Float!
-  category: Category!
-  stock: Int!
-  images: [Image!]!
-  image: String!
-  reviews: [Review!]!
-  ratingStats: RatingStats!
-  badges: Badges!
-}
+  type Product {
+    _id: ID!
+    title: String!
+    description: [String!]!
+    price: Float!
+    category: Category!
+    stock: Int!
+    images: [Image!]!
+    image: String!
+    reviews: [Review!]!
+    ratingStats: RatingStats!
+    badges: Badges!
+  }
 
-type Badges {
-  inStock: Boolean!
-}
+  type Badges {
+    inStock: Boolean!
+  }
 
-type RatingStats {
-  stars: [Int!]!
-  averageStars: Float!
-  totalReviews: Int!
-}
-
+  type RatingStats {
+    stars: [Int!]!
+    averageStars: Float!
+    totalReviews: Int!
+  }
 
   type Category {
     _id: ID!

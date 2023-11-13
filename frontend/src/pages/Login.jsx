@@ -7,8 +7,16 @@ import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
 import Alert from "@mui/material/Alert";
+import { gql } from "@apollo/client";
+
+const LOGIN_USER = gql`
+  mutation Mutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`;
 
 export default function BasicStack() {
   const [login, { loading, error }] = useMutation(LOGIN_USER);
@@ -39,6 +47,7 @@ export default function BasicStack() {
     try {
       const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
+      window.location.assign("/");
     } catch (e) {
       setValidCredentials(false);
     }

@@ -66,6 +66,9 @@ function App() {
         <Box sx={{
           minHeight: boxHeight,
           margin: "32px auto",
+          padding: "1rem",
+          paddingRight: "2rem",
+          width: "100vw" 
         }}>
           <Outlet />
         </Box>

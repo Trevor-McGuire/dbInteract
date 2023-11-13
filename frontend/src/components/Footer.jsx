@@ -11,9 +11,10 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        width: "100%",
+        width: "100vw",
         height: "auto",
         padding: "1rem",
+        paddingRight: "2rem",
         backgroundColor: "primary.main",
         color: "white",
         "& a": {

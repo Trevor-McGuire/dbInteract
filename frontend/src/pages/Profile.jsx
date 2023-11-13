@@ -17,10 +17,6 @@ export default function OutlinedCard() {
   const { data  } = useQuery(READ_USER);
   const user = data?.readUser || {};
 
-  if (!user) {
-    window.location.assign("/");
-  }
-
   return (
     <Box sx={{ maxWidth: 800, margin: "2rem auto" }}>
       <Box sx={{ maxWidth: 800, margin: "2rem " }}>
@@ -35,8 +31,8 @@ export default function OutlinedCard() {
             </Typography>
             <Grid container rowSpacing={1} columnSpacing={{ sm: 2 }}>
               {updatedInputValues.map((input, index) => (
-                <>
-                  <Grid item xs={6} key={index}>
+                <React.Fragment key={index}>
+                  <Grid item xs={6}>
                     <Item
                       sx={{
                         fontWeight: "bold",
@@ -46,10 +42,10 @@ export default function OutlinedCard() {
                       {input.proper}:
                     </Item>
                   </Grid>
-                  <Grid item xs={6} key={index}>
+                  <Grid item xs={6}>
                     <Item>{user[input.lowercase]}</Item>
                   </Grid>
-                </>
+                </React.Fragment>
               ))}
             </Grid>
           </CardContent>

@@ -7,27 +7,22 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 
 
-export const READ_REVIEWS = gql`
-  query Query($productId: ID!, $rating: Int, $page: Int!, $pageSize: Int!) {
-    readReviews(
-      productId: $productId
-      rating: $rating
-      page: $page
-      pageSize: $pageSize
-    ) {
-      body
-      rating
-      title
-      user {
-        username
-      }
+export const READ_REVIEWS_AND_GET_PRODUCT_INFO = gql`
+  query Query($input: readReviewsInput, $productId: ID!) {
+    readReviews(input: $input) {
+        body
+        rating
+        title
+        user {
+          username
+        }
     }
     getProductInfo(productId: $productId) {
-      ratingStats {
-        averageStars
-        totalReviews
-        stars
-      }
+          ratingStats {
+          averageStars
+          totalReviews
+          stars
+        }
     }
   }
 `;
@@ -42,12 +37,15 @@ const ProductReviews = () => {
     pageSize: 5,
   });
 
-  const { loading, data } = useQuery(READ_REVIEWS, {
+  const { loading, data } = useQuery(READ_REVIEWS_AND_GET_PRODUCT_INFO, {
     variables: {
+      input: {
+        productId: productId,
+        rating: reviewState.rating,
+        page: reviewState.page,
+        pageSize: reviewState.pageSize,
+      },
       productId: productId,
-      rating: reviewState.rating,
-      page: reviewState.page,
-      pageSize: reviewState.pageSize,
     },
   });
 

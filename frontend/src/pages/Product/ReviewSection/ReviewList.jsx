@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Pagination } from "@mui/material";
-import { useQuery } from "@apollo/client";
-import { gql } from "@apollo/client";
 import ReviewCard from "./ReviewCard";
 
 const ReviewList = ({ reviews, reviewState, setReviewState, stats }) => {

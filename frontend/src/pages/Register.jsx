@@ -1,29 +1,35 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Stack,
-  TextField,
-  Button,
-  FormControlLabel,
-  Alert,
-  Switch,
-  Divider,
-} from "@mui/material";
-
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import LoginIcon from "@mui/icons-material/Login";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import CreateIcon from "@mui/icons-material/Create";
-
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { REGISTER_USER } from "../utils/mutations";
-
 import "../style/register.sass";
-
 import registerLists from "../utils/lists";
 import Auth from "../utils/auth";
+import { gql } from "@apollo/client";
 
 const { inputValues, firstNames, lastNames, addresses } = registerLists;
+
+const REGISTER_USER = gql`
+  mutation Mutation($input: RegisterUserInput!) {
+    registerUser(input: $input) {
+      token
+      user {
+        _id
+        password
+      }
+    }
+  }
+`;
 
 export default function BasicStack() {
   const [registerUser, { loading, error }] = useMutation(REGISTER_USER);
@@ -154,6 +160,7 @@ export default function BasicStack() {
         variables: { input: { ...formState } },
       });
       Auth.login(data.registerUser.token);
+      window.location.assign("/");
     } catch (e) {
       setCridentials(false);
     }

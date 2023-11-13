@@ -21,6 +21,26 @@ const userResolver = {
 
       return { token, user };
     },
+    registerGuest: async (parent, args, context, info) => {
+      const timestamp = Date.now();
+      const guestUsername = `guest${timestamp}`;
+      const guestEmail = `guest${timestamp}@guest.com`;
+
+      const guest = await User.create({
+        username: guestUsername,
+        email: guestEmail,
+        password: await bcrypt.hash("guestpassword", 10),
+        isGuest: true,
+        firstName: "Guest",
+        lastName: "Guest",
+        billingAddress: "Guest",
+        shippingAddress: "Guest",
+      });
+
+      const token = signToken(guest);
+
+      return { token, user: guest };
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) throw new Error("Invalid credentials");

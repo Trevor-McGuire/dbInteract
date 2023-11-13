@@ -25,25 +25,6 @@ const categoryResolver = {
         throw error;
       }
     },
-    getBestReviews: async () => {
-      try {
-        const EmptyCatSubcats = await Category.find({
-          subCategories: { $size: 0 },
-        }).populate({
-          path: "products",
-          populate: {
-            path: "reviews",
-            model: "Review",
-          },
-        });
-
-
-        return categoriesWithEmptySubcategories;
-      } catch (error) {
-        console.error("Error fetching best reviews:", error);
-        throw error;
-      }
-    },
   },
 };
 

@@ -31,7 +31,7 @@ const productResolver = {
         .populate("reviews")
       return product;
     },
-    readReviews: async (_, { productId, rating, page, pageSize }) => {
+    readReviews: async (_, { input: {productId, rating, page, pageSize} }) => {
       const product = await Product.findById(productId)
         .populate({
           path: "reviews",

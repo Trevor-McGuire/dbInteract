@@ -18,7 +18,7 @@ import TemporaryDrawer from "./TemporaryDrawer";
 import { Link, useParams } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
-import { READ_CART_QUERY } from "../../utils/queries";
+import { READ_USER } from "../../utils/queries";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -192,7 +192,7 @@ export default function PrimarySearchAppBar() {
 
   const CartNavButton = ({ text, badge }) => {
 
-    const { data } = useQuery(READ_CART_QUERY);
+    const { data } = useQuery(READ_USER);
     useEffect(() => {
       if (data) {
         setNumberOfItems(data?.readUser?.cart.length);
@@ -256,8 +256,8 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, width: "100vw",  }}>
+      <AppBar position="static" sx={{paddingRight: "2rem"}}>
         <Toolbar>
           <IconButton
             size="large"
