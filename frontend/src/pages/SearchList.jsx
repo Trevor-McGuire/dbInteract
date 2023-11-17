@@ -9,7 +9,11 @@ import { Typography } from "@mui/material";
 const SearchList = () => {
   const { searchText } = useParams();
   const { data, loading, error } = useQuery(READ_PRODUCTS, {
-    variables: { search: searchText },
+    variables: {
+      input: {
+        search: searchText,
+      },
+    }
   });
   const products = data?.readProducts || [];
 

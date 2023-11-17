@@ -1,6 +1,8 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
+import { Button } from "@mui/material";
+import { READ_CART_AND_ORDERS } from "../../utils/queries";
 
 const CHECKOUT = gql`
   mutation Checkout {
@@ -16,32 +18,24 @@ const Checkout = () => {
   const handleCheckout = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await checkout();
-      window.location.reload();
+      await checkout({
+        refetchQueries: [{ query: READ_CART_AND_ORDERS }],
+      });
     } catch (e) {
       console.error(e);
-    }  
+    }
   };
+
   return (
-    <form
-      onSubmit={handleCheckout}
-      className='w3-container w3-margin w3-center'
+    <Button
+      type="submit"
+      variant="contained"
+      size="large"
+      color="secondary"
+      onClick={handleCheckout}
     >
-      <button 
-        type="submit"
-        className="
-          w3-button 
-          w3-padding-large 
-          w3-hover-white 
-          w3-xxlarge 
-          w3-round-large
-          w3-yellow
-          w3-border
-          w3-card-4
-          w3-margin
-        "
-      >Checkout</button>
-    </form>
+      Checkout
+    </Button>
   );
 };
 

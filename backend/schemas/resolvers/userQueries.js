@@ -5,6 +5,9 @@ require("dotenv").config();
 const userResolver = {
   Query: {
     readUser: async (parent, args, context, info) => {
+      if (!context.user || !context.user.data || !context.user.data._id) {
+        return null;
+      }
       return User.findOne({ _id: context.user.data._id })
         .populate({
           path: "orders",

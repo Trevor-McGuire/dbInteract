@@ -1,7 +1,8 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { READ_USER } from "../../utils/queries";
 import { gql } from "@apollo/client";
+import { Button } from "@mui/material";
+import { READ_CART_AND_ORDERS } from "../../utils/queries";
 
 const REMOVE_FROM_CART = gql`
   mutation Mutation($cartItemId: ID!) {
@@ -18,9 +19,9 @@ function RemoveFromCart({ id }) {
 
   const handleRemoveFromCart = async () => {
     try {
-      const { data } = await removeFromCart({
+      await removeFromCart({
         id,
-        refetchQueries: [{ query: READ_USER }],
+        refetchQueries: [{ query: READ_CART_AND_ORDERS }],
       });
     } catch (e) {
       console.error(e);
@@ -28,11 +29,16 @@ function RemoveFromCart({ id }) {
   };
 
   return (
-    <button type="button" disabled={loading} onClick={handleRemoveFromCart} 
-      className="w3-red w3-button w3-padding w3-hover-darken w3-large w3-round"
+    <Button
+      type="button"
+      disabled={loading}
+      onClick={handleRemoveFromCart}
+      variant="contained"
+      color="error"
+      size="large"
     >
       Delete
-    </button>
+    </Button>
   );
 }
 

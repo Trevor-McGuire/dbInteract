@@ -49,7 +49,7 @@ const AddToCart = ({ productId, stock }) => {
         },
         refetchQueries: [{ query: READ_USER }],
       });
-  
+      window.location.assign("/cart")
     } catch (e) {
       console.error(e);
     }

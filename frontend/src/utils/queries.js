@@ -11,6 +11,16 @@ export const READ_USER = gql`
       shippingAddress
       cart {
         _id
+      }
+    }
+  }
+`;
+
+export const READ_CART_AND_ORDERS = gql`
+  query Query {
+    readUser {
+      cart {
+        _id
         product {
           title
           price
@@ -21,13 +31,29 @@ export const READ_USER = gql`
         }
         quantity
       }
+      orders {
+        _id
+        purchaseDate
+        cart {
+          _id
+          product {
+            _id
+            title
+            price
+            images {
+              url
+            }
+          }
+          quantity
+        }
+      }
     }
   }
 `;
 
 export const READ_PRODUCTS = gql`
-  query Query {
-    readProducts {
+query Query($input: readProductsInput) {
+  readProducts(input: $input) {
       _id
       image
       price

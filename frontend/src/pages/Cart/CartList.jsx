@@ -1,61 +1,69 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import { READ_USER } from "../../utils/queries";
 import RemoveFromCart from "./RemoveFromCart";
-import Checkout from "./Checkout";
 import { Link } from "react-router-dom";
-import "../../style/CartList.sass";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
 
-const CartList = () => {
+const CartList = ({ cart }) => {
   const baseUrl = window.location.origin;
 
-  const { data, error, loading } = useQuery(READ_USER);
-  const cart = data?.readUser?.cart;
-  if (loading) return <h2>Loading...</h2>;
-  if (error) return <h2>Error!</h2>;
-  if (!cart || !cart.length) return <h2>Empty Cart</h2>;
   return (
-    <>
-      <table id="cart-list-component" className="w3-table-all w3-centered">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart &&
-            cart.map((item) => (
-              <tr key={item._id}>
-                <td className="w3-hover-opacity w3-hover-outline">
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead
+          sx={{
+            backgroundColor: "secondary.main",
+            color: "secondary.contrastText",
+          }}
+        >
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell>Product</TableCell>
+            <TableCell>Quantity</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {cart && cart.length > 0 ? (
+            cart.reverse().map((item) => (
+              <TableRow key={item._id}>
+                <TableCell>
                   <Link to={`/product/${item.product._id}`}>
                     <img
                       height="100px"
                       src={`${baseUrl}/${item.product.images[0].url}`}
+                      alt={item.product.title}
                     />
                   </Link>
-                </td>
-                <td>
+                </TableCell>
+                <TableCell>
                   <Link to={`/product/${item.product._id}`}>
                     {item.product.title}
                   </Link>
-                </td>
-                <td>
-                  {item.quantity}
-                </td>
-                <td>{item.product.price}</td>
-                <td>
+                </TableCell>
+                <TableCell>{item.quantity}</TableCell>
+                <TableCell>{item.product.price}</TableCell>
+                <TableCell>
                   <RemoveFromCart id={item._id} />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <Checkout />
-    </>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5}>Empty Cart</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

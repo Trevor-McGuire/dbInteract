@@ -3,7 +3,10 @@ const { Product, Category } = require("../../models");
 
 const productResolver = {
   Query: {
-    readProducts: async (_, { _id, category, search }) => {
+    readProducts: async (_, { input = {} }) => {
+      const { _id, category, search } = input;
+    
+      console.log(_id, category, search)
       let filter = {};
     
       if (_id) {
