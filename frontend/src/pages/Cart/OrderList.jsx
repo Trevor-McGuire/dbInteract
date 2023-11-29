@@ -44,7 +44,12 @@ const OrderList = ({ orders }) => {
                       parseInt(order.purchaseDate)
                     ).toLocaleDateString()}
                   </TableCell>
-                  <TableCell>{order.cart.length}</TableCell>
+                  <TableCell>
+                    {order.cart.reduce(
+                      (total, item) => total + item.quantity,
+                      0
+                    )}
+                  </TableCell>
                 </TableRow>
                 <OrderListSub order={order} />
               </React.Fragment>

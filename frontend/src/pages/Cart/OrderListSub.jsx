@@ -22,7 +22,6 @@ const OrderListSub = ({ order }) => {
                 <TableCell></TableCell>
                 <TableCell>Product</TableCell>
                 <TableCell>Quantity</TableCell>
-                <TableCell>Price</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -44,7 +43,6 @@ const OrderListSub = ({ order }) => {
                       </Link>
                     </TableCell>
                     <TableCell>{item.quantity}</TableCell>
-                    <TableCell>{item.product.price}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>

@@ -11,6 +11,9 @@ const Cart = () => {
   const cart = data?.readUser?.cart || [];
   const orders = data?.readUser?.orders || [];
 
+  const reversedCart = cart.slice().reverse();
+  const reversedOrders = orders.slice().reverse();
+
   return (
     <Stack
       direction="column"
@@ -22,9 +25,9 @@ const Cart = () => {
         margin: "auto",
       }}
     >
-      <CartList cart={cart}/>
+      <CartList cart={reversedCart}/>
       {cart && cart.length ? <Checkout /> : null}
-      <OrderList orders={orders}/>
+      <OrderList orders={reversedOrders}/>
     </Stack>
   );
 };
