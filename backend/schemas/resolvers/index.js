@@ -1,7 +1,7 @@
 // import multiple resolvers and merge them
 const product = require("./product");
-const cloudinaryPlanUsage = require("./cloudinaryPlanUsage");
+const cloudinary = require("./cloudinary");
 
-const resolvers = [cloudinaryPlanUsage, product];
+const resolvers = [cloudinary, product];
 
 module.exports = resolvers;

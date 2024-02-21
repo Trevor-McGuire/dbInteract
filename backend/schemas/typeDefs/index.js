@@ -1,6 +1,6 @@
 const product = require('./product');
-const cloudinaryPlanUsage = require('./cloudinaryPlanUsage');
+const cloudinary = require('./cloudinary');
 
-const typeDefs = [product, cloudinaryPlanUsage];
+const typeDefs = [product, cloudinary];
 
 module.exports = typeDefs;
