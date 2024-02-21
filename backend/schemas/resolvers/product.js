@@ -4,26 +4,7 @@ const cloudinary = require("../../config/cloudinary");
 const product = {
   Query: {
     products: async () => {
-      return await Product.find({});
-    },
-
-    images: async () => {
-      console.log(cloudinary.config())
-      const publicId = "https://asset.cloudinary.com/dpcmouapx/c0ea9ad76824bb2fae84a0168f05b359";
-      const options = {
-        colors: true,
-      };
-
-      try {
-        const test = await cloudinary.api.usage(function(error, result) {
-          console.log(result);
-        });
-        // const result = await cloudinary.api.resource(publicId, options);
-        // console.log(result);
-        // return result.colors;
-      } catch (error) {
-        console.error(error);
-      }
+      return await Product.find({}).populate("images", "url");
     },
   },
   Mutation: {

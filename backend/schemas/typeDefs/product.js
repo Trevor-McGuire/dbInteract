@@ -1,22 +1,19 @@
 const { gql } = require('apollo-server-express');
+const Image = require('./image');
 
 const product = gql`
+  ${Image}
+
   type Product {
     _id: ID
     title: String
     description: [String]
     price: Float
+    images: [Image!]!
   },
-
-  type Image {
-  id: ID!
-  publicId: String!
-  url: String!
-}
 
   type Query {
     products: [Product]
-    images: [Image]
   },
   type Mutation {
     createProduct(title: String!, description: [String], price: Float): Product

@@ -8,6 +8,13 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  // array of images that reference the Image model
+  images: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Image',
+    },
+  ],
 });
 
 const Product = mongoose.model('Product', productSchema);

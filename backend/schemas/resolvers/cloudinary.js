@@ -1,5 +1,6 @@
 const Cloudinary = require("../../config/cloudinary");
 const Image = require("../../models/Image");
+const Product = require("../../models/Product");
 
 const cloudinary = {
   Query: {
@@ -9,8 +10,13 @@ const cloudinary = {
     },
   },
   Mutation: {
-    uploadPhoto: async (_, { photo }) => {
+    uploadPhoto: async (_, { photo, productId }) => {
       try {
+        const product = await Product.findById(productId);
+        if (!product) {
+          throw new Error('Product not found');
+        }
+
         const result = await Cloudinary.uploader.upload(photo, {
           allowed_formats: ["jpg", "png", "JPEG"],
           public_id: "",
@@ -19,7 +25,7 @@ const cloudinary = {
             isRotated: "false",
             isForDisplay: "null",
           },
-          folder: "your_folder_name",
+          folder: productId,
         });
     
         // Create a new Image instance with the returned data
@@ -53,10 +59,14 @@ const cloudinary = {
           api_key: result.api_key,
         });
     
-        // Save the image to the database
         await image.save();
+
+        product.images.push(image._id);
+        await product.save();
     
-        return `Successful-Photo URL: ${JSON.stringify(result)}`;
+        // return the image saved to the database
+        console.log(image);
+        return image;
       } catch (e) {
         return `Image could not be uploaded:${e.message}`;
       }
