@@ -10,8 +10,8 @@ const Home = () => {
 
   return (
     <>
-      <HeaderImage />
-      <ProductList products={home} />
+      
+
     </>
   );
 };

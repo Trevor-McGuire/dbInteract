@@ -10,4 +10,13 @@ if (!process.env.MONGODB_URI) {
 
 const connectionString = process.env.MONGODB_URI;
 connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+
+connection.on('connected', () => {
+  console.log('Successfully connected to MongoDB');
+});
+
+connection.on('error', (error) => {
+  console.log('Error connecting to MongoDB:', error);
+});
+
 module.exports = connection;
