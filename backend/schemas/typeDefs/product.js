@@ -1,14 +1,22 @@
 const { gql } = require('apollo-server-express');
 
-const typeDefs = gql`
+const product = gql`
   type Product {
     _id: ID
     title: String
     description: [String]
     price: Float
   },
+
+  type Image {
+  id: ID!
+  publicId: String!
+  url: String!
+}
+
   type Query {
     products: [Product]
+    images: [Image]
   },
   type Mutation {
     createProduct(title: String!, description: [String], price: Float): Product
@@ -17,4 +25,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = typeDefs;
+module.exports = product;
