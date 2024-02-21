@@ -23,7 +23,6 @@ const image = gql`
     folder: String!
     context: ImageContext!
     original_filename: String!
-    api_key: String!
   }
 
   type ImageContext {

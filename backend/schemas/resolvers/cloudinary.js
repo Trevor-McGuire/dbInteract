@@ -56,7 +56,6 @@ const cloudinary = {
             },
           },
           original_filename: result.original_filename,
-          api_key: result.api_key,
         });
     
         await image.save();

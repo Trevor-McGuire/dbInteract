@@ -31,7 +31,6 @@ const ImageSchema = new mongoose.Schema({
   folder: { type: String, required: true },
   context: { type: ImageContextSchema, required: true },
   original_filename: { type: String, required: true },
-  api_key: { type: String, required: true },
 });
 
 const Image = mongoose.model('Image', ImageSchema);
