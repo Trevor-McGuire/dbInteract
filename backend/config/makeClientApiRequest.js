@@ -8,7 +8,7 @@ const clientSecret = process.env.EBAY_CLIENT_SECRET;
 let accessToken = null;
 let tokenExpiration = null;
 
-const getAccessToken = async () => {
+const getClientAccessToken = async () => {
   try {
     if (accessToken && new Date() < tokenExpiration) {
       console.log("Access token exists and is not expired");
@@ -50,9 +50,9 @@ const getAccessToken = async () => {
   }
 };
 
-const makeApiRequest = async (endpoint, method, data) => {
+const makeClientApiRequest = async (endpoint, method, data) => {
   try {
-    const token = await getAccessToken();
+    const token = await getClientAccessToken();
     const axiosConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -73,5 +73,5 @@ const makeApiRequest = async (endpoint, method, data) => {
 // });
 
 module.exports = {
-  makeApiRequest,
+  makeClientApiRequest,
 };

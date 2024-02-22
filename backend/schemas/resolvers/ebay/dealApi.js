@@ -1,4 +1,4 @@
-const { makeApiRequest } = require("../../../config/ebay");
+const { makeClientApiRequest } = require("../../../config/makeClientApiRequest");
 
 const dealApi = {
   Query: {
@@ -7,7 +7,7 @@ const dealApi = {
       const method = "get";
       const data = null;
       try {
-        const response = await makeApiRequest(endpoint, method, data);
+        const response = await makeClientApiRequest(endpoint, method, data);
         console.dir(response, { depth: null });
         return response.dealItems;
       } catch (error) {
