@@ -1,12 +1,12 @@
 // import multiple resolvers and merge them
 const product = require("./product");
 const cloudinary = require("./cloudinary");
-const ebayApi = require("./ebayApi");
+const ebayResolvers = require("./ebay");
 
 const resolvers = [
   cloudinary, 
   product,
-  ebayApi
+  ebayResolvers
 ];
 
 module.exports = resolvers;

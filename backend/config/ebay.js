@@ -60,17 +60,17 @@ const makeApiRequest = async (endpoint, method, data) => {
         "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
       },
     };
-    const result = await axios.get("https://api.sandbox.ebay.com/buy/deal/v1/deal_item?category_ids=9355", axiosConfig);
+    const result = await axios[method](endpoint, axiosConfig);
     return result.data;
   } catch (error) {
     console.error("Error makeApiRequest: ", error.response.data.errors[0]);
   }
 };
 
-axios.interceptors.request.use(request => {
-  console.log('Starting Request', JSON.stringify(request, null, 2));
-  return request;
-});
+// axios.interceptors.request.use(request => {
+//   console.log('Starting Request', JSON.stringify(request, null, 2));
+//   return request;
+// });
 
 module.exports = {
   makeApiRequest,
