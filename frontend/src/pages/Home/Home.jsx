@@ -12,8 +12,6 @@ const EXCHANGE_AUTHORIZATION_CODE = gql`
 `;
 
 const Home = () => {
-
-  // wait for param code in url and make a request to the backend to exchange it for an access token
   const [exchangeAuthorizationCode] = useMutation(EXCHANGE_AUTHORIZATION_CODE);
   useEffect(() => {
     const handleAuthorizationCode = async () => {
@@ -21,11 +19,14 @@ const Home = () => {
       const authorizationCode = urlParams.get("code");
       if (authorizationCode) {
         try {
+          // remove code from url
+          window.history.replaceState({}, document.title, "/");
           const { data } = await exchangeAuthorizationCode({
             variables: { code: authorizationCode },
           });
           const accessToken = data.exchangeAuthorizationCode.access_token;
           localStorage.setItem("access_token", accessToken);
+          window.location.href = "http://localhost:3000/";
         } catch (error) {
           console.error(
             "Error exchanging authorization code for access token",
