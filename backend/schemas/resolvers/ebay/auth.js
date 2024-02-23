@@ -1,10 +1,11 @@
 const axios = require("axios");
 const qs = require("qs");
 
+const { EBAY_CLIENT_ID, EBAY_CLIENT_SECRET, EBAY_REDIRECT_URI } = process.env;
+
 const auth = {
   Mutation: {
     exchangeAuthorizationCode: async (_, { code }) => {
-      const { EBAY_CLIENT_ID, EBAY_CLIENT_SECRET, EBAY_REDIRECT_URI } = process.env;
       const data = {
         grant_type: "authorization_code",
         code: code,
@@ -12,15 +13,21 @@ const auth = {
       };
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${Buffer.from(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`).toString("base64")}`,
+        Authorization: `Basic ${Buffer.from(
+          `${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`
+        ).toString("base64")}`,
       };
       try {
-        const response = await axios.post("https://api.sandbox.ebay.com/identity/v1/oauth2/token", qs.stringify(data), { headers });
+        const response = await axios.post(
+          "https://api.sandbox.ebay.com/identity/v1/oauth2/token",
+          qs.stringify(data),
+          { headers }
+        );
         console.dir(response.data, { depth: null });
         return response.data;
       } catch (error) {
-        // console.error("Error exchanging authorization code for access token", error);
-        // throw new Error("Error exchanging authorization code for access token");
+        console.error("Error exchanging authorization code for access token", error);
+        throw new Error("Error exchanging authorization code for access token");
       }
     },
   },

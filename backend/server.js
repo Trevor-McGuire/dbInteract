@@ -1,5 +1,5 @@
 const express = require("express");
-const { ApolloServer } = require("apollo-server-express"); // Adjusted import
+const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./schemas/typeDefs");
 const resolvers = require("./schemas/resolvers");
 const db = require("./config/connection");

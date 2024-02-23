@@ -2,8 +2,7 @@ const axios = require("axios");
 const qs = require("querystring");
 require("dotenv").config();
 
-const clientId = process.env.EBAY_CLIENT_ID;
-const clientSecret = process.env.EBAY_CLIENT_SECRET;
+const { EBAY_CLIENT_ID, EBAY_CLIENT_SECRET } = process.env;
 
 let accessToken = null;
 let tokenExpiration = null;
@@ -27,13 +26,13 @@ const getClientAccessToken = async () => {
         "https://api.ebay.com/oauth/api_scope/buy.proxy.guest.order",
         "https://api.ebay.com/oauth/api_scope/buy.item.bulk",
         "https://api.ebay.com/oauth/api_scope/buy.deal",
-      ].join(' ')
+      ].join(" "),
     };
     const axiosConfig = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Basic ${Buffer.from(
-          `${clientId}:${clientSecret}`
+          `${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`
         ).toString("base64")}`,
       },
     };
