@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server-express");
 
-const ebayApi = gql`
+const dealApi = gql`
   type DealItem {
     dealItems: [DealItem!] # List of deal items.
     additionalImages: [EbayImage!] # Additional images for the deal item.
@@ -241,4 +241,4 @@ const ebayApi = gql`
   }
 `;
 
-module.exports = ebayApi;
+module.exports = dealApi;

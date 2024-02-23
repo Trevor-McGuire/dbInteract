@@ -4,24 +4,42 @@ const client_id = "trevormc-test-SBX-17f9b21e9-4be5bb2a";
 const redirect_uri = "trevor_mcguire-trevormc-test-S-dskaocbvd";
 const scopeList = [
   "https://api.ebay.com/oauth/api_scope",
+  "https://api.ebay.com/oauth/api_scope/buy.order.readonly",
+  "https://api.ebay.com/oauth/api_scope/buy.guest.order",
   "https://api.ebay.com/oauth/api_scope/sell.marketing.readonly",
   "https://api.ebay.com/oauth/api_scope/sell.marketing",
   "https://api.ebay.com/oauth/api_scope/sell.inventory.readonly",
   "https://api.ebay.com/oauth/api_scope/sell.inventory",
+  "https://api.ebay.com/oauth/api_scope/sell.account.readonly",
+  "https://api.ebay.com/oauth/api_scope/sell.account",
+  "https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly",
+  "https://api.ebay.com/oauth/api_scope/sell.fulfillment",
+  "https://api.ebay.com/oauth/api_scope/sell.marketplace.insights.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly",
+  "https://api.ebay.com/oauth/api_scope/buy.shopping.cart",
+  "https://api.ebay.com/oauth/api_scope/buy.offer.auction",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.email.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.address.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.identity.status.readonly",
+  "https://api.ebay.com/oauth/api_scope/sell.finances",
+  "https://api.ebay.com/oauth/api_scope/sell.payment.dispute",
+  "https://api.ebay.com/oauth/api_scope/sell.item.draft",
+  "https://api.ebay.com/oauth/api_scope/sell.item",
+  "https://api.ebay.com/oauth/api_scope/sell.reputation",
+  "https://api.ebay.com/oauth/api_scope/sell.reputation.readonly",
+  "https://api.ebay.com/oauth/api_scope/commerce.notification.subscription",
+  "https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly",
+  "https://api.ebay.com/oauth/api_scope/sell.stores",
+  "https://api.ebay.com/oauth/api_scope/sell.stores.readonly",
 ]
-const ebayAuthUrl = `https://auth.sandbox.ebay.com/oauth2/authorize?
-  client_id=${client_id}&
-  locale=en-US&                   // optional
-  prompt=login                    // optional
-  redirect_uri=${redirect_uri}&
-  response_type=code&
-  scope=${scopeList.join(" ")}&
-  state=1234                      // optional
-`;
+const ebayAuthUrl = `https://auth.sandbox.ebay.com/oauth2/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&scope=${scopeList.join(" ")}`;
 
 const EbaySocial = () => {
   return (
-    <a href={'https://auth.sandbox.ebay.com/oauth2/authorize?client_id=trevormc-test-SBX-17f9b21e9-4be5bb2a&response_type=code&redirect_uri=trevor_mcguire-trevormc-test-S-dskaocbvd&scope=https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.order.readonly https://api.ebay.com/oauth/api_scope/buy.guest.order https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/sell.marketplace.insights.readonly https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly https://api.ebay.com/oauth/api_scope/buy.shopping.cart https://api.ebay.com/oauth/api_scope/buy.offer.auction https://api.ebay.com/oauth/api_scope/commerce.identity.readonly https://api.ebay.com/oauth/api_scope/commerce.identity.email.readonly https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly https://api.ebay.com/oauth/api_scope/commerce.identity.address.readonly https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly https://api.ebay.com/oauth/api_scope/commerce.identity.status.readonly https://api.ebay.com/oauth/api_scope/sell.finances https://api.ebay.com/oauth/api_scope/sell.payment.dispute https://api.ebay.com/oauth/api_scope/sell.item.draft https://api.ebay.com/oauth/api_scope/sell.item https://api.ebay.com/oauth/api_scope/sell.reputation https://api.ebay.com/oauth/api_scope/sell.reputation.readonly https://api.ebay.com/oauth/api_scope/commerce.notification.subscription https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly https://api.ebay.com/oauth/api_scope/sell.stores https://api.ebay.com/oauth/api_scope/sell.stores.readonly'}>
+    <a href={ebayAuthUrl}>
       <button>
         <svg
           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
