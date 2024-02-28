@@ -2,11 +2,13 @@
 const product = require("./product");
 const cloudinary = require("./cloudinary");
 const ebayResolvers = require("./ebay");
+const user = require("./user");
 
 const resolvers = [
   cloudinary, 
   product,
-  ebayResolvers
+  ebayResolvers,
+  user
 ];
 
 module.exports = resolvers;
