@@ -9,7 +9,7 @@ const typeDefs = [
   cloudinary,
   image,
   ebayTypeDefs,
-  user
+  user,
 ];
 
 module.exports = typeDefs;

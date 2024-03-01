@@ -8,7 +8,7 @@ const resolvers = [
   cloudinary, 
   product,
   ebayResolvers,
-  user
+  user,
 ];
 
 module.exports = resolvers;

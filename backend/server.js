@@ -3,6 +3,7 @@ const { ApolloServer } = require("apollo-server-express");
 const typeDefs = require("./schemas/typeDefs");
 const resolvers = require("./schemas/resolvers");
 const db = require("./config/connection");
+const sessionMiddleware = require("./middleware/sessionMiddleware");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,6 +11,17 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }) => {
+    return new Promise((resolve, reject) => {
+      sessionMiddleware(req, res, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({ req, res });
+        }
+      });
+    });
+  },
 });
 
 const startApolloServer = async () => {

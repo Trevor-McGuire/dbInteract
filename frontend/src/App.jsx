@@ -1,11 +1,5 @@
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { StrictMode, useEffect, useState } from "react";
+import React, { StrictMode, useEffect, useState } from "react";
+import { ApolloProvider } from "@apollo/client";
 import { Outlet } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import "@fontsource/roboto/300.css";
@@ -15,61 +9,23 @@ import "@fontsource/roboto/700.css";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header/Header.jsx";
 import { Box } from "@mui/material";
-
-const httpLink = createHttpLink({
-  uri: "/graphql", // Adjust the URI to match your server endpoint
-});
-
-const authLink = setContext((_, { headers }) => {
-  // Get the authentication token from local storage if it exists
-  const token = localStorage.getItem("auth_token");
-
-  // Return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? token : "",
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-  connectToDevTools: true, // Enable Devtools
-});
+import client from "./apollo"; // Import your Apollo Client setup
 
 function App() {
-  const [boxHeight, setBoxHeight] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setBoxHeight(
-        window.innerHeight -
-          document.querySelector("header").offsetHeight -
-          document.querySelector("footer").offsetHeight - 
-          64
-      );
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
+    if (localStorage.getItem("token")) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   return (
     <ApolloProvider client={client}>
       <StrictMode>
         <ScrollToTop />
-        <Header />
-        <Box sx={{
-          minHeight: boxHeight,
-          margin: "32px auto",
-          padding: "1rem",
-          paddingRight: "2rem",
-          width: "100vw" 
-        }}>
+        <Header isAuthenticated={isAuthenticated} />
+        <Box component="main" sx={{ minHeight: "calc(100vh - 64px)" }}>
           <Outlet />
         </Box>
         <Footer />
