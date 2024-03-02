@@ -1,6 +1,7 @@
 const AppSessionService = require('../services/appSessionService');
 
 const sessionMiddleware = async (req, res, next) => {
+  console.log('req.cookies: ', req.cookies);
   const sessionId = req?.cookies?.sessionId;
   if (!sessionId) return next();
   const session = await AppSessionService.getSession(sessionId);
