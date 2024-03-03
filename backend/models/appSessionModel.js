@@ -8,10 +8,6 @@ const AppSessionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  expiration: {
-    type: Date,
-    required: true,
-  },
 }, {
   timestamps: true  // This will add createdAt and updatedAt fields
 });

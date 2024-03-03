@@ -19,14 +19,6 @@ const AppSessionService = {
   deleteSession: async (sessionId) => {
     await Session.findByIdAndDelete(sessionId);
   },
-
-  causeRefreshedSession: async (sessionId) => {
-    const session = await Session.findById(sessionId);
-    session.expiration = new Date();
-    session.expiration.setHours(session.expiration.getHours() + 1);
-    await session.save();
-    return session;
-  }
 };
 
 module.exports = AppSessionService;

@@ -6,13 +6,14 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import client from "./apollo"; // Import your Apollo Client setup
+import Header from "./components/Header";
 
 function App() {
-
   return (
     <ApolloProvider client={client}>
       <StrictMode>
-          <Outlet />
+        <Header />
+        <Outlet />
       </StrictMode>
     </ApolloProvider>
   );

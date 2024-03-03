@@ -4,7 +4,6 @@ import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import RoutesList from "../components/RoutesList";
 
 const EXCHANGE_AUTHORIZATION_CODE = gql`
   mutation ExchangeAuthorizationCode($code: String!) {
@@ -33,7 +32,6 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <RoutesList />
       <EbaySocial />
     </>
   );

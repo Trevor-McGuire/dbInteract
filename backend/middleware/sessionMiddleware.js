@@ -1,22 +1,19 @@
 const AppSessionService = require('../services/appSessionService');
+const { wrapServiceMethods } = require("../utils/errorHandler");
 
 const sessionMiddleware = async (req, res, next) => {
-  console.log('req.cookies: ', req.cookies);
+  
   const sessionId = req?.cookies?.sessionId;
   if (!sessionId) return next();
   const session = await AppSessionService.getSession(sessionId);
 
-  if (!session || session.expiration < new Date()) {
+  if (!session) {
     res.clearCookie('sessionId');
-    return next();
-  } else {
-    // Update the session's expiration time to 1 hour from now
-    session.expiration = new Date(Date.now() + 60 * 60 * 1000);
-    await AppSessionService.updateSession(session);
-
-    req.session = session;
     return next();
   }
 };
+
+const context = { stack: [] };
+wrapServiceMethods(AppSessionService, context, "AppSessionService");
 
 module.exports = sessionMiddleware;

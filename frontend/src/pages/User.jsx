@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_USER } from '../utils/query'
-import RoutesList from "../components/RoutesList";
 
 
 const User = () => {
@@ -13,7 +12,6 @@ const User = () => {
   return (
     <div>
       <h1>User</h1>
-      <RoutesList />
       {loading && <p>Loading...</p>}
       {error && <p>Error: ${error.message}</p>}
       {data && (

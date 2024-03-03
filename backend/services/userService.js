@@ -1,6 +1,5 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const AuthService = require("./authService");
 const { wrapServiceMethods } = require("../utils/errorHandler");
 
 const UserService = {
