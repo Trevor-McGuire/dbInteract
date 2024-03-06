@@ -7,13 +7,21 @@ const user = gql`
     password: String!
   }
 
+  type AuthResponse {
+    sessionId: ID!
+    message: String!
+  }
+
   type Query {
     user(id: ID!): User
     users: [User]
+    readSession: String
   }
 
   type Mutation {
-    createUser(username: String!, password: String!): String!
+    createUser(username: String!, password: String!): AuthResponse!
+    loginUser(username: String!, password: String!): AuthResponse!
+    deleteSession: String!
   }
 `;
 

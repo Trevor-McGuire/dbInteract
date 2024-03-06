@@ -1,6 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const Protected = (route) => {
+  return (
+    <Link to={route} style={{ textDecoration: "none", color: "blue" }}>
+      {route}
+    </Link>
+  );
+};
+
+const Unprotected = (route) => {
+  return (
+    <Link to={route} style={{ textDecoration: "none", color: "red" }}>
+      {route}
+    </Link>
+  );
+};
+
+const Action = (route) => {
+  return (
+    <Link to={route} style={{ textDecoration: "none", color: "green" }}>
+      {route}
+    </Link>
+  );
+};
+
+
+
 const Header = () => {
   return (
     <div
@@ -10,13 +36,14 @@ const Header = () => {
         alignItems: "flex-end",
         gap: "1rem",
         backgroundColor: "lightgray",
-        padding: "1rem"
+        padding: "1rem",
       }}
     >
       <h1>DB-Interact</h1>
-      <Link to="/">Home</Link>
-      <Link to="/user">User</Link>
-      <Link to="/users">Users</Link>
+      {Unprotected("/")}
+      {Protected("/User")}
+      {Unprotected("/Users")}
+      {Unprotected("/CreateUser")}
     </div>
   );
 };

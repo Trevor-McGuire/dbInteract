@@ -4,16 +4,25 @@ const AppSessionService = {
   createSession: async (user) => {
     const session = new Session({
       user: user._id,
-      expiration: new Date(),
     });
     await session.save();
-    await AppSessionService.returnRefreshedSession(session._id);
-    return session;
+    return session._id;
   },
 
-  getSession: async (sessionId) => {
-    const session = await Session.findById(sessionId).populate('user');
-    return session;
+  readSessionIdFromCookieHeader: async (cookieHeader) => {
+    try {
+      const sessionId = cookieHeader.split("=")[1];
+      if (!sessionId) {
+        return "No session found";
+      }
+      const objectIdSessionId = Types.ObjectId(sessionId);
+      
+      const session = await Session.findById(objectIdSessionId);
+      return session;
+    } catch (error) {
+      console.error('Error reading session:', error);
+      return null; // or handle the error in an appropriate way
+    }
   },
 
   deleteSession: async (sessionId) => {

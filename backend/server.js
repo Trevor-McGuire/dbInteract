@@ -4,6 +4,7 @@ const typeDefs = require("./schemas/typeDefs");
 const resolvers = require("./schemas/resolvers");
 const db = require("./config/connection");
 const sessionMiddleware = require("./middleware/sessionMiddleware");
+const cookieParser = require('cookie-parser');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -36,6 +37,7 @@ const startApolloServer = async () => {
   const configureMiddleware = () => {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+    app.use(cookieParser());
   };
 
   configureMiddleware();

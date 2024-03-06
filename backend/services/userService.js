@@ -3,22 +3,6 @@ const bcrypt = require("bcrypt");
 const { wrapServiceMethods } = require("../utils/errorHandler");
 
 const UserService = {
-  getUser: async (id) => {
-    return await UserService.returnUserById(id);
-  },
-
-  getUsers: async () => {
-    return await User.find();
-  },
-
-  createUser: async (username, password) => {
-    await UserService.checkExistingUser(username);
-    const hashedPassword = await UserService.returnHashedUserPassword(password);
-    const user = new User({ username, password: hashedPassword });
-    await user.save();
-    return await AuthService.generateToken(user);
-  },
-
   checkExistingUser: async (username) => {
     const user = await User.findOne({ username });
     if (user) {
@@ -34,9 +18,21 @@ const UserService = {
     return user;
   },
 
-  returnHashedUserPassword: async (password) => {
-    return await bcrypt.hash(password, 10);
+  returnHashed: async (toHash) => {
+    const saltRounds = 10;
+    try {
+      const hashed = await bcrypt.hash(toHash, saltRounds);
+      return hashed;
+    } catch (error) {
+      throw new Error("Error hashing");
+    }
+    
   },
+
+  returnLoggedInUser: async (user) => {
+    return await UserService.createSession(user);
+  },
+
 };
 
 const context = { stack: [] };

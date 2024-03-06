@@ -3,6 +3,7 @@ import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
 import Users from "./pages/Users.jsx";
+import CreateUser from "./pages/CreateUser.jsx";
 
 const routes = [
   {
@@ -11,7 +12,8 @@ const routes = [
     children: [
       { path: "/", element: <Home /> },
       { path: "/user", element: <User /> },
-      { path: "/users", element: <Users /> }
+      { path: "/users", element: <Users /> },
+      { path: "/createuser", element: <CreateUser /> }
     ]
   }
 ];

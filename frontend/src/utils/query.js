@@ -17,3 +17,9 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const READ_SESSION = gql`
+  query {
+    readSession
+  }
+`;
