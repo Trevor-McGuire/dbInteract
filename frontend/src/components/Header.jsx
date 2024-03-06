@@ -43,7 +43,7 @@ const Header = () => {
       {Unprotected("/")}
       {Protected("/User")}
       {Unprotected("/Users")}
-      {Unprotected("/CreateUser")}
+      {Unprotected("/Auth")}
     </div>
   );
 };

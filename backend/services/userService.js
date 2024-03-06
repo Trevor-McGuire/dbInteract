@@ -10,6 +10,24 @@ const UserService = {
     }
   },
 
+  checkNewUser: async (username) => {
+    const user = await User.findOne({ username });
+    if (!user) {
+      throw new Error("Username or password incorrect");
+    }
+  },
+
+  checkPasswordMatches: async (username, password) => {
+    const user = await User.findOne({ username });
+    if (!user) {
+      throw new Error("Username or password incorrect");
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new Error("Username or password incorrect");
+    }
+  },
+
   returnUserById: async (id) => {
     const user = await User.findById(id);
     if (!user) {

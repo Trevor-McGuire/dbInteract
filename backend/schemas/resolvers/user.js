@@ -14,7 +14,7 @@ const user = {
 
     readSession: async (parent, args, context) => {
       const { session } = context.req;
-      const response = session ? "Session found" : "No session found";
+      const response = session ? true : false;
       return response;
     },
   },
@@ -22,7 +22,6 @@ const user = {
     createUser: async (parent, { username, password }, context) => {
       await UserService.checkExistingUser(username);
       const hashed = await UserService.returnHashed(password);
-      console.log("hashed:", hashed);
       const user = new User({ username, password: hashed });
       await user.save();
       const sessionId = await AppSessionService.createSession(user);
@@ -34,17 +33,10 @@ const user = {
       return { sessionId, message: "User created" };
     },
 
-    loginUser: async (parent, { username, password }, context) => {
-      const user = await User.findOne({
-        username,
-      });
-      if (!user) {
-        throw new Error("User not found");
-      }
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        throw new Error("Incorrect password");
-      }
+    createSession: async (parent, { username, password }, context) => {
+      await UserService.checkNewUser(username);
+      await UserService.checkPasswordMatches(username, password);
+      const user = await User.findOne({ username });
       const sessionId = await AppSessionService.createSession(user);
       context.res.cookie("sessionId", sessionId, {
         httpOnly: true,
@@ -62,6 +54,13 @@ const user = {
       context.res.clearCookie("sessionId");
       return "Session deleted";
     },
+
+    deleteUser: authUtils(async (parent, args, context) => {
+      const { session } = context.req;
+      const userId = session.user;
+      await User.findByIdAndDelete(userId);
+      return "User deleted";
+    }),
   },
 };
 

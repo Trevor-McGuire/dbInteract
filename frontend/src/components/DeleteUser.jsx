@@ -1,13 +1,14 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGOUT_USER } from '../utils/mutation'; // Replace with your actual logout mutation
+import { DELETE_SESSION } from '../utils/mutation'; // Replace with your actual logout mutation
 
-const Logout = () => {
-  const [logoutUser] = useMutation(LOGOUT_USER);
+const DeleteUser = ({ refetch }) => {
+  const [logoutUser] = useMutation(DELETE_SESSION);
 
   const handleLogout = async () => {
     try {
       await logoutUser();
+      refetch();
     } catch (logoutError) {
       console.error('Logout failed:', logoutError.message);
     }
@@ -15,9 +16,9 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>Delete Account</button>
     </div>
   );
 };
 
-export default Logout;
+export default DeleteUser;

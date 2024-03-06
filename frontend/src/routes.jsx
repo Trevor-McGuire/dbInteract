@@ -3,7 +3,7 @@ import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
 import Users from "./pages/Users.jsx";
-import CreateUser from "./pages/CreateUser.jsx";
+import Auth from "./pages/Auth.jsx";
 
 const routes = [
   {
@@ -13,7 +13,7 @@ const routes = [
       { path: "/", element: <Home /> },
       { path: "/user", element: <User /> },
       { path: "/users", element: <Users /> },
-      { path: "/createuser", element: <CreateUser /> }
+      { path: "/Auth", element: <Auth /> }
     ]
   }
 ];

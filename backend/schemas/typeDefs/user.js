@@ -15,12 +15,14 @@ const user = gql`
   type Query {
     user(id: ID!): User
     users: [User]
-    readSession: String
+    readSession: Boolean
   }
 
   type Mutation {
     createUser(username: String!, password: String!): AuthResponse!
-    loginUser(username: String!, password: String!): AuthResponse!
+    deleteUser: String!
+    
+    createSession(username: String!, password: String!): AuthResponse!
     deleteSession: String!
   }
 `;
