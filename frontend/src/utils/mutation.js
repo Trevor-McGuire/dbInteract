@@ -82,3 +82,44 @@ mutation DeleteProduct($id: ID!) {
   deleteProduct(_id: $id)
 }
 `;
+
+export const UPDATE_PRODUCT = gql`
+mutation UpdateProduct($id: ID!, $title: String, $description: [String], $price: Float) {
+  updateProduct(_id: $id, title: $title, description: $description, price: $price) {
+    _id
+    title
+    description
+    price
+    images {
+      _id
+      asset_id
+      public_id
+      version
+      version_id
+      signature
+      width
+      height
+      format
+      resource_type
+      created_at
+      tags
+      bytes
+      type
+      etag
+      placeholder
+      url
+      secure_url
+      folder
+      context {
+        custom {
+          isCropped
+          isForDisplay
+          isRotated
+        }
+      }
+      original_filename
+    }
+    userId
+  }
+}
+`;

@@ -1,13 +1,19 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
-import { READ_PRODUCTS } from '../utils/query'
-import CreateProducts from '../components/CreateProducts'
-import DeleteProduct from '../components/DeleteProduct'
+import React from "react";
+import { useQuery } from "@apollo/client";
+import { READ_PRODUCTS } from "../utils/query";
+import CreateProducts from "../components/CreateProducts";
+import DeleteProduct from "../components/DeleteProduct";
+import UpdateProduct from "../components/UpdateProduct";
+import { useState } from "react";
 
 const Products = () => {
-  const { loading, error, data, refetch } = useQuery(READ_PRODUCTS)
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error.message}</p>
+  const { loading, error, data, refetch } = useQuery(READ_PRODUCTS);
+  const [editingProduct, setEditingProduct] = useState(null);
+  
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  
 
   return (
     <>
@@ -24,18 +30,35 @@ const Products = () => {
         <tbody>
           {data.readProducts.map((product) => (
             <tr key={product.id}>
-              <td>{product.title}</td>
-              <td>{product.price}</td>
-              <td>{product.description}</td>
-              <td>
-                <DeleteProduct id={product._id} refetch={refetch} />
-              </td>
+              {editingProduct?._id === product._id ? (
+                <>
+                <UpdateProduct
+                  product={product}
+                  refetch={refetch}
+                  setEditingProduct={setEditingProduct}
+                />
+                </>
+              ) : (
+                <>
+                  <td>{product.title}</td>
+                  <td>{product.price}</td>
+                  <td>{product.description}</td>
+                  <td>
+                    <DeleteProduct id={product._id} refetch={refetch} />
+                  </td>
+                  <td>
+                    <button onClick={() => setEditingProduct(product)}>
+                      Edit
+                    </button>
+                  </td>
+                </>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
