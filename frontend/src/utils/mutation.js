@@ -123,3 +123,27 @@ mutation UpdateProduct($id: ID!, $title: String, $description: [String], $price:
   }
 }
 `;
+
+export const CREATE_LOCATION = gql`
+mutation CreateLocation($name: String!) {
+  createLocation(name: $name) {
+    _id
+    name
+  }
+}
+`;
+
+export const DELETE_LOCATION = gql`
+mutation DeleteLocation($id: ID!) {
+  deleteLocation(_id: $id)
+}
+`;
+
+export const UPDATE_LOCATION = gql`
+mutation UpdateLocation($id: ID!, $name: String) {
+  updateLocation(_id: $id, name: $name) {
+    _id
+    name
+  }
+}
+`;

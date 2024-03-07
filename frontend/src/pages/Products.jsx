@@ -27,7 +27,7 @@ const Products = () => {
         </thead>
         <tbody>
           {data.readProducts.map((product) => (
-            <tr key={product.id}>
+            <tr key={product._id}>
               <td>
                 {" "}
                 <div

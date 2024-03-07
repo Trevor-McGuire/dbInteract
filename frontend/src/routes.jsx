@@ -6,6 +6,7 @@ import Users from "./pages/Users.jsx";
 import Auth from "./pages/Auth.jsx";
 import EbayAuth from "./pages/EbayAuth.jsx";
 import Products from "./pages/Products.jsx";
+import Locations from "./pages/Locations.jsx";
 
 const routes = [
   {
@@ -17,7 +18,8 @@ const routes = [
       { path: "/users", element: <Users /> },
       { path: "/auth", element: <Auth /> },
       { path: "/ebay-auth", element: <EbayAuth /> },
-      { path: "/products", element: <Products /> }
+      { path: "/products", element: <Products /> },
+      { path: "/locations", element: <Locations /> }
     ]
   }
 ];

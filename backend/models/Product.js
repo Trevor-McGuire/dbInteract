@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const productLocationSchema = new mongoose.Schema({
+  location: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
+  },
+  quantity: Number,
+});
+
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -19,6 +27,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  location: [productLocationSchema],
 });
 
 const Product = mongoose.model('Product', productSchema);

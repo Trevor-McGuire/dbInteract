@@ -64,3 +64,12 @@ query ReadProducts {
   }
 }
 `;
+
+export const READ_LOCATIONS = gql`
+  query {
+    readLocations {
+      _id
+      name
+    }
+  }
+`;
