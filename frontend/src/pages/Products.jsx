@@ -9,11 +9,9 @@ import { useState } from "react";
 const Products = () => {
   const { loading, error, data, refetch } = useQuery(READ_PRODUCTS);
   const [editingProduct, setEditingProduct] = useState(null);
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
-  
 
   return (
     <>
@@ -30,16 +28,27 @@ const Products = () => {
         <tbody>
           {data.readProducts.map((product) => (
             <tr key={product.id}>
+                                <td>
+                    {" "}
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "50px",
+                        background: `url(${"https://res.cloudinary.com/dpcmouapx/image/upload/v1708380487/samples/cloudinary-icon.png"}) center center / contain no-repeat`,
+                      }}
+                    ></div>
+                  </td>
               {editingProduct?._id === product._id ? (
                 <>
-                <UpdateProduct
-                  product={product}
-                  refetch={refetch}
-                  setEditingProduct={setEditingProduct}
-                />
+                  <UpdateProduct
+                    product={product}
+                    refetch={refetch}
+                    setEditingProduct={setEditingProduct}
+                  />
                 </>
               ) : (
                 <>
+
                   <td>{product.title}</td>
                   <td>{product.price}</td>
                   <td>{product.description}</td>
