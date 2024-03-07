@@ -28,16 +28,16 @@ const Products = () => {
         <tbody>
           {data.readProducts.map((product) => (
             <tr key={product.id}>
-                                <td>
-                    {" "}
-                    <div
-                      style={{
-                        width: "100px",
-                        height: "50px",
-                        background: `url(${"https://res.cloudinary.com/dpcmouapx/image/upload/v1708380487/samples/cloudinary-icon.png"}) center center / contain no-repeat`,
-                      }}
-                    ></div>
-                  </td>
+              <td>
+                {" "}
+                <div
+                  style={{
+                    width: "100px",
+                    height: "50px",
+                    background: `url(${"https://res.cloudinary.com/dpcmouapx/image/upload/v1708380487/samples/cloudinary-icon.png"}) center center / contain no-repeat`,
+                  }}
+                ></div>
+              </td>
               {editingProduct?._id === product._id ? (
                 <>
                   <UpdateProduct
@@ -48,7 +48,6 @@ const Products = () => {
                 </>
               ) : (
                 <>
-
                   <td>{product.title}</td>
                   <td>{product.price}</td>
                   <td>{product.description}</td>
