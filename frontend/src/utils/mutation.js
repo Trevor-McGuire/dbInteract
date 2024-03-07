@@ -35,3 +35,50 @@ export const EXCHANGE_AUTHORIZATION_CODE = gql`
     exchangeAuthorizationCode(code: $code)
   }
 `;
+
+export const CREATE_PRODUCT = gql`
+mutation CreateProduct($title: String!, $description: [String], $price: Float) {
+  createProduct(title: $title, description: $description, price: $price) {
+    _id
+    title
+    description
+    price
+    images {
+      _id
+      asset_id
+      public_id
+      version
+      version_id
+      signature
+      width
+      height
+      format
+      resource_type
+      created_at
+      tags
+      bytes
+      type
+      etag
+      placeholder
+      url
+      secure_url
+      folder
+      context {
+        custom {
+          isCropped
+          isForDisplay
+          isRotated
+        }
+      }
+      original_filename
+    }
+    userId
+  }
+}
+`;
+
+export const DELETE_PRODUCT = gql`
+mutation DeleteProduct($id: ID!) {
+  deleteProduct(_id: $id)
+}
+`;

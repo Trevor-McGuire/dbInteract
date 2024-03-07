@@ -10,15 +10,16 @@ const product = gql`
     description: [String]
     price: Float
     images: [Image!]!
+    userId: ID
   },
 
   type Query {
-    products: [Product]
+    readProducts: [Product]
   },
   type Mutation {
     createProduct(title: String!, description: [String], price: Float): Product
     updateProduct(_id: ID!, title: String, description: [String], price: Float): Product
-    deleteProduct(_id: ID!): Product
+    deleteProduct(_id: ID!): String!
   }
 `;
 
