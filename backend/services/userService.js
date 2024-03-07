@@ -3,17 +3,16 @@ const bcrypt = require("bcrypt");
 const { wrapServiceMethods } = require("../utils/errorHandler");
 
 const UserService = {
-  checkExistingUser: async (username) => {
+  checkForUser: async (username, shouldExist) => {
+    // validate username
+    // set shouldExist to true if createSession
+    // set shouldExist to false if createUser
+    // valid username should pass though this function
     const user = await User.findOne({ username });
-    if (user) {
-      throw new Error("Username already exists");
-    }
-  },
-
-  checkNewUser: async (username) => {
-    const user = await User.findOne({ username });
-    if (!user) {
+    if (shouldExist && !user) {
       throw new Error("Username or password incorrect");
+    } else if (!shouldExist && user) {
+      throw new Error("Username unavailable");
     }
   },
 

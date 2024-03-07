@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../utils/mutation";
 
 const CreateUser = ({ refetch }) => {
-  const [createUser] = useMutation(CREATE_USER);
+  const [createUser, { error }] = useMutation(CREATE_USER);
   const [formState, setFormState] = useState({
     username: `username${new Date().getTime()}`,
     password: "password",
@@ -52,6 +52,9 @@ const CreateUser = ({ refetch }) => {
         </label>
         <button type="submit">Register</button>
       </form>
+      <p>
+        {error ? `Error: ${error.message}` : ""}
+      </p>
     </div>
   );
 };

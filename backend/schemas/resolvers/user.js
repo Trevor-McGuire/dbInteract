@@ -5,8 +5,10 @@ const AppSessionService = require("../../services/appSessionService");
 
 const user = {
   Query: {
-    user: authUtils(async (parent, { id }) => {
-      return await UserService.returnUserById(id);
+    user: authUtils(async (parent, args, context) => {
+      const { session } = context.req;
+      const userId = session.user;
+      return await UserService.returnUserById(userId);
     }),
     users: async () => {
       return await User.find();
@@ -20,7 +22,7 @@ const user = {
   },
   Mutation: {
     createUser: async (parent, { username, password }, context) => {
-      await UserService.checkExistingUser(username);
+      await UserService.checkForUser(username,false);
       const hashed = await UserService.returnHashed(password);
       const user = new User({ username, password: hashed });
       await user.save();
@@ -34,7 +36,7 @@ const user = {
     },
 
     createSession: async (parent, { username, password }, context) => {
-      await UserService.checkNewUser(username);
+      await UserService.checkForUser(username,true);
       await UserService.checkPasswordMatches(username, password);
       const user = await User.findOne({ username });
       const sessionId = await AppSessionService.createSession(user);

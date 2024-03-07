@@ -13,7 +13,7 @@ const user = gql`
   }
 
   type Query {
-    user(id: ID!): User
+    user: User
     users: [User]
     readSession: Boolean
   }

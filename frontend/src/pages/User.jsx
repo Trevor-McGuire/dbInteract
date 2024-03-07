@@ -5,9 +5,7 @@ import { GET_USER } from '../utils/query'
 
 const User = () => {
 
-    const { loading, error, data } = useQuery(GET_USER, {
-        variables: { userId: 1 }
-    });
+    const { loading, error, data } = useQuery(GET_USER)
 
   return (
     <div>
@@ -16,7 +14,7 @@ const User = () => {
       {error && <p>Error: ${error.message}</p>}
       {data && (
         <p>
-          {data.user.name} ({data.user.email})
+          {data.user.username} ({data.user.password})
         </p>
       )}
     </div>
