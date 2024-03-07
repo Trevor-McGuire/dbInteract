@@ -28,6 +28,10 @@ const AppSessionService = {
   deleteSession: async (sessionId) => {
     await Session.findByIdAndDelete(sessionId);
   },
+
+  addEbaySession: async (sessionId, ebaySessionId) => {
+    await Session.findByIdAndUpdate(sessionId, { ebay_session: ebaySessionId });
+  },
 };
 
 module.exports = AppSessionService;

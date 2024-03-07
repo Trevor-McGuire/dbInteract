@@ -43,7 +43,8 @@ const Header = () => {
       {Unprotected("/")}
       {Protected("/User")}
       {Unprotected("/Users")}
-      {Unprotected("/Auth")}
+      {Unprotected("/auth")}
+      {Protected("/ebay-auth")}
     </div>
   );
 };

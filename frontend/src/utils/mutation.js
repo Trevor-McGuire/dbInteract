@@ -29,3 +29,9 @@ mutation Mutation {
   deleteSession
 }
 `;
+
+export const EXCHANGE_AUTHORIZATION_CODE = gql`
+  mutation Mutation($code: String!) {
+    exchangeAuthorizationCode(code: $code)
+  }
+`;

@@ -1,5 +1,3 @@
-// appSession model 
-
 const mongoose = require('mongoose');
 
 const AppSessionSchema = new mongoose.Schema({
@@ -8,8 +6,12 @@ const AppSessionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  ebay_session: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'EbaySession',
+  },
 }, {
-  timestamps: true  // This will add createdAt and updatedAt fields
+  timestamps: true 
 });
 
 const Session = mongoose.model('Session', AppSessionSchema);
