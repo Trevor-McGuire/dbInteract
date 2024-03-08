@@ -7,7 +7,8 @@ const UpdateProduct = ({ product, refetch, setEditingProduct }) => {
   const [formState, setFormState] = React.useState({
     title: product.title,
     price: product.price,
-    description: product.description
+    description: product.description,
+    quantity: product.location.reduce((acc, location) => acc + location.quantity, 0)
   })
 
   const handleUpdateProduct = async (e) => {
@@ -51,6 +52,9 @@ const UpdateProduct = ({ product, refetch, setEditingProduct }) => {
           value={formState.description} 
           onChange={(e) => setFormState({ ...formState, description: e.target.value })}
         />
+      </td>
+      <td>
+        {formState.quantity}
       </td>
       <td>
         <button onClick={handleUpdateProduct}>Update</button>

@@ -37,8 +37,8 @@ export const EXCHANGE_AUTHORIZATION_CODE = gql`
 `;
 
 export const CREATE_PRODUCT = gql`
-mutation CreateProduct($title: String!, $description: [String], $price: Float) {
-  createProduct(title: $title, description: $description, price: $price) {
+mutation CreateProduct($title: String!, $description: [String], $price: Float, $location: [ProductLocationInput]) {
+  createProduct(title: $title, description: $description, price: $price, location: $location) {
     _id
     title
     description
@@ -73,6 +73,10 @@ mutation CreateProduct($title: String!, $description: [String], $price: Float) {
       original_filename
     }
     userId
+    location {
+      locationId
+      quantity
+    }
   }
 }
 `;

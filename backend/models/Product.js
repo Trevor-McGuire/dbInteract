@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productLocationSchema = new mongoose.Schema({
-  location: {
+  locationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Location',
   },

@@ -61,6 +61,12 @@ query ReadProducts {
       }
       original_filename
     }
+    userId
+    location {
+      locationId
+      quantity
+      name
+    }
   }
 }
 `;
