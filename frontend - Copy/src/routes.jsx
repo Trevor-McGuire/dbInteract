@@ -5,6 +5,9 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import CreatePreDraft from "./pages/CreatePreDraft.jsx";
+import Wearhousing from "./pages/Wearhousing.jsx";
+import ViewPreDraft from "./pages/ViewPreDraft.jsx";
+import ViewPreDraftDetail from "./pages/ViewPreDraftDetail.jsx";
 
 const routes = [
   {
@@ -16,6 +19,9 @@ const routes = [
       { path: "/register", element: <Register /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/create-pre-draft", element: <CreatePreDraft /> },
+      { path: "/wearhousing", element: <Wearhousing /> },
+      { path: "/view-pre-draft", element: <ViewPreDraft /> },
+      { path: "/view-pre-draft/:id", element: <ViewPreDraftDetail /> },
     ]
   }
 ];

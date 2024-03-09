@@ -7,6 +7,7 @@ const Dashboard = () => {
   const [ebayState, setEbayState] = useState(null);
   const [productState, setProductState] = useState({
     preDrafts: 0,
+    needsWearhousing: 0,
     drafts: 0,
     listed: 0,
     sold: 0,
@@ -40,6 +41,17 @@ const Dashboard = () => {
               setProductState({ ...productState, preDrafts: productState.preDrafts + 1 });
             }}
           >+</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Needs Wearhousing</td>
+          <td>{productState.needsWearhousing}</td>
+          <td>
+            <button
+              onClick={() => {
+                setProductState({ ...productState, needsWearhousing: productState.needsWearhousing + 1 });
+              }}
+            >+</button>
           </td>
         </tr>
         <tr>
@@ -81,8 +93,16 @@ const Dashboard = () => {
       {productState.preDrafts === 0 ? (
         <button disabled>View PreDrafts</button>
       ) : (
-        <Link to="view-pre-drafts">
+        <Link to="/view-pre-draft">
           <button>View PreDrafts</button>
+        </Link>
+      )}
+
+      {productState.needsWearhousing === 0 ? (
+        <button disabled>View Needs Wearhousing</button>
+      ) : (
+        <Link to="/wearhousing">
+          <button>View Needs Wearhousing</button>
         </Link>
       )}
 

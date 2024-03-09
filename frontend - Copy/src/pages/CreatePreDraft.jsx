@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Camera from '../components/Camera'
+import Modal from '../components/Modal'
 
 const CreatePreDraft = () => {
   const [formState, setFormState] = useState({
@@ -37,16 +39,10 @@ const CreatePreDraft = () => {
             onChange={(e) => setFormState({ ...formState, quantity: e.target.value })}
           />
         </label>
-        <label>
-          Photoes:
-          <input
-            type="file"
-            name="photoes"
-            value={formState.photoes}
-            onChange={(e) => setFormState({ ...formState, photoes: e.target.value })}
-          />
-        </label>
-        <button type="submit">Create</button>
+        <Camera />
+
+        <Modal />
+
       </form>
     </>
   )
