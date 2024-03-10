@@ -11,6 +11,7 @@ import ViewPreDraftDetail from "./pages/ViewPreDraftDetail.jsx";
 import ViewNeedCategory from "./pages/ViewNeedCategory.jsx";
 import ViewLocations from "./pages/ViewLocations.jsx";
 import ViewDrafts from "./pages/ViewDrafts.jsx";
+import StartTakingPicturesBtn from "./pages/StartTakingPicturesBtn.jsx";
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
       { path: "/view-need-category", element: <ViewNeedCategory /> },
       { path: "/view-locations", element: <ViewLocations /> },
       { path: "/view-drafts", element: <ViewDrafts /> },
+      { path: "/start-taking-pictures-btn", element: <StartTakingPicturesBtn /> }
     ]
   }
 ];

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import CreatePreDraftsBtn from "../components/CreatePreDraftsBtn";
+import StartTakingPicturesBtn from "../pages/StartTakingPicturesBtn";
 
 const Dashboard = () => {
   const [ebayState, setEbayState] = useState(null);
@@ -33,6 +34,9 @@ const Dashboard = () => {
       {/* PRODUCTS */}
       <h2>Products</h2>
 
+      <Link to="/start-taking-pictures-btn">
+        <button>Start Taking Pictures</button>
+      </Link>
       <CreatePreDraftsBtn />
 
       <table>
