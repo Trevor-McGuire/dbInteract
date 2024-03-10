@@ -108,42 +108,6 @@ const Dashboard = () => {
             </button>
           </td>
         </tr>
-        <tr>
-          <td>
-            <Link to="/view-listed">View Listed</Link>
-          </td>
-          <td>{productState.listed}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  listed: productState.listed + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Link to="/view-sold">View Sold</Link>
-          </td>
-          <td>{productState.sold}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  sold: productState.sold + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-        </tr>
       </table>
 
       {/* LOCATIONS */}

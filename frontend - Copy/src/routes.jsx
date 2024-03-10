@@ -10,6 +10,7 @@ import ViewPreDraft from "./pages/ViewPreDraft.jsx";
 import ViewPreDraftDetail from "./pages/ViewPreDraftDetail.jsx";
 import ViewNeedCategory from "./pages/ViewNeedCategory.jsx";
 import ViewLocations from "./pages/ViewLocations.jsx";
+import ViewDrafts from "./pages/ViewDrafts.jsx";
 
 const routes = [
   {
@@ -26,6 +27,7 @@ const routes = [
       { path: "/view-pre-draft/:id", element: <ViewPreDraftDetail /> },
       { path: "/view-need-category", element: <ViewNeedCategory /> },
       { path: "/view-locations", element: <ViewLocations /> },
+      { path: "/view-drafts", element: <ViewDrafts /> },
     ]
   }
 ];
