@@ -8,6 +8,8 @@ import CreatePreDraft from "./pages/CreatePreDraft.jsx";
 import Wearhousing from "./pages/Wearhousing.jsx";
 import ViewPreDraft from "./pages/ViewPreDraft.jsx";
 import ViewPreDraftDetail from "./pages/ViewPreDraftDetail.jsx";
+import ViewNeedCategory from "./pages/ViewNeedCategory.jsx";
+import ViewLocations from "./pages/ViewLocations.jsx";
 
 const routes = [
   {
@@ -22,6 +24,8 @@ const routes = [
       { path: "/wearhousing", element: <Wearhousing /> },
       { path: "/view-pre-draft", element: <ViewPreDraft /> },
       { path: "/view-pre-draft/:id", element: <ViewPreDraftDetail /> },
+      { path: "/view-need-category", element: <ViewNeedCategory /> },
+      { path: "/view-locations", element: <ViewLocations /> },
     ]
   }
 ];

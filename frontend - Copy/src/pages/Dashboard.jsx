@@ -8,6 +8,7 @@ const Dashboard = () => {
   const [productState, setProductState] = useState({
     preDrafts: 0,
     needsWearhousing: 0,
+    needsCategory: 0,
     drafts: 0,
     listed: 0,
     sold: 0,
@@ -32,122 +33,127 @@ const Dashboard = () => {
       {/* PRODUCTS */}
       <h2>Products</h2>
 
+      <CreatePreDraftsBtn />
+
       <table>
         <tr>
-          <td>PreDrafts</td>
+          <td>
+            <Link to="/view-pre-draft">View PreDrafts</Link>
+          </td>
           <td>{productState.preDrafts}</td>
-          <td><button
-            onClick={() => {
-              setProductState({ ...productState, preDrafts: productState.preDrafts + 1 });
-            }}
-          >+</button>
+          <td>
+            <button
+              onClick={() => {
+                setProductState({
+                  ...productState,
+                  preDrafts: productState.preDrafts + 1,
+                });
+              }}
+            >
+              +
+            </button>
           </td>
         </tr>
         <tr>
-          <td>Needs Wearhousing</td>
+          <td>
+            <Link to="/wearhousing">View Needs Wearhousing</Link>
+          </td>
           <td>{productState.needsWearhousing}</td>
           <td>
             <button
               onClick={() => {
-                setProductState({ ...productState, needsWearhousing: productState.needsWearhousing + 1 });
+                setProductState({
+                  ...productState,
+                  needsWearhousing: productState.needsWearhousing + 1,
+                });
               }}
-            >+</button>
+            >
+              +
+            </button>
           </td>
         </tr>
         <tr>
-          <td>Drafts</td>
+          <td>
+            <Link to="/view-need-category">View Needs Category</Link>
+          </td>
+          <td>{productState.needsCategory}</td>
+          <td>
+            <button
+              onClick={() => {
+                setProductState({
+                  ...productState,
+                  needsCategory: productState.needsCategory + 1,
+                });
+              }}
+            >
+              +
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <Link to="/view-drafts">View Drafts</Link>
+          </td>
           <td>{productState.drafts}</td>
           <td>
             <button
               onClick={() => {
-                setProductState({ ...productState, drafts: productState.drafts + 1 });
+                setProductState({
+                  ...productState,
+                  drafts: productState.drafts + 1,
+                });
               }}
-            >+</button>
+            >
+              +
+            </button>
           </td>
         </tr>
         <tr>
-          <td>Listed</td>
+          <td>
+            <Link to="/view-listed">View Listed</Link>
+          </td>
           <td>{productState.listed}</td>
           <td>
             <button
               onClick={() => {
-                setProductState({ ...productState, listed: productState.listed + 1 });
+                setProductState({
+                  ...productState,
+                  listed: productState.listed + 1,
+                });
               }}
-            >+</button>
+            >
+              +
+            </button>
           </td>
         </tr>
         <tr>
-          <td>Sold</td>
+          <td>
+            <Link to="/view-sold">View Sold</Link>
+          </td>
           <td>{productState.sold}</td>
           <td>
             <button
               onClick={() => {
-                setProductState({ ...productState, sold: productState.sold + 1 });
+                setProductState({
+                  ...productState,
+                  sold: productState.sold + 1,
+                });
               }}
-            >+</button>
+            >
+              +
+            </button>
           </td>
         </tr>
       </table>
-      <CreatePreDraftsBtn />
-
-      {productState.preDrafts === 0 ? (
-        <button disabled>View PreDrafts</button>
-      ) : (
-        <Link to="/view-pre-draft">
-          <button>View PreDrafts</button>
-        </Link>
-      )}
-
-      {productState.needsWearhousing === 0 ? (
-        <button disabled>View Needs Wearhousing</button>
-      ) : (
-        <Link to="/wearhousing">
-          <button>View Needs Wearhousing</button>
-        </Link>
-      )}
-
-      {productState.drafts === 0 ? (
-        <button disabled>View Drafts</button>
-      ) : (
-        <Link to="view-drafts">
-          <button>View Drafts</button>
-        </Link>
-      )}
-
-      {productState.listed === 0 ? (
-        <button disabled>View Listed</button>
-      ) : (
-        <Link to="view-listed">
-          <button>View Listed</button>
-        </Link>
-      )}
-
-      {productState.sold === 0 ? (
-        <button disabled>View Sold</button>
-      ) : (
-        <Link to="view-sold">
-          <button>View Sold</button>
-        </Link>
-      )}
 
       {/* LOCATIONS */}
 
       <h2>Locations</h2>
       <p>Currently {locationState} locations</p>
 
-      <Link to="/create-location">
-        <button>Create New Location</button>
+      <Link to="/view-locations">
+        <button>View Locations</button>
       </Link>
-
-      {locationState === 0 ? (
-        <button disabled>View Locations</button>
-      ) : (
-        <Link to="view-locations">
-          <button>View Locations</button>
-        </Link>
-      )}
-
-
     </>
   );
 };

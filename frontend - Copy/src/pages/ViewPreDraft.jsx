@@ -7,21 +7,27 @@ const products = [
     title: 'Product 1',
     quantity: 3,
     photo: 'photo',
-    location: "ww4"
+    location: "ww4",
+    category: "watch",
+    requiredFeatures: "complete"
   },
   {
     id: 2,
     title: 'Product 2',
     quantity: 5,
     photo: 'photo',
-    location: "ww5"
+    location: "ww5",
+    category: "watch",
+    requiredFeatures: "complete"
   },
   {
     id: 3,
     title: 'Product 3',
     quantity: 7,
     photo: 'photo',
-    location: "ww6"
+    location: "ww6",
+    category: "watch",
+    requiredFeatures: "incomplete"
   }
 ]
 
@@ -37,13 +43,21 @@ const ViewPreDraft = () => {
   return (
     <>
       <h1>View Pre Drafts</h1>
-      <table>
+      <table
+        style={{
+          textAlign: 'center',
+          border: '1px solid black',
+          borderCollapse: 'collapse',
+        }}
+      >
         <thead>
           <tr>
             <th>Title</th>
             <th>Quantity</th>
             <th>Photo</th>
             <th>Location</th>
+            <th>Category</th>
+            <th>Required Features</th>
           </tr>
         </thead>
         <tbody>
@@ -57,6 +71,8 @@ const ViewPreDraft = () => {
               <td>{product.quantity}</td>
               <td>{product.photo}</td>
               <td>{product.location}</td>
+              <td>{product.category}</td>
+              <td>{product.requiredFeatures}</td>
             </tr>
           ))}
         </tbody>

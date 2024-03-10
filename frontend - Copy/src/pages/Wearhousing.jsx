@@ -26,6 +26,7 @@ const productsImport = [
   },
 ];
 
+
 const locationOptions = () => {
   return locationsImport.map((location, index) => (
     <option key={index} value={location}>
