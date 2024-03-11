@@ -34,9 +34,9 @@ const Dashboard = () => {
       {/* PRODUCTS */}
       <h2>Products</h2>
 
-      <Link to="/start-taking-pictures-btn">
+      {/* <Link to="/start-taking-pictures-btn">
         <button>Start Taking Pictures</button>
-      </Link>
+      </Link> */}
       <CreatePreDraftsBtn />
 
       <table>
@@ -76,7 +76,7 @@ const Dashboard = () => {
             </button>
           </td>
         </tr>
-        <tr>
+        {/* <tr>
           <td>
             <Link to="/view-need-category">View Needs Category</Link>
           </td>
@@ -93,7 +93,7 @@ const Dashboard = () => {
               +
             </button>
           </td>
-        </tr>
+        </tr> */}
         <tr>
           <td>
             <Link to="/view-drafts">View Drafts</Link>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import CreateLocation from '../components/CreateLocation'
+
 const locationsImport = [{
   id: 1,
   name: "Location 1",
@@ -14,7 +16,13 @@ const locationsImport = [{
   id: 3,  
   name: "Location 3",
   status: "Full"
-}]
+},
+{
+  id: 4,
+  name: "Location 4",
+  status: "Inactive"
+}
+]
 
 const tableHeaders = () => {
   const keysArray = Object.keys(locationsImport[0]);
@@ -39,6 +47,7 @@ const tableHeaders = () => {
 const ViewLocations = () => {
   return (
     <>
+      <CreateLocation />
       <h1>View Locations</h1>
       <table
         style={{

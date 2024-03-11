@@ -81,7 +81,8 @@ const ViewPreDraft = () => {
               className={selectedProductId === product.id ? "selected-row" : ""}
               onClick={() => handleRowClick(product.id)}
             >
-              <td>{product.title}</td>
+              <input type="text" value={product.title} />
+              
               <td>{product.quantity}</td>
               <td>{product.photo}</td>
               <td>{product.location}</td>
