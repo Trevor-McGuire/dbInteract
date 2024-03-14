@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import CreatePreDraftsBtn from "../components/CreatePreDraftsBtn";
-import StartTakingPicturesBtn from "../pages/StartTakingPicturesBtn";
+import {
+  Container,
+  Typography,
+  Box,
+  Button,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Divider,
+} from "@mui/material";
 
 const Dashboard = () => {
   const [ebayState, setEbayState] = useState(null);
@@ -17,112 +25,142 @@ const Dashboard = () => {
   const [locationState, setLocationState] = useState(0);
 
   return (
-    <>
-      <h1>Dashboard</h1>
+    <Container>
+      <Typography variant="h4" align="center" sx={{ my: 3 }}>
+        Dashboard
+      </Typography>
 
-      {/* EBAY */}
-      <h2>Ebay</h2>
-      <p>Currently {ebayState ? "" : "not"} connected to ebay</p>
-      {ebayState ? (
-        <button onClick={() => setEbayState(null)}>Disconnect from ebay</button>
-      ) : (
-        <button onClick={() => setEbayState("connected")}>
-          Connect to ebay
-        </button>
-      )}
-
-      {/* PRODUCTS */}
-      <h2>Products</h2>
-
-      {/* <Link to="/start-taking-pictures-btn">
-        <button>Start Taking Pictures</button>
-      </Link> */}
-      <CreatePreDraftsBtn />
-
-      <table>
-        <tr>
-          <td>
-            <Link to="/view-pre-draft">View PreDrafts</Link>
-          </td>
-          <td>{productState.preDrafts}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  preDrafts: productState.preDrafts + 1,
-                });
-              }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: 2,
+        }}
+      >
+        {/* Section 1 */}
+        <Box
+          align="center"
+          sx={{
+            flex: 1,
+            p: 2,
+            border: 1,
+            borderColor: "primary.main",
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6">Ebay</Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Divider />
+            <Typography variant="body1">
+              Currently{" "}
+              {ebayState ? "connected to eBay" : "not connected to eBay"}
+            </Typography>
+            <Button
+              variant="contained"
+              color={ebayState ? "error" : "primary"}
+              onClick={() => setEbayState(ebayState ? null : "connected")}
             >
-              +
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Link to="/wearhousing">View Needs Wearhousing</Link>
-          </td>
-          <td>{productState.needsWearhousing}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  needsWearhousing: productState.needsWearhousing + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-        </tr>
-        {/* <tr>
-          <td>
-            <Link to="/view-need-category">View Needs Category</Link>
-          </td>
-          <td>{productState.needsCategory}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  needsCategory: productState.needsCategory + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-        </tr> */}
-        <tr>
-          <td>
-            <Link to="/view-drafts">View Drafts</Link>
-          </td>
-          <td>{productState.drafts}</td>
-          <td>
-            <button
-              onClick={() => {
-                setProductState({
-                  ...productState,
-                  drafts: productState.drafts + 1,
-                });
-              }}
-            >
-              +
-            </button>
-          </td>
-        </tr>
-      </table>
+              {ebayState ? "Disconnect from eBay" : "Connect to eBay"}
+            </Button>
+          </Box>
+        </Box>
 
-      {/* LOCATIONS */}
+        {/* Section 2 */}
+        <Box
+          align="center"
+          sx={{
+            flex: 1,
+            p: 2,
+            border: 1,
+            borderColor: "primary.main",
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6">Products</Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Divider />
+            <Link to="/create-pre-draft">
+              <Button variant="contained" color="primary">
+                Create Pre-Draft
+              </Button>
+            </Link>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Link to="/view-pre-draft">View PreDrafts</Link>
+                  </TableCell>
+                  <TableCell>{productState.preDrafts}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleIncrement("preDrafts")}
+                    >
+                      +
+                    </Button>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Link to="/wearhousing">View Needs Wearhousing</Link>
+                  </TableCell>
+                  <TableCell>{productState.needsWearhousing}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleIncrement("needsWearhousing")}
+                    >
+                      +
+                    </Button>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Link to="/view-drafts">View Drafts</Link>
+                  </TableCell>
+                  <TableCell>{productState.drafts}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleIncrement("drafts")}
+                    >
+                      +
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Box>
+        </Box>
 
-      <h2>Locations</h2>
-      <p>Currently {locationState} locations</p>
+        {/* Section 3 */}
+        <Box
+          align="center"
+          sx={{
+            flex: 1,
+            p: 2,
+            border: 1,
+            borderColor: "primary.main",
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="h6">Locations</Typography>
 
-      <Link to="/view-locations">
-        <button>View Locations</button>
-      </Link>
-    </>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Divider />
+            <Typography variant="body1">
+              Currently {locationState} locations
+            </Typography>
+
+            <Link to="/view-locations">
+              <Button variant="contained" color="primary">
+                View Locations
+              </Button>
+            </Link>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

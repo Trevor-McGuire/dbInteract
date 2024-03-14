@@ -1,9 +1,6 @@
-import React from 'react'
+import * as React from 'react';
+import Button from '@mui/material/Button';
 
-const CreateLocation = () => {
-  return (
-    <div>CreateLocation</div>
-  )
+export default function ButtonUsage() {
+  return <Button variant="contained">Hello world</Button>;
 }
-
-export default CreateLocation

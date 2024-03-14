@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import Camera from '../components/Camera'
-import Modal from '../components/Modal'
+import React, { useState } from 'react';
+import { TextField, TextareaAutosize, Button, Box } from '@mui/material';
+import Camera from '../components/Camera';
+import Modal from '../components/Modal';
+import IOSCamera from '../components/IOSCamera';
 
 const CreatePreDraft = () => {
   const [formState, setFormState] = useState({
@@ -8,44 +10,49 @@ const CreatePreDraft = () => {
     rawDescription: '',
     quantity: 1,
     photoes: [],
-  })
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormState({ ...formState, [field]: value });
+  };
 
   return (
-    <>
-      <form>
-        <label>
-          Title:
-          <input
-            type="text"
-            name="title"
-            value={formState.title}
-            onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-          />
-        </label>
-        <label>
-          Raw Description:
-          <textarea
-            name="rawDescription"
-            value={formState.rawDescription}
-            onChange={(e) => setFormState({ ...formState, rawDescription: e.target.value })}
-          />
-        </label>
-        <label>
-          Quantity:
-          <input
-            type="number"
-            name="quantity"
-            value={formState.quantity}
-            onChange={(e) => setFormState({ ...formState, quantity: e.target.value })}
-          />
-        </label>
-        <Camera />
+    <Box component="form" sx={{ maxWidth: 600, margin: 'auto', mt: 3 }}>
+      <TextField
+        label="Title"
+        type="text"
+        name="title"
+        value={formState.title}
+        onChange={(e) => handleInputChange('title', e.target.value)}
+        fullWidth
+        margin="normal"
+      />
 
-        <Modal />
+      <TextareaAutosize
+        minRows={3}
+        placeholder="Raw Description"
+        name="rawDescription"
+        value={formState.rawDescription}
+        onChange={(e) => handleInputChange('rawDescription', e.target.value)}
+        style={{ width: '100%', resize: 'none', marginTop: '1rem' }}
+      />
 
-      </form>
-    </>
-  )
-}
+      <TextField
+        label="Quantity"
+        type="number"
+        name="quantity"
+        value={formState.quantity}
+        onChange={(e) => handleInputChange('quantity', e.target.value)}
+        fullWidth
+        margin="normal"
+      />
 
-export default CreatePreDraft
+      <Camera />
+      {/* <IOSCamera /> */}
+
+      <Modal />
+    </Box>
+  );
+};
+
+export default CreatePreDraft;

@@ -1,14 +1,25 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 
-const Header = () => {
-  const navigate = useNavigate()
-
+export default function ButtonAppBar() {
   return (
-    <header>
-      <button onClick={() => navigate('/dashboard')}>Dashboard</button>
-    </header>
-  )
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
+          >
+            DB-Interact
+          </Typography>
+          <Button component={Link} to="/login" color="inherit">
+            Login
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
-
-export default Header

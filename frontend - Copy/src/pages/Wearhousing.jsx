@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Container from '@mui/material/Container';
 
 const locationsImport = ["Location 1", "Location 2", "Location 3"];
 const productsImport = [
@@ -26,45 +38,13 @@ const productsImport = [
   },
 ];
 
-
-const locationOptions = () => {
-  return locationsImport.map((location, index) => (
-    <option key={index} value={location}>
-      {location}
-    </option>
-  ));
-};
-
-const tableHeaders = () => {
-  const keysArray = Object.keys(productsImport[0]);
-  keysArray.forEach((key, index) => {
-    keysArray[index] = key.replace(/([A-Z])/g, " $1").trim();
-    keysArray[index] =
-      keysArray[index].charAt(0).toUpperCase() + keysArray[index].slice(1);
-  });
-
-  return (
-    <thead>
-      <tr>
-        {keysArray.map((key, index) => (
-          <th key={index}>{key}</th>
-        ))}
-        <th>Checkbox</th>
-      </tr>
-    </thead>
-  );
-};
-
 const Wearhousing = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [locations, setLocations] = useState(locationsImport);
   const [products, setProducts] = useState(productsImport);
-
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [confirmable, setConfirmable] = useState(false);
-  const [checkboxState, setCheckboxState] = useState(
-    new Array(products.length).fill("unchecked")
-  );
+  const [checkboxState, setCheckboxState] = useState(new Array(products.length).fill("unchecked"));
   const [finished, setFinished] = useState(false);
 
   const handleLocationChange = (e) => {
@@ -114,65 +94,69 @@ const Wearhousing = () => {
   }, [checkboxState]);
 
   return (
-    <>
-      <select onChange={handleLocationChange}>{locationOptions()}</select>
-      <button disabled={!confirmable} onClick={handleConfirmClick}>
-        Confirm
-      </button>
-      <table
-        style={{
-          border: "1px solid black",
-          textAlign: "center",
-        }}
-      >
-        {tableHeaders()}{" "}
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={index}>
-              {Object.values(product).map((value, subIndex) => (
-                <td key={subIndex}>{value}</td>
-              ))}
-              <td>
-                <input
-                  onChange={(e) => handleCheckboxChange(e, index)}
-                  disabled={checkboxState[index] === "disabled"}
-                  checked={
-                    checkboxState[index] === "checked" ||
-                    checkboxState[index] === "disabled"
-                  }
-                  type="checkbox"
-                />
-                {checkboxState[index] === "disabled" ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        handleCheckboxUndo(index);
-                      }}
-                    >
-                      Undo
-                    </button>
-                  </>
-                ) : null}
-              </td>
-            </tr>
+    <Container         sx={{
+      marginTop: 2,
+      maxWidth: 600,
+      margin: "auto",
+    }}>
+      <FormControl>
+        <Select value={selectedLocation} onChange={handleLocationChange}>
+          {locations.map((location, index) => (
+            <MenuItem key={index} value={location}>
+              {location}
+            </MenuItem>
           ))}
-        </tbody>
-      </table>
-      <button
+        </Select>
+      </FormControl>
+      <Button disabled={!confirmable} onClick={handleConfirmClick} variant="contained">Confirm</Button>
+      <TableContainer
+
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+
+              <TableCell>Checkbox</TableCell>
+              {Object.keys(products[0]).map((key, index) => (
+                <TableCell key={index}>{key.charAt(0).toUpperCase() + key.slice(1)}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product, index) => (
+              <TableRow key={index}>
+
+                <TableCell>
+                  <Checkbox
+                    onChange={(e) => handleCheckboxChange(e, index)}
+                    disabled={checkboxState[index] === "disabled"}
+                    checked={
+                      checkboxState[index] === "checked" ||
+                      checkboxState[index] === "disabled"
+                    }
+                  />
+                  {checkboxState[index] === "disabled" && (
+                    <Button onClick={() => handleCheckboxUndo(index)} variant="outlined">Undo</Button>
+                  )}
+                </TableCell>
+                {Object.values(product).map((value, subIndex) => (
+                  <TableCell key={subIndex}>{value}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button
         disabled={!finished}
         onClick={() => {
           navigate('/dashboard')
         }}
+        variant="contained"
       >
         Finished
-      </button>
-
-      <div>
-        <p>Selected Location: {selectedLocation.toString()}</p>
-        <p>Confirmable: {confirmable.toString()}</p>
-        <p>Checkbox State: {checkboxState.toString()}</p>
-      </div>
-    </>
+      </Button>
+    </Container>
   );
 };
 

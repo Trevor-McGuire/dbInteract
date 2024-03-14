@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Typography, Container } from "@mui/material";
 
 const Camera = () => {
@@ -6,17 +6,8 @@ const Camera = () => {
   const [capturedImage, setCapturedImage] = useState([]);
   const [isCameraActive, setIsCameraActive] = useState(false);
 
-  // Reference to the audio element
-  const audioRef = useRef(null);
-
-  useEffect(() => {
-    // Load and initialize the audio element
-    if (audioRef.current) {
-      audioRef.current.load();
-    }
-  }, []);
-
-  const startCamera = async () => {
+  const startCamera = async (e) => {
+    e.preventDefault();
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       if (videoRef.current) {
@@ -28,7 +19,8 @@ const Camera = () => {
     }
   };
 
-  const takePicture = () => {
+  const takePicture = (e) => {
+    e.preventDefault();
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
@@ -54,46 +46,29 @@ const Camera = () => {
       };
 
       setCapturedImage([...capturedImage, imageObject]);
-
-      // Play the sound when a picture is taken
-      if (audioRef.current) {
-        audioRef.current.play();
-      }
-    }
-  };
-
-  const handleCloseCamera = () => {
-    setIsCameraActive(false);
-    // Stop the video stream when the camera is closed
-    const stream = videoRef.current?.srcObject;
-    if (stream) {
-      const tracks = stream.getTracks();
-      tracks.forEach((track) => track.stop());
     }
   };
 
   return (
     <Container>
-      <Button variant="contained" onClick={startCamera}>
+      <Button variant="contained" onClick={(e) => startCamera(e)}>
         Start Camera
       </Button>
+      <Container
+      style={{
+        position: "relative",
+        width: isCameraActive ? "100%" : "auto",
+        height: isCameraActive ? "100vh" : "auto",
+        overflow: "hidden",
+        transition: "all 0.5s", // Add smooth transition effect
+      }}
+    >
+      <video ref={videoRef} width="100%" height="100%" autoPlay playsInline>
+        {/* Video source goes here */}
+      </video>
 
-      {/* Add the audio element with the sound source */}
-      <audio ref={audioRef} src="/path/to/sound.mp3" />
-
-      <div className={`camera-container ${isCameraActive ? "fullscreen" : ""}`}>
-        <video
-          ref={videoRef}
-          width="100%"
-          height="auto"
-          autoPlay
-          playsInline
-          muted
-          style={{
-            backgroundColor: "black",
-          }}
-        ></video>
-
+      {/* Interactable button overlay */}
+      {isCameraActive && (
         <Button
           variant="contained"
           onClick={takePicture}
@@ -102,35 +77,30 @@ const Camera = () => {
             bottom: "16px",
             left: "50%",
             transform: "translateX(-50%)",
-            zIndex: 2,
+            zIndex: 2, // Ensure the button is above the video
           }}
         >
           Take Picture
         </Button>
-        <Button
-          variant="contained"
-          onClick={handleCloseCamera}
-          style={{
-            position: "absolute",
-            top: "16px",
-            right: "16px",
-            zIndex: 2,
-          }}
-        >
-          Close Camera
-        </Button>
-      </div>
+      )}
 
+      {!isCameraActive && (
+        <Button variant="contained" onClick={startCamera}>
+          Start Camera
+        </Button>
+      )}
+    </Container>
       {capturedImage.length !== 0 && (
         <div>
           <Typography variant="h6">Captured Image:</Typography>
           {capturedImage.map((image, index) => (
+            <div key={index}>
               <img
                 src={image.dataURL}
                 alt={`Captured Image ${index}`}
                 height="100px"
-                key={index}
               />
+            </div>
           ))}
         </div>
       )}
